@@ -489,9 +489,9 @@
 /* Begin XCRemoteSwiftPackageReference section */
 		797CFEFE23C3B9CA0062A466 /* XCRemoteSwiftPackageReference "lasso" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "ssh://git@github.com/ww-digital/lasso.git";
+			repositoryURL = "https://github.com/ww-tech/lasso.git";
 			requirement = {
-				branch = feature/swiftpm;
+				branch = master;
 				kind = branch;
 			};
 		};
