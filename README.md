@@ -1,4 +1,4 @@
-<h1 align="center"><img src="docs/images/Lasso_Logo.svg" alt="Lasso" /></h1>
+<h1 align="center"><img src="docs/images/Lasso_Logo.svg" width="75%" alt="Lasso logo" /></h1>
 <p align="center">
     <img src="https://img.shields.io/badge/Swift-4.2%20--%205.1-b63bdb.svg?style=flat" />
     <img src="https://img.shields.io/badge/iOS-10.3%20--%2013.x-208eff.svg?style=flat" />
@@ -29,7 +29,7 @@ We generally think of a screen as a single page/view in an app - e.g., a login v
 
 In Lasso, a `Screen` is the collection of types used to implement a single view:
 
-<p align="center"><img src="docs/images/screen.svg" width="75%" /></p>
+<p align="center"><img src="docs/images/screen.svg" width="75%" alt="Diagram of a Screen and its constituent parts" /></p>
 
 The `View` (i.e. a `UIViewController`) is responsible for:
 
@@ -53,13 +53,13 @@ A `Store` can also generate an `Output` when an event occurs that is more approp
 
 A `Flow` represents a feature - or area - of an app, and is commonly composed of a collection of `Screens`.  For example, a "new user" flow might be composed of a series of one-time informational screens followed by a single "let's get started" screen.
 
-<p align="center"><img src="docs/images/flow.svg" width="80%" min-width="300" /></p>
+<p align="center"><img src="docs/images/flow.svg" width="80%" min-width="300" alt="Diagram of a Flow" /></p>
 
 A `Flow` is instantiated and started within an appropriate context of a view hierarchy (e.g., a "sign up" flow might be presented on a menu screen, or a "welcome" flow might be pushed onto a navigation stack).  The `Flow` starts by creating its initial `Screen`, and listens for `Output` signals.  As `Outputs` arrive, the `Flow` decides what to do with them - it can create and place another `Screen` into the view hierarchy, emit its own `Output` (when an event occurs that is more appropriately handled elsewhere), or whatever is appropriate for the `Flow`.
 
 Since `Screens` and `Flows` are encapsulated modules with discrete entry and exit points, it's quite easy and common, for a `Flow` to manage both `Screens` _and_ `Flows`.  In this way, it becomes possible to define your application as a hierarchy of components, reducing complexity from the top level down.
 
-<p align="center"><img src="docs/images/flow-flow-screen.svg" /></p>
+<p align="center"><img src="docs/images/flow-flow-screen.svg" alt="Diagram of a Flow within another Flow" /></p>
 
 ## Example App
 
