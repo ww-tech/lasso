@@ -4,7 +4,7 @@
     <img src="https://img.shields.io/badge/iOS-10.3%20--%2013.x-208eff.svg?style=flat" />
 </p>
 
-Lasso is an iOS application architecture for building discrete, composable and testable compenents both big and small - from single one-off screens, through complex flows, to high-level application structures.
+Lasso is an iOS application architecture for building discrete, composable and testable components both big and small - from single one-off screens, through complex flows, to high-level application structures.
 
 
 
@@ -43,7 +43,7 @@ A **unidirectional data flow** is used to ensure consistency: a `View` never re-
 
 The `Store` is where a screen's decisions are made, and is the source of truth for the screen's `State`.  A `Store` is responsible for:
 
-- all busniess logic for the screen
+- all business logic for the screen
 - responding to `Actions` (i.e. events sent from the `View`)
 - updates to the screen's `State`
 
