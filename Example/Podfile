@@ -1,0 +1,49 @@
+source 'https://cdn.cocoapods.org/'
+
+platform :ios, '10.0'
+use_frameworks!
+
+target 'Lasso_Example' do
+
+  # Set up SwiftLint
+  pod 'SwiftLint'
+  script_phase :name => 'SwiftLint',
+               :script => "${PODS_ROOT}/SwiftLint/swiftlint" \
+                          " --config ${PODS_ROOT}/../.swiftlint.yml" \
+                          " --path ${PODS_ROOT}/../"
+
+  # WWLayout for easy constraints
+  pod 'WWLayout'
+
+  # Lasso
+  pod 'Lasso', :path => '../'
+
+end
+
+target 'Lasso_Tests' do
+  pod 'WWLayout'
+  pod 'Lasso', :path => '../'
+end
+
+target 'Lasso_TestUtilities_Tests' do
+  pod 'LassoTestUtilities', :path => '../'
+end
+
+target 'Lasso_Example_Tests' do
+  pod 'LassoTestUtilities', :path => '../'
+end
+
+post_install do |installer|
+  installer.pods_project.root_object.attributes["ORGANIZATIONNAME"] = "WW International"
+
+  # Support for CircleCI to run unit tests against multiple swift versions.
+  # Don't include this logic (or a `.swift-version` file) in your projects.
+  if File.file?('.swift-version')
+    swift_version = File.read('.swift-version')
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings['SWIFT_VERSION'] = "#{swift_version.strip}"
+      end
+    end
+  end
+end

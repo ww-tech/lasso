@@ -1,0 +1,140 @@
+#---
+#--- Rules
+
+# Find all the available rules by running:
+# swiftlint rules
+
+disabled_rules: # rule identifiers to exclude from running
+  - identifier_name
+  - line_length
+  - no_extension_access_modifier
+  - statement_position
+  - shorthand_operator
+
+opt_in_rules: # some rules are only opt-in
+  - anyobject_protocol
+  - collection_alignment
+  - closure_spacing
+  - closure_parameter_position
+  - colon
+  - comma
+  - compiler_protocol_init
+  - contains_over_filter_count
+  - contains_over_filter_is_empty
+  - contains_over_first_not_nil
+  - control_statement
+  - convenience_type
+  - deployment_target
+  - discarded_notification_center_observer
+  - duplicate_enum_cases
+  - duplicate_imports
+  - empty_count
+  - empty_enum_arguments
+  - empty_string
+  - empty_xctest_method
+  - explicit_init
+  - force_cast
+  - force_try
+  - force_unwrapping
+  - inert_defer
+  - last_where
+  - legacy_multiple
+  - legacy_random
+  - multiline_arguments
+  - multiline_function_chains
+  - multiline_parameters
+  - no_space_in_method_call
+  - opening_brace
+  - operator_usage_whitespace
+  - overridden_super_call
+  - prohibited_super_call
+  - redundant_discardable_let
+  - redundant_nil_coalescing
+  - redundant_optional_initialization
+  - redundant_string_enum_value
+  - return_arrow_whitespace
+  - static_operator
+  - superfluous_disable_command
+  - toggle_bool
+  - trailing_comma
+  - trailing_newline
+  - trailing_semicolon
+  - trailing_whitespace
+  - unused_declaration
+  - vertical_parameter_alignment_on_call
+  - yoda_condition
+
+custom_rules:
+  no_space_after_opening_parentheses:
+    name: "No space after opening parentheses"
+    message: "Please avoid using space after opening parentheses"
+    regex: '\(\h+'
+
+  anonymous_init:
+    name: "Anonymous init()"
+    message: "Prefer explicit type initializer over anonymous calls to init()"
+    regex: '(\h+|\()\.init\('
+
+#---
+#--- Rule configuration
+
+# configurable rules can be customized from this configuration file
+# binary rules can set their severity level
+# rules that have both warning and error levels, can set just the warning level
+# or they can set both explicitly
+
+cyclomatic_complexity:
+  warning: 10
+  error: 20
+  ignores_case_statements: true
+
+file_length:
+  warning: 450
+  
+force_cast: warning
+force_try: warning
+force_unwrapping: warning
+
+function_body_length:
+  warning: 50 # default is 40
+  error: 120 # default is 100
+
+function_parameter_count:
+  warning: 6
+  error: 9
+
+large_tuple:
+  warning: 3
+  error: 4
+
+nesting:
+  type_level:
+    warning: 3 # default is 1
+
+trailing_whitespace:
+  ignores_empty_lines: true
+
+type_body_length:
+  warning: 500 # default is 200
+  error: 1000 # default is 350
+
+type_name:
+  max_length: 60
+
+unused_setter_value: error
+
+
+#---
+#--- Paths
+
+#included: # paths to include during linting. `--path` is ignored if present.
+#  - ../Pod
+# In ios-common-config, the path to the sources will be done via the --path argument
+
+excluded: # paths to ignore during linting. Takes precedence over `included`.
+  - ./Example/Pods
+  - ./Pods
+  - ./vendor
+  - ./fastlane
+
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit, html, emoji)

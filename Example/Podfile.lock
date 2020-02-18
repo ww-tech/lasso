@@ -1,0 +1,33 @@
+PODS:
+  - Lasso (1.0.0)
+  - LassoTestUtilities (1.0.0):
+    - Lasso
+  - SwiftLint (0.39.1)
+  - WWLayout (0.7.0)
+
+DEPENDENCIES:
+  - Lasso (from `../`)
+  - LassoTestUtilities (from `../`)
+  - SwiftLint
+  - WWLayout
+
+SPEC REPOS:
+  trunk:
+    - SwiftLint
+    - WWLayout
+
+EXTERNAL SOURCES:
+  Lasso:
+    :path: "../"
+  LassoTestUtilities:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Lasso: 58dbb9e853c847f2eeef6af063783bf480e446c9
+  LassoTestUtilities: c96a202eb433421df2ecf03a8a734fc92c590377
+  SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
+  WWLayout: 0785bb486fb4b6aeb52665eb35db73c14e120fd6
+
+PODFILE CHECKSUM: c43584f6adba334ac82a3b55b5284836942f739a
+
+COCOAPODS: 1.8.4
