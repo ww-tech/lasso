@@ -25,16 +25,16 @@ Lasso encourages a strong separation of concerns by clearly defining discrete, s
 
 ### Screens
 
-We generally think of a screen as a single page/view in an app - e.g., a login view, a contacts list view, an audio settings view; etc.
+We generally think of a screen as a single page/view in an app - e.g., a login view, a contacts list view, an audio settings view, etc.
 
 In Lasso, a `Screen` is the collection of types used to implement a single view:
 
 <p align="center"><img src="docs/images/screen.svg" width="75%" alt="Diagram of a Screen and its constituent parts" /></p>
 
-The `View` (i.e. a `UIViewController`) is responsible for:
+The `View` (i.e., a `UIViewController`) is responsible for:
 
-- accurately rendering the current `State` (i.e. the content) of the screen
-- forwarding user interactions to the `Store` (i.e. the decision maker)
+- accurately rendering the current `State` (i.e., the content) of the screen
+- forwarding user interactions to the `Store` (i.e., the decision maker)
 - responding to state changes to keep the presentation up to date
 
 Lasso views tend to be small, with practically zero logic in them.
