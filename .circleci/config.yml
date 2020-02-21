@@ -127,7 +127,7 @@ jobs:
   build-and-test-swiftpm:
     <<: *defaults
     macos:
-      xcode: 11.3.0
+      xcode: 11.4.0
     environment:
       FL_OUTPUT_DIR: output
     steps:
@@ -153,7 +153,6 @@ workflows:
       - build-and-test-swift52:
           requires:
             - build-gem-cache
-      # Can't include this job until the repo is public
-      # - build-and-test-swiftpm:
-      #     requires:
-      #       - build-gem-cache
+      - build-and-test-swiftpm:
+          requires:
+            - build-gem-cache
