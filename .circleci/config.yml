@@ -113,6 +113,17 @@ jobs:
           swift: '5.1'
       - build
 
+  build-and-test-swift52:
+    <<: *defaults
+    macos:
+      xcode: 11.4.0
+    steps:
+      - checkout
+      - install_dependencies
+      - pod_update:
+          swift: '5.2'
+      - build
+
   build-and-test-swiftpm:
     <<: *defaults
     macos:
@@ -137,6 +148,9 @@ workflows:
           requires:
             - build-gem-cache
       - build-and-test-swift51:
+          requires:
+            - build-gem-cache
+      - build-and-test-swift52:
           requires:
             - build-gem-cache
       # Can't include this job until the repo is public
