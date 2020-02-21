@@ -1,7 +1,7 @@
 # Lasso: An introduction to Flows
-Most all iOS applications have some sense of navigation - a user will progress from screen to screen as they utilize the features of an app.  In iOS development, the class `UIViewController` is primarily responsible for such navigation.  Transitions from screen to screen are realized as side effects in the view controller hierarchy (navigation hierarchy).
+Most iOS applications have some sense of navigation — a user will progress from screen to screen as they utilize the features of an app.  In iOS development, the class `UIViewController` is primarily responsible for such navigation.  Transitions from screen to screen are realized as side effects in the view controller hierarchy (navigation hierarchy).
 
-Typically, view controllers are responsible for creating and presenting other controllers.  This results in lots of coupling between controllers.  As a result, it becomes very difficult to:
+Typically, view controllers are responsible for creating and presenting other controllers.  This results in lots of coupling between controllers.  As a result, it becomes difficult to:
 
 * Reuse similar sequences of screens in varying contexts
 * Easily modify an app's high level navigation structure
@@ -16,22 +16,22 @@ A `Flow` represents a feature - or area - of an app, and is commonly composed of
 
 <img src="images/flow.svg" width="80%" min-width="300" />
 
-A `Flow` is instantiated and started within an appropriate context of a navigation hierarchy (e.g., a "sign up" flow might be presented on a menu screen, or a "welcome" flow might be pushed onto a navigation stack).  The `Flow` starts by creating its initial `Screen`, and listens for `Output` signals.  As `Outputs` arrive, the `Flow` decides what to do with them - it can create and place another `Screen` into the navigation hierarchy, emit its own `Output` (when an event occurs that is more appropriately handled elsewhere), or whatever is appropriate for the `Flow`.
+A `Flow` is instantiated and started within an appropriate context of a navigation hierarchy (e.g., a "sign up" flow might be presented on a menu screen, or a "welcome" flow might be pushed onto a navigation stack).  The `Flow` starts by creating its initial `Screen`, and listens for `Output` signals.  As `Outputs` arrive, the `Flow` decides what to do with them.  It can create and place another `Screen` into the navigation hierarchy, emit its own `Output` (when an event occurs that is more appropriately handled elsewhere), or do whatever else is appropriate for the `Flow`.
 
 Since `Screens` and `Flows` are encapsulated modules with discrete entry and exit points, it's quite easy and common for a `Flow` to manage both `Screens` _and_ `Flows`.
 
 <img src="images/flow-flow-screen.svg" />
 
-From a functional perspective, `Flows` are a mechanism for composition - they aggregate smaller independent units of behavior into larger ones.  `Flows` themselves may also be composed. This makes it possible to define the views that constitute an application as a hierarchy of `Flows`.  Describing an app's features in this way drastically reduces complexity and increases maintainability. 
+From a functional perspective, `Flows` are a mechanism for composition — they aggregate smaller independent units of behavior into larger ones.  `Flows` themselves may also be composed. This makes it possible to define the views that constitute an application as a hierarchy of `Flows`.  Describing an app's features in this way drastically reduces complexity and increases maintainability. 
 
 ## Implementing a Flow
-Business has crunched the numbers, and they've decided that we need to provide a short tutorial to our members to enhance new member onboarding.  The feature calls for a series of views with images and text describing the program.  A user completes the tutorial by progressing forward through all the views.
+Let's say that business has crunched the numbers, and they've decided that we need to provide a short tutorial to our members to enhance new member onboarding.  The feature calls for a series of views with images and text describing the program.  A user completes the tutorial by progressing forward through all of the views.
 
 <img src="images/TutorialFlowDiagram.svg" />
 
 How can we implement this the Lasso way?  First, we must define the structural types of our `Flow`.
 
-The types that constitute a `Flow's` structure are defined in a `FlowModule`.  This is simply a convenience for grouping the member types of a specific `Flow` - namely, its `Output` and `RequiredContext`.
+The types that constitute a `Flow's` structure are defined in a `FlowModule`.  This is simply a convenience for grouping the member types of a specific `Flow`, namely its `Output` and `RequiredContext`.
 
 `Output` defines the messages that a `Flow` can propagate outward to some unknown higher level object.  These `Output` messages constitute the modular boundary of the `Flow`.
 
@@ -49,11 +49,11 @@ enum TutorialFlowModule: FlowModule {
   
 }
 ```
-There are several user actions our tutorial `Flow` must respond to.  On the first screen, we see a "next" and a "skip" button.  Our `Flow` must execute some logic in response to the user pressing these buttons.  It will handle the "next" button press by creating and showing the second screen.  However, it is not responsible for handling the "skip" button press - some higher level object will be responsible for driving the app in response to this event.  This logical design is realized by including `didPressSkip` as an `Output` case.  When the user presses "skip", our `Flow` will simply emit `didPressSkip` as an `Output`.
+There are several user actions our tutorial `Flow` must respond to.  On the first screen, we see a "next" and a "skip" button.  Our `Flow` must execute some logic in response to the user pressing these buttons.  It will handle the "next" button press by creating and showing the second screen.  However, it is not responsible for handling the "skip" button press; some higher level object will be responsible for driving the app in response to this event.  This logical design is realized by including `didPressSkip` as an `Output` case.  When the user presses "skip", our `Flow` will simply emit `didPressSkip` as an `Output`.
 
-On the second screen, we see a "done" button.  When this button is pressed, our `Flow` is finished - it has no further screens to show.  This is embodied by the `didFinish` case of `Output`.  Our `Flow` will emit this message when the "OK" button is pressed.  As before, some higher level object will need to respond to this message, progressing the application according to its broader business logic.
+On the second screen, we see a "done" button.  When this button is pressed, our `Flow` is finished — it has no further screens to show.  This is embodied by the `didFinish` case of `Output`.  Our `Flow` will emit this message when the "OK" button is pressed.  As before, some higher level object will need to respond to this message, progressing the application according to its broader business logic.
 
-We would like to create the effect that the user is progressing forwards through the tutorial screens.  To satisfy this, we will use the "push" API on `UINavigationController`.  Our `Flow` needs a way to specify this requirement - our `Flow` must be _started_ in a navigation controller and be able to make "push" calls on that navigation controller.  This is achieved by stating that the `RequiredContext` is of type `UINavigationController`.  
+We would like to create the effect that the user is progressing forward through the tutorial screens.  To satisfy this, we will use the "push" API on `UINavigationController`.  Our `Flow` needs a way to specify this requirement — our `Flow` must be _started_ in a navigation controller and be able to make "push" calls on that navigation controller.  This is achieved by stating that the `RequiredContext` is of type `UINavigationController`.  
 
 We are now ready to implement our `Flow`:
 
@@ -151,7 +151,7 @@ class TutorialFlow: Flow<TutorialFlowModule> {
   
 }
 ```
-`TutorialFlow` observes the `Output` of the "welcome" screen, capturing `self` weakly in order to avoid retain cycles.  When `TutorialFlow` receives the `didPressButton` message from that screen, it must evaluate the associated `index` value to determine which button was tapped.  We know that this screen has two buttons, "skip" and "next".  The indices of these buttons correspond to the `buttonTitles` property on `State` - "skip" corresponds to an index value of 0, and "next" to a value of 1.
+`TutorialFlow` observes the `Output` of the "welcome" screen, capturing `self` weakly in order to avoid retain cycles.  When `TutorialFlow` receives the `didPressButton` message from that screen, it must evaluate the associated `index` value to determine which button was tapped.  We know that this screen has two buttons: "skip" and "next."  The indices of these buttons correspond to the `buttonTitles` property on `State` — "skip" corresponds to an index value of 0, and "next" to a value of 1.
 
 The "finish" screen is constructed in the same manner as the welcome screen.  It is placed into the navigation hierarchy by calling `pushViewController(:animated:)` on the local `context: UINavigationController?`.  By definition, the `context` property always reflects the `RequiredContext` type.  It is an optional because it is weakly owned by the `Flow`, which is necessary to avoid retain cycles.
 
@@ -272,13 +272,13 @@ let tutorialFlow = TutorialFlow()
 tutorialFlow.start(with: presented(on: viewController)) // ERROR
 ```
 
-Here, `presented(on:)` returns a `ScreenPlacer<UIViewController>`.  This means that `TutorialFlow` will be provided a context object of type `UIViewController`.  This is inadequate - we know that `TutorialFlow` needs to be able to push controllers onto a navigation stack, requiring a context object of type `UINavigationController`.  
+Here, `presented(on:)` returns a `ScreenPlacer<UIViewController>`.  This means that `TutorialFlow` will be provided a context object of type `UIViewController`.  This is inadequate.  We know that `TutorialFlow` needs to be able to push controllers onto a navigation stack, requiring a context object of type `UINavigationController`.  
 
-This compilation failure is incredibly valuable - our code will not compile if we violate the explicit requirements of a `Flow`.  `Flows` can thus be chained together with confidence - the compiler will tell us when we have broken a screen sequence.
+This compilation failure is incredibly valuable.  Our code will not compile if we violate the explicit requirements of a `Flow`.  `Flows` can thus be chained together with confidence — the compiler will tell us when we have broken a screen sequence.
 
 ### ScreenPlacers and UIViewController Embeddings
 
-`ScreenPlacers` also support view controller embeddings.  In Lasso, view controller embeddings are composable with respect to `ScreenPlacers` - an embedding can be "chained along" to any `ScreenPlacer` instance.  Intuitively, if I have some `ScreenPlacer` instance, I can place some container view controller with that placer.  I can then place some other view controller into that container.  This is precisely how `ScreenPlacer` embeddings work.
+`ScreenPlacers` also support view controller embeddings.  In Lasso, view controller embeddings are composable with respect to `ScreenPlacers` — an embedding can be "chained along" to any `ScreenPlacer` instance.  Intuitively, if I have some `ScreenPlacer` instance, I can place some container view controller with that placer.  I can then place some other view controller into that container.  This is precisely how `ScreenPlacer` embeddings work.
 
 We could start `TutorialFlow` in a modally presented navigation controller.
 
@@ -295,7 +295,7 @@ let tabPlacers: [ScreenPlacer<UITabBarController>] = tabBarEmbedding(UITabBarCon
 tutorialFlow.start(with: tabPlacers[1].withNavigationEmbedding())
 ```
 
-We have seen many built-in `ScreenPlacer` conveniences.  Lasso contians many such conveniences covering typical UIKit use cases.  Lasso clients are not limited to this built-in set of placers - the `ScreenPlacer` API is completely extensible.  Clients can create custom extensions as desired in support of custom containers and less common use cases. 
+We have seen many built-in `ScreenPlacer` conveniences.  Lasso contains many such conveniences covering typical UIKit use cases.  Lasso clients are not limited to this built-in set of placers — the `ScreenPlacer` API is completely extensible.  Clients can create custom extensions as desired in support of custom containers and less common use cases. 
 
 ## What's the Point?
 In concert, `Flows` and `ScreenPlacers` are the ultimate tools for describing and implementing  an application's sequences of screens. 
@@ -306,12 +306,14 @@ In Lasso, `Flows` encapsulate sequences of `Screens`.  Thanks to `ScreenPlacers`
 
 Thus, Lasso moves us from a world with inherent coupling to one with inherent modularity.  This quality incurs many benefits:
 
-* Reusing related collections of `Screens` is trivial
-* Related collections of `Screens` can be effectively tested in isolation
-* Construction and mocking is clean
-* Composition is at our fingertips: we can create all types of new behaviors by aggregating smaller, existing ones
-* Top level application code is much more expressive / maintainable: where we used to have references to low level controllers, we now have references to higher level abstractions that encapsulate feature sets
+* Reusing related collections of `Screens` is trivial.
+* Related collections of `Screens` can be effectively tested in isolation.
+* Construction and mocking is clean.
+* Composition is at our fingertips.  We can create all types of new behaviors by aggregating smaller, existing ones.
+* Top level application code is much more expressive and maintainable.  Where we used to have references to low level controllers, we now have references to higher level abstractions that encapsulate feature sets.
 
 ### Is that All?
 
-We have only begun to scratch the surface: `Stores`, `Screens`, and `Flows` can be wielded together in a surprising number of ways, giving the developer precision control over the logical design of their application.  What's more, Lasso's companion library, `LassoTestUtilities`, provides a mechanism for writing expressive and succinct `Flow` unit tests.  These topics will be treated in future articles.
+We have only begun to scratch the surface: `Stores`, `Screens`, and `Flows` can be wielded in a surprising number of ways, giving the developer precision control over the logical design of their application.  What's more, Lasso's companion library, `LassoTestUtilities`, provides a mechanism for writing expressive and succinct `Flow` unit tests.  These topics will be addressed in future articles.
+
+Interested in joining the WW team? Check out the careers page to view technology job listings as well as open positions on other teams.
