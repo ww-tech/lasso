@@ -143,6 +143,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				79C428282400081900C450B5 /* PBXTargetDependency */,
 				797CFF0823C3C0FE0062A466 /* PBXTargetDependency */,
 				797CFEF123C39AFC0062A466 /* PBXTargetDependency */,
 			);
@@ -249,6 +250,10 @@
 			isa = PBXTargetDependency;
 			platformFilter = ios;
 			productRef = 797CFF0723C3C0FE0062A466 /* LassoTestUtilities */;
+		};
+		79C428282400081900C450B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 79C428272400081900C450B5 /* Lasso */;
 		};
 /* End PBXTargetDependency section */
 
@@ -512,6 +517,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 797CFEFE23C3B9CA0062A466 /* XCRemoteSwiftPackageReference "lasso" */;
 			productName = LassoTestUtilities;
+		};
+		79C428272400081900C450B5 /* Lasso */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 797CFEFE23C3B9CA0062A466 /* XCRemoteSwiftPackageReference "lasso" */;
+			productName = Lasso;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
