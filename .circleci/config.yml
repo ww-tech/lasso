@@ -82,7 +82,7 @@ jobs:
 
   build-and-test-swift42:
     <<: *defaults
-    parallelism: 6
+    parallelism: 4
     macos:
       xcode: 10.3.0
     steps:
@@ -94,7 +94,7 @@ jobs:
 
   build-and-test-swift5:
     <<: *defaults
-    parallelism: 6
+    parallelism: 4
     macos:
       xcode: 10.3.0
     steps:
@@ -106,7 +106,7 @@ jobs:
 
   build-and-test-swift51:
     <<: *defaults
-    parallelism: 6
+    parallelism: 4
     macos:
       xcode: 11.3.0
     steps:
@@ -118,7 +118,7 @@ jobs:
 
   build-and-test-swift52:
     <<: *defaults
-    parallelism: 6
+    parallelism: 4
     macos:
       xcode: 11.4.0
     steps:
@@ -130,7 +130,7 @@ jobs:
 
   build-and-test-swiftpm:
     <<: *defaults
-    parallelism: 6
+    parallelism: 4
     macos:
       xcode: 11.4.0
     environment:
