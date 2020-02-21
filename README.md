@@ -25,16 +25,16 @@ Lasso encourages a strong separation of concerns by clearly defining discrete, s
 
 ### Screens
 
-We generally think of a screen as a single page/view in an app - e.g., a login view, a contacts list view, an audio settings view; etc.
+We generally think of a screen as a single page/view in an app - e.g., a login view, a contacts list view, an audio settings view, etc.
 
 In Lasso, a `Screen` is the collection of types used to implement a single view:
 
 <p align="center"><img src="docs/images/screen.svg" width="75%" alt="Diagram of a Screen and its constituent parts" /></p>
 
-The `View` (i.e. a `UIViewController`) is responsible for:
+The `View` (i.e., a `UIViewController`) is responsible for:
 
-- accurately rendering the current `State` (i.e. the content) of the screen
-- forwarding user interactions to the `Store` (i.e. the decision maker)
+- accurately rendering the current `State` (i.e., the content) of the screen
+- forwarding user interactions to the `Store` (i.e., the decision maker)
 - responding to state changes to keep the presentation up to date
 
 Lasso views tend to be small, with practically zero logic in them.
@@ -57,7 +57,7 @@ A `Flow` represents a feature - or area - of an app, and is commonly composed of
 
 A `Flow` is instantiated and started within an appropriate context of a view hierarchy (e.g., a "sign up" flow might be presented on a menu screen, or a "welcome" flow might be pushed onto a navigation stack).  The `Flow` starts by creating its initial `Screen`, and listens for `Output` signals.  As `Outputs` arrive, the `Flow` decides what to do with them - it can create and place another `Screen` into the view hierarchy, emit its own `Output` (when an event occurs that is more appropriately handled elsewhere), or whatever is appropriate for the `Flow`.
 
-Since `Screens` and `Flows` are encapsulated modules with discrete entry and exit points, it's quite easy and common, for a `Flow` to manage both `Screens` _and_ `Flows`.  In this way, it becomes possible to define your application as a hierarchy of components, reducing complexity from the top level down.
+Since `Screens` and `Flows` are encapsulated modules with discrete entry and exit points, it's quite easy and common for a `Flow` to manage both `Screens` _and_ `Flows`.  In this way, it becomes possible to define your application as a hierarchy of components, reducing complexity from the top level down.
 
 <p align="center"><img src="docs/images/flow-flow-screen.svg" alt="Diagram of a Flow within another Flow" /></p>
 
@@ -65,19 +65,17 @@ Since `Screens` and `Flows` are encapsulated modules with discrete entry and exi
 
 To run the example project
 
-1. clone the Lasso repo;
-2. run `pod install` from the `Example` directory; and
-3. open up `Lasso.xcworkspace`
+1. Clone the Lasso repo
+2. Run `pod install` from the `Example` directory
+3. Open up `Lasso.xcworkspace`
 
 
 
 ## Learn more
 
-Article that introduces Lasso, with a concrete example of creating a `Screen`:  
-[Lasso: Introducing a new architectural framework for iOS](docs/Lasso-Introduction-part1.md)
+- [Lasso: Introducing a new architectural framework for iOS](docs/Lasso-Introduction-part1.md) - article that introduces Lasso, with a concrete example of creating a `Screen`
 
-Tips for writing Swifty Lasso  
-[Lasso coding style guilde](docs/style-guide.md)
+- [Lasso coding style guilde](docs/style-guide.md) - tips for writing Swifty Lasso
 
 
 
@@ -97,11 +95,13 @@ The core Lasso framework is added to the primary target in your Podfile:
 Pod 'Lasso'
 ```
 
-There is a separate pod that you can add to your test targets:
+Also add `LassoTestUtilities` to your test target(s):
 
 ```ruby
 Pod 'LassoTestUtilities'
 ```
+
+
 
 ### Swift Package Manager
 
