@@ -60,7 +60,7 @@ public class MockScreen<Module: StoreModule> {
 
 public final class MockController<ViewState, ViewAction>: UIViewController, LassoView {
     
-    public let store: ViewStore
+    public let store: AnyViewStore<ViewState, ViewAction>
     
     public init(store: ViewStore) {
         self.store = store
