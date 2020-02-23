@@ -1,6 +1,6 @@
 <h1 align="center"><img src="docs/images/Lasso_Logo.svg" width="75%" alt="Lasso logo" /></h1>
 <p align="center">
-    <img src="https://img.shields.io/badge/Swift-4.2%20--%205.1-b63bdb.svg?style=flat" />
+    <img src="https://img.shields.io/badge/Swift-4.2%20--%205.2-b63bdb.svg?style=flat" />
     <img src="https://img.shields.io/badge/iOS-10.3%20--%2013.x-208eff.svg?style=flat" />
 </p>
 
@@ -74,7 +74,7 @@ To run the example project
 ## Learn more
 
 - [Lasso: Introducing a new architectural framework for iOS](docs/Lasso-Introduction-part1.md) - article that introduces Lasso, with a concrete example of creating a `Screen`
-
+- [Lasso: An introduction to Flows](docs/Lasso-FlowsIntro.md) - article that shows how to orchestrate a number of `Screens` with a `Flow`
 - [Lasso coding style guilde](docs/style-guide.md) - tips for writing Swifty Lasso
 
 
