@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Lasso'
-  s.version          = '1.0.0'
+  s.version          = '1.0.1'
   s.summary          = 'iOS architectural pattern and framework.'
   s.description      = 'Lasso is an iOS application architecture for building discrete, composable and testable compenents both big and small - from single one-off screens, through complex flows, to high-level application structures.'
 
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   
   s.source           = { :git => 'https://github.com/ww-tech/lasso.git', :tag => s.version.to_s }
   
-  s.swift_versions   = '4.2', '5', '5.1'
+  s.swift_versions   = '4.2', '5', '5.1', '5.2'
 
   s.ios.deployment_target = '10.0'
   s.source_files = 'Sources/Lasso/**/*'  
