@@ -1,6 +1,6 @@
 PODS:
-  - Lasso (1.0.0)
-  - LassoTestUtilities (1.0.0):
+  - Lasso (1.0.1)
+  - LassoTestUtilities (1.0.1):
     - Lasso
   - SwiftLint (0.39.1)
   - WWLayout (0.7.0)
@@ -12,7 +12,7 @@ DEPENDENCIES:
   - WWLayout
 
 SPEC REPOS:
-  trunk:
+  https://cdn.cocoapods.org/:
     - SwiftLint
     - WWLayout
 
@@ -23,8 +23,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Lasso: baabc67bc2717c7a8ddeacb5fc69f559f31d195f
-  LassoTestUtilities: c96a202eb433421df2ecf03a8a734fc92c590377
+  Lasso: d6a55aeef87f151e165780e1ff152375424d094e
+  LassoTestUtilities: c38418fc79fe76c566574f9f4bcf9b51c258e521
   SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
   WWLayout: 0785bb486fb4b6aeb52665eb35db73c14e120fd6
 

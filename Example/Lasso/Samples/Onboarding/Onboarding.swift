@@ -37,11 +37,43 @@ enum OnboardingFlowModule: NavigationFlowModule {
 // sample sequential navigation flow
 class OnboardingFlow: Flow<OnboardingFlowModule> {
     
+    enum Option {
+        case `default`
+        case deepStart(stage: Stage)
+    }
+    
+    enum Stage: Int, CaseIterable {
+        case welcome, name, counter, notifications, done
+        
+        static var first: Stage { return .welcome }
+        
+        var next: Stage? {
+            return Stage(rawValue: rawValue + 1)
+        }
+        
+    }
+    
+    private let option: Option
+    
     private var nameStore: EnterNameScreenModule.Store?
     private var counterStore: CounterScreenModule.Store?
     
+    init(option: Option = .default) {
+        self.option = option
+    }
+    
     override func createInitialController() -> UIViewController {
         return assembleController(for: Stage.first)
+    }
+    
+    override func placeSubsequentControllers() {
+        guard case let .deepStart(stage) = option, stage != .welcome, let context = context else { return }
+        
+        let controllers = (1..<stage.rawValue)
+            .compactMap(Stage.init(rawValue:))
+            .map(assembleController(for:))
+
+        context.viewControllers += controllers
     }
     
     private func assembleController(for stage: Stage) -> UIViewController {
@@ -101,17 +133,6 @@ class OnboardingFlow: Flow<OnboardingFlowModule> {
         context?.popToViewController(welcomeController, animated: true)
         nameStore = nil
         counterStore = nil
-    }
-    
-    private enum Stage: Int, CaseIterable {
-        case welcome, name, counter, notifications, done
-        
-        static var first: Stage { return .welcome }
-        
-        var next: Stage? {
-            return Stage(rawValue: rawValue + 1)
-        }
-        
     }
     
     private enum ScreenState {

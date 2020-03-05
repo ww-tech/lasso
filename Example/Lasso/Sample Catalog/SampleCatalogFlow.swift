@@ -91,6 +91,10 @@ class SampleCatalogFlow: Flow<NoOutputNavigationFlow> {
             
         case .pageController:
             showPageController()
+            
+        case .flowDeepStart:
+            OnboardingFlow(option: .deepStart(stage: .notifications))
+                .start(with: nextPushedInFlow(animated: false))
         }
     }
     

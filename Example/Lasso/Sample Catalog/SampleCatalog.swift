@@ -56,7 +56,7 @@ enum SampleCatalog: ScreenModule {
             switch self {
             case .presentation: return [.presentationSimpleCounter, .presentationOnboarding]
             case .simple: return [.counter, .search, .randomItems, .bindings, .login]
-            case .fancy: return [.tabs, .splitView, .foodOnboarding, .onboarding, .signup, .strangeFlow, .onTheFly, .windowTransition, .survey, .searchAndTrack, .myDay, .pageController]
+            case .fancy: return [.tabs, .splitView, .foodOnboarding, .onboarding, .signup, .strangeFlow, .onTheFly, .windowTransition, .survey, .searchAndTrack, .myDay, .pageController, .flowDeepStart]
             }
         }
         
@@ -83,6 +83,7 @@ enum SampleCatalog: ScreenModule {
         case survey
         case tabs = "Tab bar controller"
         case windowTransition = "Window Transition"
+        case flowDeepStart = "Flow Deep Start"
         
         var description: String { return "\(self.rawValue)".capitalized }
     }

@@ -45,6 +45,7 @@ open class Flow<Module: FlowModule> {
     ///
     /// - Parameter placer: ScreenPlacer with 'placedContext' that is compatible with the Flow's 'RequiredContext'
     public func start(with placer: ScreenPlacer<RequiredContext>?) {
+        lassoPrecondition(!started, "Attempt to start \(self) more than once! A flow may only be started once!")
         lassoPrecondition(placer != nil, "\(self).start(with: placer) placer is nil!")
         guard let placer = placer else { return }
         
@@ -54,6 +55,10 @@ open class Flow<Module: FlowModule> {
         
         self.context = initialController.place(with: placer)
         self.initialController = initialController
+        
+        placeSubsequentControllers()
+        
+        started = true
     }
     
     /// Creates the initial view controller for the Flow.
@@ -62,6 +67,8 @@ open class Flow<Module: FlowModule> {
     open func createInitialController() -> UIViewController {
         return lassoAbstractMethod()
     }
+    
+    open func placeSubsequentControllers() { }
     
     @discardableResult
     public func observeOutput(_ handler: @escaping (Output) -> Void) -> Self {
@@ -84,4 +91,5 @@ open class Flow<Module: FlowModule> {
     }
     
     private let outputBridge = OutputBridge<Output>()
+    private var started = false
 }

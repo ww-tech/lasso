@@ -25,10 +25,14 @@ import UIKit
 
 public extension Flow where RequiredContext: UINavigationController {
     
-    /// Push on top of the navigation controller's stack.
     var nextPushedInFlow: ScreenPlacer<RequiredContext>? {
+        return nextPushedInFlow(animated: true)
+    }
+    
+    /// Push on top of the navigation controller's stack.
+    func nextPushedInFlow(animated: Bool = true) -> ScreenPlacer<RequiredContext>? {
         guard let navigationController = context else { return nil }
-        return pushed(in: navigationController)
+        return pushed(in: navigationController, animated: animated)
     }
     
     /// Place as the root of the navigation controller, removing all other controllers in the stack
