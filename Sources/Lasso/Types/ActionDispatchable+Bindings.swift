@@ -165,6 +165,52 @@ extension ControlActionBindable {
     
 }
 
+// MARK: - Bar button item action binding
+
+extension UIBarButtonItem {
+    
+    public convenience init(barButtonSystemItem systemItem: UIBarButtonItem.SystemItem) {
+        self.init(barButtonSystemItem: systemItem, target: nil, action: nil)
+    }
+    
+    public convenience init(image: UIImage?, style: UIBarButtonItem.Style = .plain) {
+        self.init(image: image, style: style, target: nil, action: nil)
+    }
+    
+    public convenience init(image: UIImage?, landscapeImagePhone: UIImage?, style: UIBarButtonItem.Style = .plain) {
+        self.init(image: image, landscapeImagePhone: landscapeImagePhone, style: style, target: nil, action: nil)
+    }
+    
+    public convenience init(title: String?, style: UIBarButtonItem.Style = .plain) {
+        self.init(title: title, style: style, target: nil, action: nil)
+    }
+    
+    /// Bind a bar button item's action to an ActionDispatchable (a.k.a. Store).
+    ///
+    /// - Parameters:
+    ///   - target: The ActionDispatchable to receive the Action.
+    ///   - toAction: A Store.Action to send to the target via its `dispatchAction` method.
+    public func bind<Target: ActionDispatchable>(to target: Target, action: Target.Action) {
+        bind(to: target) { _ in return action }
+    }
+    
+    /// Bind a UIBarButtonItem event to an ActionDispatchable where the Action is a function of the item at the time of invocation.
+    ///
+    /// - Parameters:
+    ///   - target: The ActionDispatchable to receive the Action.
+    ///   - mapping: A function that maps the gesture recognizer's current state to an ActionDispatchable.Action to be dispatched to the target.
+    ///   - sender: The UIGestureRecognizer triggering the action
+    public func bind<Target: ActionDispatchable>(to target: Target, mapping: @escaping (_ sender: UIBarButtonItem) -> Target.Action) {
+        let eventHandler = EventHandler { [weak self, weak target] in
+            self.map { target?.dispatchAction(mapping($0)) }
+        }
+        self.target = eventHandler
+        self.action = #selector(eventHandler.execute)
+        holdReference(to: eventHandler)
+    }
+    
+}
+
 // MARK: - Gesture recognizer action binding
 
 extension UIGestureRecognizer {
