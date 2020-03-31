@@ -17,7 +17,7 @@
 
 import Foundation
 
-public protocol AbstractStore: StateObservable, ActionDispatchable, OutputObservable { }
+public protocol AbstractStore: AbstractViewStore, OutputObservable { }
 
 public protocol ConcreteStore: AbstractStore {
     init(with initialState: State)
@@ -131,88 +131,6 @@ extension LassoStore where Module: ScreenModule {
     
     public convenience init() {
         self.init(with: Module.defaultInitialState)
-    }
-    
-}
-
-extension AbstractStore {
-    
-    public typealias ActionMap<A> = (A) -> Action
-    public typealias StateMap<S> = (State) -> S
-    
-    /// Create a ViewStore with a ViewState that can be initialized from the Store's State,
-    /// using a ViewModule to define the relevant ViewState & ViewAction types.
-    ///
-    /// - Parameters:
-    ///   - viewModuleType: the ViewModule that defines the target ViewState
-    ///   - stateMap: a closure that converts the Store's State to the ViewState
-    /// - Returns: a new ViewStore
-    public func asViewStore<Module: ViewModule>(for viewModuleType: Module.Type,
-                                                stateMap: @escaping StateMap<Module.ViewState>) -> AnyViewStore<Module.ViewState, Module.ViewAction>
-        where Module.ViewAction == Action {
-            return asViewStore(stateMap: stateMap, actionMap: { $0 })
-    }
-    
-    /// Create a ViewStore using a subset of actions, with the Store's State type,
-    /// using a ViewModule to define the relevant ViewState & ViewAction types.
-    ///
-    /// - Parameters:
-    ///   - viewModuleType: the ViewModule that defines the target ViewAction
-    ///   - actionMap: a closure that maps the View's actions to the Store's actions
-    /// - Returns: a new ViewStore
-    public func asViewStore<Module: ViewModule>(for viewModuleType: Module.Type,
-                                                actionMap: @escaping ActionMap<Module.ViewAction>) -> AnyViewStore<Module.ViewState, Module.ViewAction>
-        where Module.ViewState == State {
-            return asViewStore(stateMap: { $0 }, actionMap: actionMap)
-    }
-    
-    /// Create a ViewStore using a subset of actions, with a ViewState that can be initialized from the Store's State,
-    /// using a ViewModule to define the relevant ViewState & ViewAction types.
-    ///
-    /// - Parameters:
-    ///   - viewModuleType: the ViewModule that defines the target ViewState and ViewAction
-    ///   - stateMap: a closure that converts the Store's State to the ViewState
-    ///   - actionMap: a closure that maps the View's actions to the Store's actions
-    /// - Returns: a new ViewStore
-    public func asViewStore<Module: ViewModule>(for viewModuleType: Module.Type,
-                                                stateMap: @escaping StateMap<Module.ViewState>,
-                                                actionMap: @escaping ActionMap<Module.ViewAction>) -> AnyViewStore<Module.ViewState, Module.ViewAction> {
-        return asViewStore(stateMap: stateMap, actionMap: actionMap)
-    }
-    
-    /// Create a ViewStore using the Store's State and Action types,
-    /// that provides access to just the dispatchAction and observeState methods.
-    ///
-    /// - Returns: a new ViewStore
-    public func asViewStore() -> AnyViewStore<State, Action> {
-        return asViewStore(stateMap: { $0 }, actionMap: { $0 })
-    }
-    
-    /// Create a ViewStore with a ViewState that can be initialized from the Store's State
-    ///
-    /// - Parameter stateMap: a closure that maps the View's actions to the Store's actions
-    /// - Returns: a new ViewStore
-    public func asViewStore<ViewState>(stateMap: @escaping StateMap<ViewState>) -> AnyViewStore<ViewState, Action> {
-        return asViewStore(stateMap: stateMap, actionMap: { $0 })
-    }
-    
-    /// Create a ViewStore using a subset of actions, with the Store's State type.
-    ///
-    /// - Parameter actionMap: a closure that maps the View's actions to the Store's actions
-    /// - Returns: a new ViewStore
-    public func asViewStore<ViewAction>(actionMap: @escaping ActionMap<ViewAction>) -> AnyViewStore<State, ViewAction> {
-        return asViewStore(stateMap: { $0 }, actionMap: actionMap)
-    }
-    
-    /// Create a ViewStore using a subset of actions, with a ViewState that can be initialized from the Store's State
-    ///
-    /// - Parameters:
-    ///   - actionMap: a closure that maps the View's actions to the Store's actions
-    ///   - stateMap: a closure that converts the Store's State to the ViewState
-    /// - Returns: a new ViewStore
-    public func asViewStore<ViewState, ViewAction>(stateMap: @escaping StateMap<ViewState>,
-                                                   actionMap: @escaping ActionMap<ViewAction>) -> AnyViewStore<ViewState, ViewAction> {
-        return AnyViewStore<ViewState, ViewAction>(self, stateMap: stateMap, actionMap: actionMap)
     }
     
 }
