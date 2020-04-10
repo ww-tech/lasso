@@ -48,11 +48,33 @@ public func root(of window: UIWindow, using transition: UIWindow.Transition? = n
 /// Place some controller as the root of the application window with an optional animation. The next context
 /// is the controller which is placed. This call fails if the application window cannot be found.
 ///
+/// Note: This uses `UIApplication.shared` to get to the app's `keyWindow`.
+/// Do _not_ use `rootOfApplicationWindow` in the context of an iOS Extension, since
+/// `UIApplication.shared` is unavailable there.
+///
 /// - Parameters:
 ///   - transition: the transition to be animated
 /// - Returns: the placer
 public func rootOfApplicationWindow(using transition: UIWindow.Transition? = nil) -> ScreenPlacer<UIViewController>? {
     
-    guard let window = UIApplication.shared.keyWindow else { return nil }
+    guard let window = UIApplication.sharedSafe?.keyWindow else { return nil }
     return root(of: window, using: transition)
 }
+
+#if os(iOS) || os(tvOS)
+extension UIApplication {
+    
+    /// A safe accessor for `UIApplication.shared`
+    ///
+    /// iOS extensions do not currently support `UIApplication.shared`.
+    /// In order to provide compatibility, it needs to be accessed in a safe way.
+    fileprivate static var sharedSafe: UIApplication? {
+        let sharedSelector = NSSelectorFromString("sharedApplication")
+        guard UIApplication.responds(to: sharedSelector) else {
+            return nil
+        }
+        return UIApplication.perform(sharedSelector)?.takeUnretainedValue() as? UIApplication
+    }
+    
+}
+#endif
