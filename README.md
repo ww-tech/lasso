@@ -132,7 +132,7 @@ If you have a feature in mind, and/or have found a bug, the best thing to do is:
 
 ## Authors
 
-Steven Grosmark, Trevor Beasty, Yuichi Kuroda, and the WW iOS Team.
+[Steven Grosmark](https://github.com/g-mark), [Trevor Beasty](https://github.com/trevor-beasty), Yuichi Kuroda, and the WW iOS Team.
 
 
 
