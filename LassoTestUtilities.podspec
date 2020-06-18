@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LassoTestUtilities'
-  s.version          = '1.0.1'
+  s.version          = '1.0.2'
   s.summary          = 'Unit test support for the Lasso framework.'
   s.description      = 'Lasso is an iOS application architecture for building discrete, composable and testable compenents both big and small - from single one-off screens, through complex flows, to high-level application structures.'
 
