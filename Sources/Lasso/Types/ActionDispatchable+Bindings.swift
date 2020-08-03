@@ -198,8 +198,8 @@ extension UIBarButtonItem {
     ///
     /// - Parameters:
     ///   - target: The ActionDispatchable to receive the Action.
-    ///   - mapping: A function that maps the gesture recognizer's current state to an ActionDispatchable.Action to be dispatched to the target.
-    ///   - sender: The UIGestureRecognizer triggering the action
+    ///   - mapping: A function that maps the button tap to an ActionDispatchable.Action to be dispatched to the target.
+    ///   - sender: The UIBarButtonItem triggering the action
     public func bind<Target: ActionDispatchable>(to target: Target, mapping: @escaping (_ sender: UIBarButtonItem) -> Target.Action) {
         let eventHandler = EventHandler { [weak self, weak target] in
             self.map { target?.dispatchAction(mapping($0)) }
