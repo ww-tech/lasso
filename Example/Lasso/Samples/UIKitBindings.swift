@@ -19,6 +19,8 @@ import UIKit
 import WWLayout
 import Lasso
 
+// MARK: - Module
+
 enum UIKitBindingsScreenModule: ScreenModule {
     
     static var defaultInitialState: State { return State() }
@@ -36,6 +38,7 @@ enum UIKitBindingsScreenModule: ScreenModule {
         case didChangeAmount(Double)
         case didEditText(String)
         case didChangeDate(Date)
+        case didTapBarButton
         case didTapButton
     }
     
@@ -43,6 +46,8 @@ enum UIKitBindingsScreenModule: ScreenModule {
         var lastAction: String = ""
     }
 }
+
+// MARK: - Store
 
 class UIKitBindingsStore: LassoStore<UIKitBindingsScreenModule> {
     
@@ -53,6 +58,8 @@ class UIKitBindingsStore: LassoStore<UIKitBindingsScreenModule> {
     }
     
 }
+
+// MARK: - View
 
 class UIKitBindingsViewController: UIViewController, LassoView {
     
@@ -68,6 +75,9 @@ class UIKitBindingsViewController: UIViewController, LassoView {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
+        
+        let barButton = UIBarButtonItem(barButtonSystemItem: .action)
+        navigationItem.rightBarButtonItem = barButton
         
         let stack = UIStackView()
         stack.axis = .vertical
@@ -124,6 +134,7 @@ class UIKitBindingsViewController: UIViewController, LassoView {
         
         // bind .touchUpInside directly to a dispatched action on the store:
         button.bind(to: store, action: .didTapButton)
+        barButton.bind(to: store, action: .didTapBarButton)
         
         store.observeState(\.lastAction) { [weak label] lastAction in
             label?.text = lastAction
