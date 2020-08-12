@@ -21,12 +21,15 @@ commands:
             - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
             - gem-cache-v1-{{ arch }}-{{ .Branch }}
       - run:
+          name: Configure bundler
+          command: bundle config set path ~/vendor/bundle
+      - run:
           name: Install dependencies in Gemfile
-          command: bundle install --path vendor/bundle
+          command: bundle install
       - save_cache:
           key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - ~/vendor/bundle
   
   # Installs utilities from Homebrew, and gems from the Gemfile
   install_dependencies:
