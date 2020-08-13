@@ -22,7 +22,7 @@ commands:
           command: echo 'chruby ruby-<< parameters.version >>' >> ~/.bash_profile
       - run:
           name: Install bundler
-          command: sudo gem install bundler
+          command: sudo gem update bundler
       - run:
           name: Install dependencies in Gemfile
           command: bundle install
