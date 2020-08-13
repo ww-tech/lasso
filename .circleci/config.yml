@@ -182,23 +182,23 @@ workflows:
 
   build-test:
     jobs:
-      - build-gem-cache26
-      - build-gem-cache27
+      - build-gem-cache-26
+      - build-gem-cache-27
       - build-and-test-swift42:
           requires:
-            - build-gem-cache26
+            - build-gem-cache-26
       - build-and-test-swift5:
           requires:
-            - build-gem-cache26
+            - build-gem-cache-26
       - build-and-test-swift51:
           requires:
-            - build-gem-cache26
+            - build-gem-cache-26
       - build-and-test-swift52:
           requires:
-            - build-gem-cache26
+            - build-gem-cache-26
       - build-and-test-swift53:
           requires:
-            - build-gem-cache27
+            - build-gem-cache-27
       - build-and-test-swiftpm:
           requires:
-            - build-gem-cache26
+            - build-gem-cache-26
