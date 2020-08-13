@@ -90,7 +90,7 @@ jobs:
   build-gem-cache-26:
     <<: *defaults
     macos:
-      xcode: 11.4.0
+      xcode: 10.3.0
     steps:
       - checkout
       - setup_ruby:
