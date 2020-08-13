@@ -20,23 +20,23 @@ commands:
       - run:
           name: Set Ruby version
           command: echo 'chruby ruby-<< parameters.version >>' >> ~/.bash_profile
-      - restore_cache:
-          keys:
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}
+      # - restore_cache:
+      #     keys:
+      #       - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      #       - gem-cache-v1-{{ arch }}-{{ .Branch }}
       - run:
           name: Install bundler
           command: sudo gem install bundler
-      - run:
-          name: Configure bundler
-          command: bundle config set path ~/vendor/bundle
+      # - run:
+      #     name: Configure bundler
+      #     command: bundle config set path ~/vendor/bundle
       - run:
           name: Install dependencies in Gemfile
           command: bundle install
-      - save_cache:
-          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - ~/vendor/bundle
+      # - save_cache:
+      #     key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      #     paths:
+      #       - ~/vendor/bundle
   
   # Installs utilities from Homebrew, and gems from the Gemfile
   install_dependencies:
@@ -87,13 +87,13 @@ commands:
 
 jobs:
 
-  build-gem-cache:
-    <<: *defaults
-    macos:
-      xcode: 11.4.0
-    steps:
-      - checkout
-      - setup_ruby
+  # build-gem-cache:
+  #   <<: *defaults
+  #   macos:
+  #     xcode: 11.4.0
+  #   steps:
+  #     - checkout
+  #     - setup_ruby
 
   build-and-test-swift42:
     <<: *defaults
@@ -167,22 +167,22 @@ workflows:
 
   build-test:
     jobs:
-      - build-gem-cache
+      # - build-gem-cache
       - build-and-test-swift42:
-          requires:
-            - build-gem-cache
+          # requires:
+          #   - build-gem-cache
       - build-and-test-swift5:
-          requires:
-            - build-gem-cache
+          # requires:
+          #   - build-gem-cache
       - build-and-test-swift51:
-          requires:
-            - build-gem-cache
+          # requires:
+          #   - build-gem-cache
       - build-and-test-swift52:
-          requires:
-            - build-gem-cache
+          # requires:
+          #   - build-gem-cache
       - build-and-test-swift53:
-          requires:
-            - build-gem-cache
+          # requires:
+          #   - build-gem-cache
       - build-and-test-swiftpm:
-          requires:
-            - build-gem-cache
+          # requires:
+          #   - build-gem-cache
