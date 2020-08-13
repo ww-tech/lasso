@@ -45,7 +45,7 @@ commands:
         type: string
         default: '2.6'
     steps:
-      - setup_ruby
+      - setup_ruby:
           version: << parameters.ruby >>
 
   # Runs `pod update`
