@@ -21,6 +21,9 @@ commands:
             - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
             - gem-cache-v1-{{ arch }}-{{ .Branch }}
       - run:
+          name: Install bundler
+          command: gem install bundler
+      - run:
           name: Configure bundler
           command: bundle config set path ~/vendor/bundle
       - run:
