@@ -12,10 +12,14 @@ commands:
 
   # Sets Ruby version and installs all gems, using a cache
   setup_ruby:
+    parameters:
+      version:
+        type: string
+        default: '2.6'
     steps:
       - run:
           name: Set Ruby version
-          command: echo 'chruby ruby-2.7' >> ~/.bash_profile
+          command: echo 'chruby ruby-<< parameters.version >>' >> ~/.bash_profile
       - restore_cache:
           keys:
             - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
@@ -36,8 +40,13 @@ commands:
   
   # Installs utilities from Homebrew, and gems from the Gemfile
   install_dependencies:
+    parameters:
+      ruby:
+        type: string
+        default: '2.6'
     steps:
       - setup_ruby
+          version: << parameters.ruby >>
 
   # Runs `pod update`
   pod_update:
@@ -137,6 +146,7 @@ jobs:
     steps:
       - checkout
       - install_dependencies
+          ruby: '2.7'
       - pod_update:
           swift: '5.3'
       - build
