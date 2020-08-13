@@ -145,7 +145,7 @@ jobs:
       xcode: 12.0.0
     steps:
       - checkout
-      - install_dependencies
+      - install_dependencies:
           ruby: '2.7'
       - pod_update:
           swift: '5.3'
