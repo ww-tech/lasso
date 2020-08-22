@@ -18,14 +18,14 @@
 import XCTest
 import Lasso
 
-public extension Flow where Module.Output: Equatable {
+extension Flow where Module.Output: Equatable {
     
     /// Assert that the event results in the stated outputs from the Flow.
     /// - Parameter event: the event which results in the outputs
     /// - Parameter outputs: the outputs resulting from the event
     /// - Parameter file: the file of the caller
     /// - Parameter line: the line of the caller
-    func assert(when event: () -> Void, outputs: Output..., file: StaticString = #file, line: UInt = #line) {
+    public func assert(when event: () -> Void, outputs: Output..., file: StaticString = #file, line: UInt = #line) {
         var _outputs: [Output] = []
         observeOutput { _outputs.append($0) }
         event()
