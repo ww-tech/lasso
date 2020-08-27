@@ -12,26 +12,41 @@ commands:
 
   # Sets Ruby version and installs all gems, using a cache
   setup_ruby:
+    parameters:
+      version:
+        type: string
+        default: '2.6'
     steps:
       - run:
           name: Set Ruby version
-          command: echo "ruby-2.6" > ~/.ruby-version
+          command: echo 'chruby ruby-<< parameters.version >>' >> ~/.bash_profile
       - restore_cache:
           keys:
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}
+            - gem-cache-v<< parameters.version >>-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v<< parameters.version >>-{{ arch }}-{{ .Branch }}
+      - run:
+          name: Install bundler
+          command: sudo gem update bundler -f
+      - run:
+          name: Configure bundler
+          command: bundle config set path ~/vendor/bundle
       - run:
           name: Install dependencies in Gemfile
-          command: bundle install --path vendor/bundle
+          command: bundle install
       - save_cache:
-          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-v<< parameters.version >>-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
-            - vendor/bundle
+            - ~/vendor/bundle
   
   # Installs utilities from Homebrew, and gems from the Gemfile
   install_dependencies:
+    parameters:
+      ruby:
+        type: string
+        default: '2.6'
     steps:
-      - setup_ruby
+      - setup_ruby:
+          version: << parameters.ruby >>
 
   # Runs `pod update`
   pod_update:
@@ -53,7 +68,7 @@ commands:
     steps:
       - run:
           name: Build and run tests
-          command: fastlane scan --workspace "Example/Lasso.xcworkspace"
+          command: bundle exec fastlane scan --workspace "Example/Lasso.xcworkspace"
           #command: fastlane scan --workspace "Example/Lasso.xcworkspace" --code_coverage --output_directory output/scan
           environment:
             SCAN_DEVICE: iPhone 8
@@ -72,13 +87,23 @@ commands:
 
 jobs:
 
-  build-gem-cache:
+  build-gem-cache-26:
     <<: *defaults
     macos:
       xcode: 10.3.0
     steps:
       - checkout
-      - setup_ruby
+      - setup_ruby:
+          version: '2.6'
+
+  build-gem-cache-27:
+    <<: *defaults
+    macos:
+      xcode: 12.0.0
+    steps:
+      - checkout
+      - setup_ruby:
+          version: '2.7'
 
   build-and-test-swift42:
     <<: *defaults
@@ -86,7 +111,8 @@ jobs:
       xcode: 10.3.0
     steps:
       - checkout
-      - install_dependencies
+      - install_dependencies:
+          ruby: '2.6'
       - pod_update:
           swift: '4.2'
       - build
@@ -97,7 +123,8 @@ jobs:
       xcode: 10.3.0
     steps:
       - checkout
-      - install_dependencies
+      - install_dependencies:
+          ruby: '2.6'
       - pod_update:
           swift: '5.0'
       - build
@@ -108,7 +135,8 @@ jobs:
       xcode: 11.3.0
     steps:
       - checkout
-      - install_dependencies
+      - install_dependencies:
+          ruby: '2.6'
       - pod_update:
           swift: '5.1'
       - build
@@ -119,9 +147,22 @@ jobs:
       xcode: 11.4.0
     steps:
       - checkout
-      - install_dependencies
+      - install_dependencies:
+          ruby: '2.6'
       - pod_update:
           swift: '5.2'
+      - build
+
+  build-and-test-swift53:
+    <<: *defaults
+    macos:
+      xcode: 12.0.0
+    steps:
+      - checkout
+      - install_dependencies:
+          ruby: '2.7'
+      - pod_update:
+          swift: '5.3'
       - build
 
   build-and-test-swiftpm:
@@ -132,7 +173,8 @@ jobs:
       FL_OUTPUT_DIR: output
     steps:
       - checkout
-      - install_dependencies
+      - install_dependencies:
+          ruby: '2.6'
       - build_swiftpm
 
 workflows:
@@ -140,19 +182,23 @@ workflows:
 
   build-test:
     jobs:
-      - build-gem-cache
+      - build-gem-cache-26
+      - build-gem-cache-27
       - build-and-test-swift42:
           requires:
-            - build-gem-cache
+            - build-gem-cache-26
       - build-and-test-swift5:
           requires:
-            - build-gem-cache
+            - build-gem-cache-26
       - build-and-test-swift51:
           requires:
-            - build-gem-cache
+            - build-gem-cache-26
       - build-and-test-swift52:
           requires:
-            - build-gem-cache
+            - build-gem-cache-26
+      - build-and-test-swift53:
+          requires:
+            - build-gem-cache-27
       - build-and-test-swiftpm:
           requires:
-            - build-gem-cache
+            - build-gem-cache-26

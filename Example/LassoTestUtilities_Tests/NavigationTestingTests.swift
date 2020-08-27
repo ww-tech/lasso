@@ -499,7 +499,7 @@ class NavigationTestingTests: XCTestCase {
         // when / then
         assertThrowsError(
             expr: {
-                try _ = assertPopped(from: vc0, to: UIViewController(), when: { }, failTest: silent)
+                try assertPopped(from: vc0, to: UIViewController(), when: { }, failTest: silent)
         },
             eval: {
                 switch $0 {
@@ -527,7 +527,7 @@ class NavigationTestingTests: XCTestCase {
         // when / then
         assertThrowsError(
             expr: {
-                try _ = assertPopped(from: vc0, to: UIViewController(), when: { }, failTest: silent)
+                try assertPopped(from: vc0, to: UIViewController(), when: { }, failTest: silent)
         },
             eval: {
                 switch $0 {
@@ -557,7 +557,7 @@ class NavigationTestingTests: XCTestCase {
         // when / then
         assertThrowsError(
             expr: {
-                try _ = assertPopped(from: vc1, to: vc0, when: { }, failTest: silent)
+                try assertPopped(from: vc1, to: vc0, when: { }, failTest: silent)
         },
             eval: {
                 switch $0 {
