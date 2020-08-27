@@ -329,7 +329,7 @@ class ModalTestingTestsAnyModalPresentationStyle: XCTestCase {
         
         // when / then
         assertThrowsError(
-            expr: { try _ = assertDismissal(from: vc1, to: vc0, when: { }, failTest: silent) },
+            expr: { try assertDismissal(from: vc1, to: vc0, when: { }, failTest: silent) },
             eval: {
                 switch $0 {
                     
@@ -360,7 +360,7 @@ class ModalTestingTestsAnyModalPresentationStyle: XCTestCase {
         // when / then
         assertThrowsError(
             expr: {
-                try _ = assertDismissal(
+                try assertDismissal(
                     from: vc2,
                     to: vc0,
                     when: { },
@@ -396,7 +396,7 @@ class ModalTestingTestsAnyModalPresentationStyle: XCTestCase {
         // when / then
         assertThrowsError(
             expr: {
-                try _ = assertDismissal(
+                try assertDismissal(
                     from: vc2,
                     to: vc0,
                     when: { vc1.dismiss(animated: false, completion: nil) },

@@ -20,12 +20,12 @@ import UIKit
 extension UIActivityIndicatorView {
     
     public var animating: Bool {
+        get {
+            return isAnimating
+        }
         set {
             if newValue { startAnimating() }
             else { stopAnimating() }
-        }
-        get {
-            return isAnimating
         }
     }
 }
