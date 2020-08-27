@@ -1,7 +1,7 @@
 <h1 align="center"><img src="docs/images/Lasso_Logo.svg" width="75%" alt="Lasso logo" /></h1>
 <p align="center">
     <img src="https://img.shields.io/badge/Swift-4.2%20--%205.3-b63bdb.svg?style=flat" />
-    <img src="https://img.shields.io/badge/iOS-10.3%20--%2013.x-208eff.svg?style=flat" />
+    <img src="https://img.shields.io/badge/iOS-10.3%20--%2014.x-208eff.svg?style=flat" />
 </p>
 
 Lasso is an iOS application architecture for building discrete, composable and testable components both big and small - from single one-off screens, through complex flows, to high-level application structures.
