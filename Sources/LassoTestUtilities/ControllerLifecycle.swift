@@ -19,7 +19,15 @@ import XCTest
 
 // swiftlint:disable opening_brace
 
-extension XCTestCase {
+public protocol LassoAssertionTimeout {
+    static var defaultLassoAssertionTimeout: TimeInterval { get }
+}
+
+extension LassoAssertionTimeout {
+    public static var defaultLassoAssertionTimeout: TimeInterval { 1 }
+}
+
+extension XCTestCase: LassoAssertionTimeout {
     
     /// Generalized utility for controller lifecycle hooks with respect to view controller hierarchy events.
     /// No guarantees are made regarding how lifecycle hooks will be called.
@@ -37,7 +45,7 @@ extension XCTestCase {
         from fromController: From,
         to resolveTarget: () throws -> UIViewController?,
         when event: () -> Void,
-        timeout: TimeInterval = 1,
+        timeout: TimeInterval = defaultLassoAssertionTimeout,
         onViewDidLoad: (From, To) -> Void = { _, _ in },
         onViewWillAppear: @escaping (From, To) -> Void = { _, _ in },
         onViewDidAppear: @escaping (From, To) -> Void = { _, _ in },
@@ -79,7 +87,7 @@ extension XCTestCase {
     public func assertControllerEvent<To: UIViewController>(
         to resolveTarget: () throws -> UIViewController?,
         when event: () -> Void,
-        timeout: TimeInterval = 1,
+        timeout: TimeInterval = defaultLassoAssertionTimeout,
         onViewDidLoad: (To) -> Void = { _ in },
         onViewWillAppear: @escaping (To) -> Void = { _ in },
         onViewDidAppear: @escaping (To) -> Void = { _ in },
@@ -114,7 +122,12 @@ extension XCTestCase {
     /// - Parameter timeout: maximum time allowance for the events
     /// - Parameter file: the file of the caller
     /// - Parameter line: the line of the caller
-    public func waitForEvents(in window: UIWindow, timeout: TimeInterval = 1, file: StaticString = #file, line: UInt = #line) {
+    public func waitForEvents(
+        in window: UIWindow,
+        timeout: TimeInterval = defaultLassoAssertionTimeout,
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
         let mainQueueExhaustion = expectMainQueueExhaustion()
         let transitionCompletion = expectTransitionCompletion(in: window)
         let expectations = [mainQueueExhaustion, transitionCompletion].compactMap({ $0 })
