@@ -19,17 +19,19 @@ import XCTest
 
 // swiftlint:disable opening_brace
 
+public protocol AssertionTimeoutOverride {
+    var defaultLassoAssertionTimeout: TimeInterval { get }
+}
+
 extension XCTestCase {
     
-    public func setDefaultLassoAssertionTimeout(_ timeout: TimeInterval) {
-        XCTestCase.defaultLassoAssertionTimeout = timeout
-        addTeardownBlock {
-            XCTestCase.defaultLassoAssertionTimeout = 1
+    internal var lassoAssertionTimeout: TimeInterval {
+        if let override = self as? AssertionTimeoutOverride {
+            return override.defaultLassoAssertionTimeout
         }
+        return 1
     }
 
-    public internal(set) static var defaultLassoAssertionTimeout: TimeInterval = 1
-    
     /// Generalized utility for controller lifecycle hooks with respect to view controller hierarchy events.
     /// No guarantees are made regarding how lifecycle hooks will be called.
     /// This utility should only be used where a more specific utility is not available.
@@ -46,7 +48,7 @@ extension XCTestCase {
         from fromController: From,
         to resolveTarget: () throws -> UIViewController?,
         when event: () -> Void,
-        timeout: TimeInterval = defaultLassoAssertionTimeout,
+        timeout: TimeInterval? = nil,
         onViewDidLoad: (From, To) -> Void = { _, _ in },
         onViewWillAppear: @escaping (From, To) -> Void = { _, _ in },
         onViewDidAppear: @escaping (From, To) -> Void = { _, _ in },
@@ -63,11 +65,11 @@ extension XCTestCase {
         onViewDidLoad(fromController, toController)
         
         let mainQueueExhaustion = expectMainQueueExhaustion()
-        wait(for: [mainQueueExhaustion], timeout: timeout)
+        wait(for: [mainQueueExhaustion], timeout: timeout ?? lassoAssertionTimeout)
         onViewWillAppear(fromController, toController)
         
         if let transitionCompletion = expectTransitionCompletion(toController) {
-            wait(for: [transitionCompletion], timeout: timeout)
+            wait(for: [transitionCompletion], timeout: timeout ?? lassoAssertionTimeout)
         }
         onViewDidAppear(fromController, toController)
         
@@ -88,7 +90,7 @@ extension XCTestCase {
     public func assertControllerEvent<To: UIViewController>(
         to resolveTarget: () throws -> UIViewController?,
         when event: () -> Void,
-        timeout: TimeInterval = defaultLassoAssertionTimeout,
+        timeout: TimeInterval? = nil,
         onViewDidLoad: (To) -> Void = { _ in },
         onViewWillAppear: @escaping (To) -> Void = { _ in },
         onViewDidAppear: @escaping (To) -> Void = { _ in },
@@ -105,11 +107,11 @@ extension XCTestCase {
         onViewDidLoad(toController)
 
         let mainQueueExhaustion = expectMainQueueExhaustion()
-        wait(for: [mainQueueExhaustion], timeout: timeout)
+        wait(for: [mainQueueExhaustion], timeout: timeout ?? lassoAssertionTimeout)
         onViewWillAppear(toController)
 
         if let transitionCompletion = expectTransitionCompletion(toController) {
-            wait(for: [transitionCompletion], timeout: timeout)
+            wait(for: [transitionCompletion], timeout: timeout ?? lassoAssertionTimeout)
         }
         onViewDidAppear(toController)
 
@@ -125,14 +127,14 @@ extension XCTestCase {
     /// - Parameter line: the line of the caller
     public func waitForEvents(
         in window: UIWindow,
-        timeout: TimeInterval = defaultLassoAssertionTimeout,
+        timeout: TimeInterval? = nil,
         file: StaticString = #file,
         line: UInt = #line)
     {
         let mainQueueExhaustion = expectMainQueueExhaustion()
         let transitionCompletion = expectTransitionCompletion(in: window)
         let expectations = [mainQueueExhaustion, transitionCompletion].compactMap({ $0 })
-        wait(for: expectations, timeout: timeout)
+        wait(for: expectations, timeout: timeout ?? lassoAssertionTimeout)
     }
     
     internal func expectMainQueueExhaustion() -> XCTestExpectation {
