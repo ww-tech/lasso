@@ -19,12 +19,25 @@ import XCTest
 
 // swiftlint:disable opening_brace
 
+/// Allows for customization of the default `timeout` values used in
+/// view controller life-cycle assertions (e.g., `assertRoot`, `assertPushed`, etc.)
+///
+/// By default all timeouts are one second.
+///
+/// Add `AssertionTimeoutOverride` conformance to your test case, and provide
+/// a value for `defaultLassoAssertionTimeout` to use a custom timeout.
 public protocol AssertionTimeoutOverride {
     var defaultLassoAssertionTimeout: TimeInterval { get }
 }
 
 extension XCTestCase {
     
+    /// The effective timeout to use when waiting on the main queue.
+    ///
+    /// By default all timeouts are one second.
+    ///
+    /// Add `AssertionTimeoutOverride` conformance to your test case, and provide
+    /// a value for `defaultLassoAssertionTimeout` to use a custom timeout.
     internal var lassoAssertionTimeout: TimeInterval {
         if let override = self as? AssertionTimeoutOverride {
             return override.defaultLassoAssertionTimeout
