@@ -19,15 +19,16 @@ import XCTest
 
 // swiftlint:disable opening_brace
 
-public protocol LassoAssertionTimeout {
-    static var defaultLassoAssertionTimeout: TimeInterval { get }
-}
+extension XCTestCase {
+    
+    public func setDefaultLassoAssertionTimeout(_ timeout: TimeInterval) {
+        XCTestCase.defaultLassoAssertionTimeout = timeout
+        addTeardownBlock {
+            XCTestCase.defaultLassoAssertionTimeout = 1
+        }
+    }
 
-extension LassoAssertionTimeout {
-    public static var defaultLassoAssertionTimeout: TimeInterval { 1 }
-}
-
-extension XCTestCase: LassoAssertionTimeout {
+    public internal(set) static var defaultLassoAssertionTimeout: TimeInterval = 1
     
     /// Generalized utility for controller lifecycle hooks with respect to view controller hierarchy events.
     /// No guarantees are made regarding how lifecycle hooks will be called.
