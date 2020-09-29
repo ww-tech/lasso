@@ -42,7 +42,15 @@ post_install do |installer|
     swift_version = File.read('.swift-version')
     installer.pods_project.targets.each do |target|
       target.build_configurations.each do |config|
+        
         config.build_settings['SWIFT_VERSION'] = "#{swift_version.strip}"
+        
+        # Minimum Simulator deployment target is 9.0
+        version = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+        unless version.nil? || Gem::Version.new(version) >= Gem::Version.new('9.0')
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '9.0'
+        end
+        
       end
     end
   end

@@ -64,12 +64,11 @@ extension XCTestCase {
         _ = toController.view
         onViewDidLoad(fromController, toController)
         
-        let mainQueueExhaustion = expectMainQueueExhaustion()
-        wait(for: [mainQueueExhaustion], timeout: timeout ?? lassoAssertionTimeout)
+        try waitWithError(for: expectMainQueueExhaustion(), timeout: timeout)
         onViewWillAppear(fromController, toController)
         
         if let transitionCompletion = expectTransitionCompletion(toController) {
-            wait(for: [transitionCompletion], timeout: timeout ?? lassoAssertionTimeout)
+            try waitWithError(for: transitionCompletion, timeout: timeout)
         }
         onViewDidAppear(fromController, toController)
         
@@ -106,12 +105,11 @@ extension XCTestCase {
         _ = toController.view
         onViewDidLoad(toController)
 
-        let mainQueueExhaustion = expectMainQueueExhaustion()
-        wait(for: [mainQueueExhaustion], timeout: timeout ?? lassoAssertionTimeout)
+        try waitWithError(for: expectMainQueueExhaustion(), timeout: timeout)
         onViewWillAppear(toController)
 
         if let transitionCompletion = expectTransitionCompletion(toController) {
-            wait(for: [transitionCompletion], timeout: timeout ?? lassoAssertionTimeout)
+            try waitWithError(for: transitionCompletion, timeout: timeout)
         }
         onViewDidAppear(toController)
 
@@ -135,6 +133,69 @@ extension XCTestCase {
         let transitionCompletion = expectTransitionCompletion(in: window)
         let expectations = [mainQueueExhaustion, transitionCompletion].compactMap({ $0 })
         wait(for: expectations, timeout: timeout ?? lassoAssertionTimeout)
+    }
+    
+    /// Wait for execution of all items enqueued on the main queue and completion of any view controller hierarchy
+    /// transition. While no guarantees are made regarding lifecycle, it is expected that all pending controller lifecycle events
+    /// have fired following this call.
+    /// - Parameter window: the parent window of the target controllers
+    /// - Parameter timeout: maximum time allowance for the events
+    /// - Parameter file: the file of the caller
+    /// - Parameter line: the line of the caller
+    internal func waitForEventsWithError(
+        in window: UIWindow,
+        timeout: TimeInterval? = nil,
+        file: StaticString = #file,
+        line: UInt = #line) throws
+    {
+        let mainQueueExhaustion = expectMainQueueExhaustion()
+        let transitionCompletion = expectTransitionCompletion(in: window)
+        let expectations = [mainQueueExhaustion, transitionCompletion].compactMap({ $0 })
+        try waitWithError(for: expectations, timeout: timeout)
+    }
+    
+    public enum WaitError: LassoError {
+        case timedOut(String)
+        case incorrectOrder(String)
+        case invertedFulfillment(String)
+        case interrupted(String)
+        case unknown(String)
+        
+        public func message(verbose: Bool) -> String {
+            switch self {
+            case .timedOut(let message),
+                 .incorrectOrder(let message),
+                 .invertedFulfillment(let message),
+                 .interrupted(let message),
+                 .unknown(let message):
+                return message
+            }
+        }
+        
+    }
+    
+    internal func waitWithError(for expectation: XCTestExpectation, timeout: TimeInterval? = nil) throws {
+        try waitWithError(for: [expectation], timeout: timeout)
+    }
+    
+    internal func waitWithError(for expectations: [XCTestExpectation], timeout: TimeInterval? = nil) throws {
+        let timeout = timeout ?? lassoAssertionTimeout
+        let waiter = XCTWaiter()
+        let waitResult = waiter.wait(for: expectations, timeout: timeout)
+        
+        var description: String {
+            expectations.map( { "\"\($0)\"" }).joined(separator: ", ")
+        }
+        
+        switch waitResult {
+        case .completed: return
+            
+        case .timedOut: throw WaitError.timedOut("wait of \(timeout) seconds timed out: \(description)")
+        case .incorrectOrder: throw WaitError.incorrectOrder("incorrect order for \(description)")
+        case .invertedFulfillment: throw WaitError.invertedFulfillment("inverted fulfilment for \(description)")
+        case .interrupted: throw WaitError.incorrectOrder("wait interrupted for \(description)")
+        @unknown default: throw WaitError.unknown("\(waitResult) for \(description)")
+        }
     }
     
     internal func expectMainQueueExhaustion() -> XCTestExpectation {

@@ -76,7 +76,7 @@ public extension XCTestCase {
                         throw NavigationPresentationError.unexpectedTopStackFollowingEvent(expected: [previous, newTop], navigationController: nav)
                     }
                     return newTop
-            },
+                },
                 when: event,
                 timeout: timeout,
                 onViewDidLoad: onViewDidLoad,
