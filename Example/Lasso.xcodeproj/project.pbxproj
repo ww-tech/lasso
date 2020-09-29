@@ -533,16 +533,16 @@
 		E207AB0722F9AE3400D58979 /* LassoTestUtilities_Tests */ = {
 			isa = PBXGroup;
 			children = (
-				E207AB0A22F9AE3400D58979 /* Info.plist */,
+				B00ACDF3251E254A0062D32D /* AssertionTimeoutTests.swift */,
 				E2F4BDC522FC439D003423CE /* LifeCycleController.swift */,
 				7932795F23A1448200654D8A /* MockableExtensionTests.swift */,
-				E25C6E4C23195C450091BC72 /* ModalTestingTests+FullScreen.swift */,
 				E25C6E4E23195CF40091BC72 /* ModalTestingTests+AnyModalPresentationStyle.swift */,
+				E25C6E4C23195C450091BC72 /* ModalTestingTests+FullScreen.swift */,
 				E25C6E5023195DDA0091BC72 /* ModalTestingTests+SystemBehavior.swift */,
 				E2F4BDC722FC43E6003423CE /* NavigationTestingTests.swift */,
-				B00ACDF3251E254A0062D32D /* AssertionTimeoutTests.swift */,
 				E2FD5A9F232694600008DE77 /* ValueDiffingTests.swift */,
 				79CE63E223F2F854003FFBF4 /* VerboseLoggingTests.swift */,
+				E207AB0A22F9AE3400D58979 /* Info.plist */,
 			);
 			path = LassoTestUtilities_Tests;
 			sourceTree = "<group>";

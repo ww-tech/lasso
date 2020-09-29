@@ -62,7 +62,7 @@ class AssertionTimeoutDefaultTests: XCTestCase {
 
 class AssertionTimeoutOverrideTests: XCTestCase, AssertionTimeoutOverride {
     
-    var defaultLassoAssertionTimeout: TimeInterval { 2 }
+    var defaultLassoAssertionTimeout: TimeInterval { return 2 }
     
     func test_override() throws {
         XCTAssertEqual(lassoAssertionTimeout, 2)
