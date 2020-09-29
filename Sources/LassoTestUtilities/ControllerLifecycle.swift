@@ -153,13 +153,9 @@ extension XCTestCase {
     /// have fired following this call.
     /// - Parameter window: the parent window of the target controllers
     /// - Parameter timeout: maximum time allowance for the events
-    /// - Parameter file: the file of the caller
-    /// - Parameter line: the line of the caller
-    internal func waitForEventsWithError(
+    public func waitForEventsWithError(
         in window: UIWindow,
-        timeout: TimeInterval? = nil,
-        file: StaticString = #file,
-        line: UInt = #line) throws
+        timeout: TimeInterval? = nil) throws
     {
         let mainQueueExhaustion = expectMainQueueExhaustion()
         let transitionCompletion = expectTransitionCompletion(in: window)
