@@ -10,19 +10,25 @@ let package = Package(
     products: [
         .library(
             name: "Lasso",
-            targets: ["Lasso"]),
+            targets: ["Lasso"]
+        ),
         .library(
             name: "LassoTestUtilities",
-            targets: ["LassoTestUtilities"])
+            targets: ["LassoTestUtilities"]
+        )
     ],
     dependencies: [
     ],
     targets: [
         .target(
             name: "Lasso",
-            dependencies: []),
+            dependencies: []
+        ),
         .target(
             name: "LassoTestUtilities",
-            dependencies: [])
+            dependencies: [
+                .target(name: "Lasso")
+            ]
+        )
     ]
 )
