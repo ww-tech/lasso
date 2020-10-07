@@ -40,7 +40,7 @@ public extension XCTestCase {
     func assertPushed<Previous: UIViewController, Pushed: UIViewController>(
         after previous: Previous,
         when event: () -> Void,
-        timeout: TimeInterval = 1,
+        timeout: TimeInterval? = nil,
         onViewDidLoad: (Previous, Pushed) -> Void = { _, _ in },
         onViewWillAppear: @escaping (Previous, Pushed) -> Void = { _, _ in },
         onViewDidAppear: @escaping (Previous, Pushed) -> Void = { _, _ in },
@@ -76,7 +76,7 @@ public extension XCTestCase {
                         throw NavigationPresentationError.unexpectedTopStackFollowingEvent(expected: [previous, newTop], navigationController: nav)
                     }
                     return newTop
-            },
+                },
                 when: event,
                 timeout: timeout,
                 onViewDidLoad: onViewDidLoad,
@@ -125,7 +125,7 @@ public extension XCTestCase {
     func assertRoot<Root: UIViewController>(
         of nav: UINavigationController,
         when event: () -> Void,
-        timeout: TimeInterval = 1,
+        timeout: TimeInterval? = nil,
         onViewDidLoad: (Root) -> Void = { _ in },
         onViewWillAppear: @escaping (Root) -> Void = { _ in },
         onViewDidAppear: @escaping (Root) -> Void = { _ in },
@@ -199,7 +199,7 @@ public extension XCTestCase {
         from fromController: From,
         to toController: To,
         when event: () -> Void,
-        timeout: TimeInterval = 1,
+        timeout: TimeInterval? = nil,
         onViewWillAppear: @escaping (From, To) -> Void = { _, _ in },
         onViewDidAppear: @escaping (From, To) -> Void = { _, _ in },
         file: StaticString = #file,
