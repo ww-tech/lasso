@@ -20,6 +20,11 @@ import XCTest
 
 class ModalTestingTestsAnyModalPresentationStyle: XCTestCase {
     
+    override class func setUp() {
+        super.setUp()
+        UIView.setAnimationsEnabled(true)
+    }
+    
     private func testSupportedStyles(_ test: (UIModalPresentationStyle) throws -> Void) throws {
         let styles: [UIModalPresentationStyle] = [.pageSheet, .fullScreen]
         try styles.forEach(test)
