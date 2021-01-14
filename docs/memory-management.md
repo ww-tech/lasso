@@ -79,4 +79,4 @@ class FancyFlow: Flow {
 
 ### Look for reference cycles!
 
-Every so often it's a good idea to open up the Debug Memory Graph in Xcode, and see if there are any unexpected objects still in memoery.
+Every so often it's a good idea to open up the Debug Memory Graph in Xcode, and see if there are any unexpected objects still in memory.
