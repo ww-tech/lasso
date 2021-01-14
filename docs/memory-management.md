@@ -68,8 +68,8 @@ class FancyFlow: Flow {
     someController = SomeScreenModule
     	.createScreen()
     	.observeOutput { [weak self] output in
-        ...
-      }
+    	  ...
+    	}
     	.controller
   }
 }
