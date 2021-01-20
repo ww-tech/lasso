@@ -20,6 +20,11 @@ import XCTest
 
 class ModalTestingTestsFullScreen: XCTestCase {
     
+    override class func setUp() {
+        super.setUp()
+        UIView.setAnimationsEnabled(true)
+    }
+    
     // MARK: - Success
 
     func test_Animated_Presentation() throws {
