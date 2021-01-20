@@ -23,6 +23,11 @@ import UIKit
 
 class NavigationTestingTests: XCTestCase {
     
+    override class func setUp() {
+        super.setUp()
+        UIView.setAnimationsEnabled(true)
+    }
+    
     // MARK: - Success
     
     // assertPushed

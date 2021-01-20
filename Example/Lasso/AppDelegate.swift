@@ -29,7 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = window
         
         if Testing.active {
+            // If the app is the host for unit tests, then skip the normal view controller setup:
             window.rootViewController = UIViewController()
+            
+            // Also turn off standard view animations to help speed up Flow unit tests:
+            UIView.setAnimationsEnabled(false)
         }
         else {
             SampleCatalogFlow().start(with: root(of: window).withNavigationEmbedding())
