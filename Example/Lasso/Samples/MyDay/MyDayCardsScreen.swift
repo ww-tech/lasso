@@ -52,7 +52,7 @@ enum MyDayCardsScreenModule: ScreenModule {
 
 class MyDayCardsStore: LassoStore<MyDayCardsScreenModule> {
     
-    var getCards = { (date: Date, completion: @escaping (Result<[String], Error>) -> Void) in
+    var getCards = { (_: Date, completion: @escaping (Result<[String], Error>) -> Void) in
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
             let allCards = ["Yay apples", "Yay grapes", "Whoa exercise", "Get fit!!", "Healthy desserts", "Yay tomatoes"]
             var cards = [String]()
