@@ -663,7 +663,7 @@
 			attributes = {
 				DefaultBuildSystemTypeForWorkspace = Original;
 				LastSwiftUpdateCheck = 1020;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1240;
 				ORGANIZATIONNAME = "WW International";
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {

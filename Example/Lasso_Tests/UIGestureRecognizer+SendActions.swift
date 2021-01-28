@@ -1,5 +1,5 @@
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 //  UIGestureRecognizer+SendActions.swift
 //
@@ -12,7 +12,7 @@
 //
 //  Copyright © 2019-2020 WW International, Inc.
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 
 import UIKit
@@ -25,7 +25,7 @@ extension  UIGestureRecognizer {
         let targetsInfo = getTargetInfo()
         for info in targetsInfo {
             _ = info.target.perform(info.action)
-            //info.target.performSelector(onMainThread: info.action, with: self, waitUntilDone: true)
+//            info.target.performSelector(onMainThread: info.action, with: self, waitUntilDone: true)
         }
     }
     
