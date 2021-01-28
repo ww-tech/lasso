@@ -55,7 +55,7 @@ enum SampleCatalog: ScreenModule {
         var items: [SampleCatalog.CatalogItem] {
             switch self {
             case .presentation: return [.presentationSimpleCounter, .presentationOnboarding]
-            case .simple: return [.counter, .search, .randomItems, .bindings, .login]
+            case .simple: return [.counter, .search, .randomItems, .bindings, .swiftuiBindings, .login]
             case .fancy: return [.tabs, .splitView, .foodOnboarding, .onboarding, .signup, .strangeFlow, .onTheFly, .windowTransition, .survey, .searchAndTrack, .myDay, .pageController]
             }
         }
@@ -65,6 +65,7 @@ enum SampleCatalog: ScreenModule {
     
     enum CatalogItem: String, CustomStringConvertible {
         case bindings = "UIKit Bindings"
+        case swiftuiBindings = "SwiftUI Bindings"
         case counter
         case foodOnboarding = "Food onboarding"
         case login
