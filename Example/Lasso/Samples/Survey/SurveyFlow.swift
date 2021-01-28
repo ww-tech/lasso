@@ -1,5 +1,5 @@
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 //  SurveyFlow.swift
 //
@@ -12,7 +12,7 @@
 //
 //  Copyright © 2019-2020 WW International, Inc.
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 
 import UIKit
@@ -34,7 +34,7 @@ enum SurveyFlowModule: NavigationFlowModule {
 
 class SurveyFlow: Flow<SurveyFlowModule> {
     
-    var getPrize = { (responses: SurveyStoreModule.Responses, completion: @escaping (SurveyFlowModule.Prize?) -> Void) in
+    var getPrize = { (_: SurveyStoreModule.Responses, completion: @escaping (SurveyFlowModule.Prize?) -> Void) in
         DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
             var prize: SurveyFlowModule.Prize?
             if Bool.random() {
