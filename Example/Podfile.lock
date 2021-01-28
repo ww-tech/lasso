@@ -2,7 +2,7 @@ PODS:
   - Lasso (1.2.0)
   - LassoTestUtilities (1.2.0):
     - Lasso
-  - SwiftLint (0.40.3)
+  - SwiftLint (0.42.0)
   - WWLayout (0.7.1)
 
 DEPENDENCIES:
@@ -25,9 +25,9 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Lasso: a9dfd09db3d5e9fd2c91f9bad270f6693c2605a5
   LassoTestUtilities: 6823a25d939bf7073143b5766415cfd3d2f2b75c
-  SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
+  SwiftLint: 4fa9579c63416865179bc416f0a92d55f009600d
   WWLayout: cf5e0def7f6c05e929f3660d3c9cdc0e7e733d0b
 
 PODFILE CHECKSUM: 41ab14c5f90b23266516b00a66a4869c4c1a18b9
 
-COCOAPODS: 1.10.0.rc.1
+COCOAPODS: 1.10.1
