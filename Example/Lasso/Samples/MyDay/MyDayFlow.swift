@@ -15,6 +15,7 @@
 // ==----------------------------------------------------------------------== //
 //
 
+import UIKit
 import Lasso
 
 class MyDayFlow: Flow<NoOutputNavigationFlow> {
