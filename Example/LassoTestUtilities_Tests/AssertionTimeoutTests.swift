@@ -42,7 +42,7 @@ class AssertionTimeoutDefaultTests: XCTestCase {
                                 Thread.sleep(forTimeInterval: 5.5)
                             }
                             DispatchQueue.main.async {
-                                Thread.sleep(forTimeInterval: 0.1)
+                                Thread.sleep(forTimeInterval: 1.1)
                             }
                             nav.viewControllers = [vc]
                         },
