@@ -99,7 +99,7 @@ class MyDayCardsController: UIViewController, LassoView {
     
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionLayout)
     private let collectionLayout = UICollectionViewFlowLayout()
-    private let activityIndicator = UIActivityIndicatorView(style: .gray)
+    private let activityIndicator = UIActivityIndicatorView(style: .mediumGray)
     private let errorLabel = UILabel()
     private let titleLabel = UILabel()
     

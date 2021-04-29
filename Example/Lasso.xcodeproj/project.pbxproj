@@ -63,6 +63,7 @@
 		B094CBCD23494C60004C5CBE /* CounterStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBCC23494C60004C5CBE /* CounterStoreTests.swift */; };
 		B094CBD0234951C8004C5CBE /* SignupIntroStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBCF234951C8004C5CBE /* SignupIntroStoreTests.swift */; };
 		B094CBD2234952A1004C5CBE /* SignupFormStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBD1234952A1004C5CBE /* SignupFormStoreTests.swift */; };
+		B0B23544260CFDC000F1EB2F /* Compatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B23543260CFDC000F1EB2F /* Compatibility.swift */; };
 		B0C37243229C0FAF00FB214D /* RandomItemFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C37242229C0FAF00FB214D /* RandomItemFlow.swift */; };
 		E207AAE322F99F8B00D58979 /* SearchAndTrackFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E207AAE222F99F8A00D58979 /* SearchAndTrackFlow.swift */; };
 		E207AAF822F9A58800D58979 /* SearchAndTrackFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E207AAF422F9A58800D58979 /* SearchAndTrackFlowTests.swift */; };
@@ -185,6 +186,7 @@
 		B094CBCC23494C60004C5CBE /* CounterStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterStoreTests.swift; sourceTree = "<group>"; };
 		B094CBCF234951C8004C5CBE /* SignupIntroStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupIntroStoreTests.swift; sourceTree = "<group>"; };
 		B094CBD1234952A1004C5CBE /* SignupFormStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFormStoreTests.swift; sourceTree = "<group>"; };
+		B0B23543260CFDC000F1EB2F /* Compatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
 		B0C37242229C0FAF00FB214D /* RandomItemFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomItemFlow.swift; sourceTree = "<group>"; };
 		D2BCE54DB43C58C9997169C3 /* Pods-Lasso_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lasso_Example.debug.xcconfig"; path = "Target Support Files/Pods-Lasso_Example/Pods-Lasso_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		D566303CD3701DDD57B6EBF3 /* Lasso.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Lasso.podspec; path = ../Lasso.podspec; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 		7932794923A12D7B00654D8A /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				B0B23543260CFDC000F1EB2F /* Compatibility.swift */,
 				79C9266422899B4F00F94A56 /* RandomStrings.swift */,
 				7932794A23A12D9D00654D8A /* Result.swift */,
 				7932794C23A12DE200654D8A /* ViewHelpers */,
@@ -964,6 +967,7 @@
 				7932795C23A134A500654D8A /* UIColor.swift in Sources */,
 				7978A6BA22A9484E00B8B844 /* ChooseWindowTransition.swift in Sources */,
 				7917711C22BB16CC007BCFBA /* Welcome.swift in Sources */,
+				B0B23544260CFDC000F1EB2F /* Compatibility.swift in Sources */,
 				79C9267C22899B4F00F94A56 /* CounterViewController.swift in Sources */,
 				79C9267622899B4F00F94A56 /* SearchModule.swift in Sources */,
 				E2772B6D22A7FFE7007A3D51 /* SurveyModule.swift in Sources */,

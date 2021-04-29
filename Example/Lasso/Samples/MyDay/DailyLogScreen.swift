@@ -120,7 +120,7 @@ class DailyLogController: UIViewController, LassoView {
     let store: DailyLogViewModule.ViewStore
 
     private let label = UILabel()
-    private let activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+    private let activityIndicator = UIActivityIndicatorView(style: .largeWhite)
     private let titleLabel = UILabel()
 
     init(store: DailyLogViewModule.ViewStore) {

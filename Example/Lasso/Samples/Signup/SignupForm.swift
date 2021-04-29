@@ -264,7 +264,7 @@ class SignupFormViewController: UIViewController {
         }
         
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = .gray
+        activityIndicator.style = .mediumGray
         view.addSubview(activityIndicator)
         activityIndicator.layout
             .below(button, offset: 30)

@@ -26,7 +26,7 @@ final class LoginViewController: UIViewController {
     private let usernameField = UITextField(placeholder: "Username")
     private let passwordField = UITextField(placeholder: "Password")
     private let loginButton = UIButton(standardButtonWithTitle: "Login")
-    private let activityIndicator = UIActivityIndicatorView(style: .gray)
+    private let activityIndicator = UIActivityIndicatorView(style: .mediumGray)
     private let errorLabel = UILabel()
     
     init(store: LoginScreenModule.ViewStore) {
