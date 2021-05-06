@@ -1,5 +1,5 @@
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 //  ModalTestingTests+FullScreen.swift
 //
@@ -12,13 +12,18 @@
 //
 //  Copyright © 2019-2020 WW International, Inc.
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 
 import XCTest
 @testable import LassoTestUtilities
 
 class ModalTestingTestsFullScreen: XCTestCase {
+    
+    override class func setUp() {
+        super.setUp()
+        UIView.setAnimationsEnabled(true)
+    }
     
     // MARK: - Success
 

@@ -1,5 +1,5 @@
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 //  NavigationTestingTests.swift
 //
@@ -12,7 +12,7 @@
 //
 //  Copyright © 2019-2020 WW International, Inc.
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 
 import XCTest
@@ -22,6 +22,11 @@ import UIKit
 // swiftlint:disable file_length
 
 class NavigationTestingTests: XCTestCase {
+    
+    override class func setUp() {
+        super.setUp()
+        UIView.setAnimationsEnabled(true)
+    }
     
     // MARK: - Success
     
