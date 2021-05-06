@@ -1,5 +1,5 @@
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 //  ControllerLifecycle.swift
 //
@@ -12,7 +12,7 @@
 //
 //  Copyright © 2019-2020 WW International, Inc.
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 
 import XCTest
@@ -42,7 +42,7 @@ extension XCTestCase {
         if let override = self as? AssertionTimeoutOverride {
             return override.defaultLassoAssertionTimeout
         }
-        return 1
+        return 5
     }
 
     /// Generalized utility for controller lifecycle hooks with respect to view controller hierarchy events.

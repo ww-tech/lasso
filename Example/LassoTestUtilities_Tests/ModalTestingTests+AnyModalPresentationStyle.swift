@@ -1,5 +1,5 @@
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 //  ModalTestingTests+AnyModalPresentationStyle.swift
 //
@@ -12,13 +12,18 @@
 //
 //  Copyright © 2019-2020 WW International, Inc.
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 
 import XCTest
 @testable import LassoTestUtilities
 
 class ModalTestingTestsAnyModalPresentationStyle: XCTestCase {
+    
+    override class func setUp() {
+        super.setUp()
+        UIView.setAnimationsEnabled(true)
+    }
     
     private func testSupportedStyles(_ test: (UIModalPresentationStyle) throws -> Void) throws {
         let styles: [UIModalPresentationStyle] = [.pageSheet, .fullScreen]

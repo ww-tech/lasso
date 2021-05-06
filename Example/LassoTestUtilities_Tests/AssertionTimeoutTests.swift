@@ -1,5 +1,5 @@
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 //  AssertionTimeoutTests.swift
 //
@@ -12,7 +12,7 @@
 //
 //  Copyright © 2019-2020 WW International, Inc.
 //
-//===----------------------------------------------------------------------===//
+// ==----------------------------------------------------------------------== //
 //
 
 import XCTest
@@ -21,7 +21,7 @@ import XCTest
 class AssertionTimeoutDefaultTests: XCTestCase {
     
     func test_default() throws {
-        XCTAssertEqual(lassoAssertionTimeout, 1)
+        XCTAssertEqual(lassoAssertionTimeout, 5)
         
         // given
         let window = UIWindow()
@@ -39,10 +39,10 @@ class AssertionTimeoutDefaultTests: XCTestCase {
                         of: nav,
                         when: {
                             DispatchQueue.main.async {
-                                Thread.sleep(forTimeInterval: 1.5)
+                                Thread.sleep(forTimeInterval: 5.5)
                             }
                             DispatchQueue.main.async {
-                                Thread.sleep(forTimeInterval: 0.1)
+                                Thread.sleep(forTimeInterval: 1.1)
                             }
                             nav.viewControllers = [vc]
                         },
