@@ -15,7 +15,7 @@
 // ==----------------------------------------------------------------------== //
 //
 
-import Foundation
+import UIKit
 import Lasso
 
 enum SurveyStoreModule: StoreModule {

@@ -59,6 +59,7 @@
 		ADF94DC1962D2F14DC10C806 /* Pods_Lasso_TestUtilities_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E2C50A38EB52974125F2836 /* Pods_Lasso_TestUtilities_Tests.framework */; };
 		B00ACDF4251E254A0062D32D /* AssertionTimeoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00ACDF3251E254A0062D32D /* AssertionTimeoutTests.swift */; };
 		B01C1F832323EA250084A149 /* StateObservationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C1F822323EA250084A149 /* StateObservationTests.swift */; };
+		B086E78A25C31AC20080157E /* SwiftUIBinding.swift in Sources */ = {isa = PBXBuildFile; fileRef = B086E78925C31AC20080157E /* SwiftUIBinding.swift */; };
 		B0922A5C22AAE2A100EBE5DE /* UIKitBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0922A5B22AAE2A100EBE5DE /* UIKitBindings.swift */; };
 		B094CBCD23494C60004C5CBE /* CounterStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBCC23494C60004C5CBE /* CounterStoreTests.swift */; };
 		B094CBD0234951C8004C5CBE /* SignupIntroStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBCF234951C8004C5CBE /* SignupIntroStoreTests.swift */; };
@@ -181,6 +182,7 @@
 		A9CE3E88582F327FDE8253B6 /* Pods-Lasso_Tests_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lasso_Tests_Tests.release.xcconfig"; path = "Target Support Files/Pods-Lasso_Tests_Tests/Pods-Lasso_Tests_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		B00ACDF3251E254A0062D32D /* AssertionTimeoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertionTimeoutTests.swift; sourceTree = "<group>"; };
 		B01C1F822323EA250084A149 /* StateObservationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateObservationTests.swift; sourceTree = "<group>"; };
+		B086E78925C31AC20080157E /* SwiftUIBinding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIBinding.swift; sourceTree = "<group>"; };
 		B0922A5B22AAE2A100EBE5DE /* UIKitBindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitBindings.swift; sourceTree = "<group>"; };
 		B094CBCC23494C60004C5CBE /* CounterStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterStoreTests.swift; sourceTree = "<group>"; };
 		B094CBCF234951C8004C5CBE /* SignupIntroStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupIntroStoreTests.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				7967865C2292DB1E00CBE588 /* StrangeFlow.swift */,
 				79C9266E22899B4F00F94A56 /* TextScreen.swift */,
 				B0922A5B22AAE2A100EBE5DE /* UIKitBindings.swift */,
+				B086E78925C31AC20080157E /* SwiftUIBinding.swift */,
 				7932794223A128FA00654D8A /* Login */,
 				79C9266F22899B4F00F94A56 /* Counter */,
 				79C9267222899B4F00F94A56 /* Onboarding */,
@@ -941,6 +944,7 @@
 				7932795A23A12FE700654D8A /* UIActivityIndicatorView.swift in Sources */,
 				79C9267B22899B4F00F94A56 /* TextScreen.swift in Sources */,
 				798C6CA6229491B500B52EFA /* RandomItems.swift in Sources */,
+				B086E78A25C31AC20080157E /* SwiftUIBinding.swift in Sources */,
 				7932795623A12E9A00654D8A /* UILabel.swift in Sources */,
 				7932795223A12E4100654D8A /* UIView.swift in Sources */,
 				79C9267422899B4F00F94A56 /* RandomStrings.swift in Sources */,

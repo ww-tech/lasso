@@ -56,6 +56,11 @@ class SampleCatalogFlow: Flow<NoOutputNavigationFlow> {
         case .bindings:
             UIKitBindingsScreenModule.createScreen().place(with: nextPushedInFlow)
             
+        case .swiftuiBindings:
+            if #available(iOS 13.0, *) {
+                SwiftUIBinding.createScreen().place(with: nextPushedInFlow)
+            }
+            
         case .foodOnboarding:
             showFoodOnboardingFlow()
             

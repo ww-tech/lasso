@@ -15,6 +15,7 @@
 // ==----------------------------------------------------------------------== //
 //
 
+import UIKit
 import Lasso
 
 enum PageControllerFlowModule: FlowModule {
