@@ -59,7 +59,7 @@ enum MyModule: ScreenModule {
       var description: String {
         switch self {
           case .badInput: return "invalid input"
-          case .unknown: return "unknow error"
+          case .unknown: return "unknown error"
         }
       }
     }
@@ -101,7 +101,7 @@ extension MyModule.State.Error {
   var description: String {
     switch self {
       case .badInput: return "invalid input"
-      case .unknown: return "unknow error"
+      case .unknown: return "unknown error"
     }
   }
   

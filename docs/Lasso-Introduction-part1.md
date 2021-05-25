@@ -37,6 +37,7 @@ A `View` isn't a formal type in Lasso, but we do talk about them a lot.  When we
 Drawing this up in a diagram allows us to see how these types work together:
 
 <p align="center"><img src="images/screen.svg" style="width: 100%; max-width: 460px;" /></p>
+
 You should notice what looks like a **unidirectional data flow**.  The `View` translates user interactions into `Action` messages, which are sent to the `Store`.  The `Store` processes the `Action` messages and updates the `State`.  Changes to the `State` are sent back to the `View` as they happen.
 
 ### Building a login screen
