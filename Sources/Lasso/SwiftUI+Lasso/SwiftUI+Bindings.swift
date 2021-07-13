@@ -53,6 +53,25 @@ extension Button {
         )
     }
     
+    public init<Target: ActionDispatchable>(_ target: Target, animatedAction: Target.Action, label: () -> Label) {
+        self.init(action: {
+            withAnimation {
+                target.dispatchAction(animatedAction)
+            }
+        }, label: label)
+    }
+    
+    public init<Target: ActionDispatchable>(_ label: String, target: Target, animatedAction: Target.Action) where Label == Text {
+        self.init(
+            action: {
+                withAnimation {
+                    target.dispatchAction(animatedAction)
+                }
+            },
+            label: { Text(label) }
+        )
+    }
+    
 }
 
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
