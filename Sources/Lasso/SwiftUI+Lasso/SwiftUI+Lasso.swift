@@ -30,4 +30,23 @@ extension AnyScreen {
     }
 }
 
+
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension View {
+    
+    public func onAppear<Target: ActionDispatchable>(_ target: Target, action: Target.Action) -> some View {
+        return onAppear { target.dispatchAction(action) }
+    }
+    
+}
+
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension View {
+    
+    public func onDisappear<Target: ActionDispatchable>(_ target: Target, action: Target.Action) -> some View {
+        return onDisappear { target.dispatchAction(action) }
+    }
+    
+}
+
 #endif
