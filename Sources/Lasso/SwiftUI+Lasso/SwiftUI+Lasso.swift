@@ -49,4 +49,17 @@ extension View {
     
 }
 
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension View {
+    
+    public func onTapGesture<Target: ActionDispatchable>(_ target: Target, action: Target.Action) -> some View {
+        return onTapGesture { target.dispatchAction(action) }
+    }
+    
+    public func onTapGesture<Target: ActionDispatchable>(count: Int, _ target: Target, action: Target.Action) -> some View {
+        return onTapGesture(count: count) { target.dispatchAction(action) }
+    }
+
+}
+
 #endif
