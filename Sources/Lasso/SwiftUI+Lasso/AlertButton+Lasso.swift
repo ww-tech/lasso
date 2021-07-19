@@ -29,6 +29,10 @@ extension Alert.Button {
     public static func destructive<Target: ActionDispatchable>(label: Text, for target: Target, action: Target.Action) -> Self {
         self.destructive(label) { target.dispatchAction(action) }
     }
+
+    public static func cancel<Target: ActionDispatchable>(label: Text, for target: Target, action: Target.Action) -> Self {
+        self.cancel(label) { target.dispatchAction(action) }
+    }
 }
 
 #endif
