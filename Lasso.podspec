@@ -18,6 +18,6 @@ Pod::Spec.new do |s|
   
   s.swift_versions   = '4.2', '5', '5.1', '5.2', '5.3'
 
-  s.ios.deployment_target = '14.0'
+  s.ios.deployment_target = '12.0'
   s.source_files = 'Sources/Lasso/**/*'  
 end
