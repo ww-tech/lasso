@@ -16,6 +16,7 @@
 //
 
 #if canImport(SwiftUI)
+#if canImport(Combine)
 import SwiftUI
 import Combine
 
@@ -35,4 +36,5 @@ extension Alert.Button {
     }
 }
 
+#endif
 #endif

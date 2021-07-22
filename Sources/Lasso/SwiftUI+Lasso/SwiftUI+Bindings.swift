@@ -16,6 +16,7 @@
 //
 
 #if canImport(SwiftUI)
+#if canImport(Combine)
 import SwiftUI
 import Combine
 
@@ -92,4 +93,5 @@ extension TextField where Label == Text {
     }
 }
 
+#endif
 #endif
