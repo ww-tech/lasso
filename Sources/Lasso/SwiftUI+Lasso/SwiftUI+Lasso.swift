@@ -63,5 +63,30 @@ extension View {
 
 }
 
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension View {
+
+    public func onLongPressGesture<Target: ActionDispatchable>(_ target: Target, action: Target.Action) -> some View {
+        return onLongPressGesture { target.dispatchAction(action) }
+    }
+
+    public func onLongPressGesture<Target: ActionDispatchable>(
+        minimumDuration: Double,
+        maximumDistance: CGFloat,
+        pressing: ((Bool) -> Void)?,
+        target: Target,
+        action: Target.Action
+    ) -> some View {
+        return onLongPressGesture(
+            minimumDuration: minimumDuration,
+            maximumDistance: maximumDistance,
+            pressing: pressing
+        ) {
+            target.dispatchAction(action)
+        }
+    }
+
+}
+
 #endif
 #endif
