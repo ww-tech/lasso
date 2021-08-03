@@ -16,9 +16,8 @@
 //
 
 #if canImport(SwiftUI)
-#if canImport(Combine)
+
 import SwiftUI
-import Combine
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension AnyScreen {
@@ -30,7 +29,6 @@ extension AnyScreen {
         self.controller.holdReference(to: self.store)
     }
 }
-
 
 @available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
 extension View {
@@ -88,5 +86,4 @@ extension View {
 
 }
 
-#endif
 #endif

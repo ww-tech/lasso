@@ -16,9 +16,8 @@
 //
 
 #if canImport(SwiftUI)
-#if canImport(Combine)
+
 import SwiftUI
-import Combine
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension AnyViewStore {
@@ -42,9 +41,10 @@ extension AnyViewStore {
 extension Button {
     
     public init<Target: ActionDispatchable>(_ target: Target, action: Target.Action, label: () -> Label) {
-        self.init(action: {
-            target.dispatchAction(action)
-        }, label: label)
+        self.init(
+            action: { target.dispatchAction(action) },
+            label: label
+        )
     }
     
     public init<Target: ActionDispatchable>(_ label: String, target: Target, action: Target.Action) where Label == Text {
@@ -55,11 +55,14 @@ extension Button {
     }
     
     public init<Target: ActionDispatchable>(_ target: Target, animatedAction: Target.Action, label: () -> Label) {
-        self.init(action: {
-            withAnimation {
-                target.dispatchAction(animatedAction)
-            }
-        }, label: label)
+        self.init(
+            action: {
+                withAnimation {
+                    target.dispatchAction(animatedAction)
+                }
+            },
+            label: label
+        )
     }
     
     public init<Target: ActionDispatchable>(_ label: String, target: Target, animatedAction: Target.Action) where Label == Text {
@@ -93,5 +96,4 @@ extension TextField where Label == Text {
     }
 }
 
-#endif
 #endif
