@@ -16,8 +16,8 @@
 //
 
 #if canImport(SwiftUI)
+
 import SwiftUI
-import Combine
 
 @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
 extension AnyScreen {
@@ -28,6 +28,62 @@ extension AnyScreen {
         self.controller = UIHostingController(rootView: view)
         self.controller.holdReference(to: self.store)
     }
+}
+
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension View {
+    
+    public func onAppear<Target: ActionDispatchable>(_ target: Target, action: Target.Action) -> some View {
+        return onAppear { target.dispatchAction(action) }
+    }
+    
+}
+
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension View {
+    
+    public func onDisappear<Target: ActionDispatchable>(_ target: Target, action: Target.Action) -> some View {
+        return onDisappear { target.dispatchAction(action) }
+    }
+    
+}
+
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension View {
+    
+    public func onTapGesture<Target: ActionDispatchable>(_ target: Target, action: Target.Action) -> some View {
+        return onTapGesture { target.dispatchAction(action) }
+    }
+    
+    public func onTapGesture<Target: ActionDispatchable>(count: Int, _ target: Target, action: Target.Action) -> some View {
+        return onTapGesture(count: count) { target.dispatchAction(action) }
+    }
+
+}
+
+@available(iOS 13.0, OSX 10.15, tvOS 13.0, watchOS 6.0, *)
+extension View {
+
+    public func onLongPressGesture<Target: ActionDispatchable>(_ target: Target, action: Target.Action) -> some View {
+        return onLongPressGesture { target.dispatchAction(action) }
+    }
+
+    public func onLongPressGesture<Target: ActionDispatchable>(
+        minimumDuration: Double,
+        maximumDistance: CGFloat,
+        pressing: ((Bool) -> Void)?,
+        target: Target,
+        action: Target.Action
+    ) -> some View {
+        return onLongPressGesture(
+            minimumDuration: minimumDuration,
+            maximumDistance: maximumDistance,
+            pressing: pressing
+        ) {
+            target.dispatchAction(action)
+        }
+    }
+
 }
 
 #endif
