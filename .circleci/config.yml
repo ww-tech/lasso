@@ -33,6 +33,9 @@ commands:
       - run:
           name: Install dependencies in Gemfile
           command: bundle install
+      - run:
+          name: Apply ffi workaround
+          command: gem install ffi -- --disable-system-libffi
       - save_cache:
           key: gem-cache-v<< parameters.version >>-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
           paths:
