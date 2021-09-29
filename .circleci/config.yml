@@ -90,7 +90,7 @@ jobs:
   build-gem-cache-26:
     <<: *defaults
     macos:
-      xcode: 10.3.0
+      xcode: 11.3.0
     steps:
       - checkout
       - setup_ruby:
@@ -104,30 +104,6 @@ jobs:
       - checkout
       - setup_ruby:
           version: '2.7'
-
-  build-and-test-swift42:
-    <<: *defaults
-    macos:
-      xcode: 10.3.0
-    steps:
-      - checkout
-      - install_dependencies:
-          ruby: '2.6'
-      - pod_update:
-          swift: '4.2'
-      - build
-
-  build-and-test-swift5:
-    <<: *defaults
-    macos:
-      xcode: 10.3.0
-    steps:
-      - checkout
-      - install_dependencies:
-          ruby: '2.6'
-      - pod_update:
-          swift: '5.0'
-      - build
 
   build-and-test-swift51:
     <<: *defaults
@@ -184,12 +160,6 @@ workflows:
     jobs:
       - build-gem-cache-26
       - build-gem-cache-27
-      - build-and-test-swift42:
-          requires:
-            - build-gem-cache-26
-      - build-and-test-swift5:
-          requires:
-            - build-gem-cache-26
       - build-and-test-swift51:
           requires:
             - build-gem-cache-26
