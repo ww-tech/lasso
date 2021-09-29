@@ -22,7 +22,7 @@ commands:
           command: |
             brew reinstall libffi
             export LDFLAGS="-L/usr/local/opt/libffi/lib"
-            export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+            export CPPFLAGS="-I/usr/local/opt/libffi/include"
       - run:
           name: Set Ruby version
           command: echo 'chruby ruby-<< parameters.version >>' >> ~/.bash_profile
@@ -37,6 +37,7 @@ commands:
           name: Configure bundler
           command: |
             bundle config set path ~/vendor/bundle
+            bundle config --global build.ffi --disable-system-libffi
       - run:
           name: Install dependencies in Gemfile
           command: bundle install
