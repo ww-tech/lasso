@@ -37,8 +37,8 @@ class CounterViewController: UIViewController, LassoView {
         
         let titleLabel = UILabel(headline: store.state.title)
         
-        let decrementButton = UIButton(type: .system).set(title: "-", with: .systemFont(ofSize:32))
-        let incrementButton = UIButton(type: .system).set(title: "+", with: .systemFont(ofSize:32))
+        let decrementButton = UIButton(type: .system).set(title: "-", with: .systemFont(ofSize: 32))
+        let incrementButton = UIButton(type: .system).set(title: "+", with: .systemFont(ofSize: 32))
         
         let display = UILabel()
         display.font = .systemFont(ofSize: 64, weight: .bold)

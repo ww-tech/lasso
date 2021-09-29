@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => 'https://github.com/ww-tech/lasso.git', :tag => s.version.to_s }
   s.pod_target_xcconfig = { 'ENABLE_BITCODE' => 'NO' }
 
-  s.swift_versions   = '4.2', '5', '5.1', '5.2', '5.3'
+  s.swift_versions   = '4.2', '5', '5.1', '5.2', '5.3', '5.4', '5.5'
 
   s.ios.deployment_target = '10.0'
   s.framework = 'XCTest'
