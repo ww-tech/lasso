@@ -35,6 +35,7 @@ end
 
 post_install do |installer|
   installer.pods_project.root_object.attributes["ORGANIZATIONNAME"] = "WW International"
+  installer.pods_project.root_object.attributes["LastUpgradeCheck"] = '1300'
   
   # Minimum Simulator deployment target is 9.0
   installer.pods_project.targets.each do |target|
