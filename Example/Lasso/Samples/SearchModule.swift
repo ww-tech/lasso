@@ -145,7 +145,7 @@ class SearchViewController<Item: SearchListRepresentable & Equatable>: UIViewCon
     
     private let searchBar = UISearchBar()
     private let itemsTable = UITableView()
-    private let activityIndicator = UIActivityIndicatorView(style: .gray)
+    private let activityIndicator = UIActivityIndicatorView(style: .mediumGray)
     private weak var alertController: UIAlertController?
     
     init(store: SearchViewModule<Item>.ViewStore) {
