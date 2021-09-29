@@ -18,6 +18,12 @@ commands:
         default: '2.6'
     steps:
       - run:
+          name: Install ffi
+          command: |
+            brew reinstall libffi
+            export LDFLAGS="-L/usr/local/opt/libffi/lib"
+            export PKG_CONFIG_PATH="/usr/local/opt/libffi/lib/pkgconfig"
+      - run:
           name: Set Ruby version
           command: echo 'chruby ruby-<< parameters.version >>' >> ~/.bash_profile
       - restore_cache:
@@ -31,7 +37,6 @@ commands:
           name: Configure bundler
           command: |
             bundle config set path ~/vendor/bundle
-            bundle config --global build.ffi --disable-system-libffi
       - run:
           name: Install dependencies in Gemfile
           command: bundle install
