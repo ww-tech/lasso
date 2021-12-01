@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Kind</key>
+	<string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
+	<key>Description</key>
+	<string>Xcode templates to automatically generate Lasso flow</string>
+	<key>Summary</key>
+	<string>Xcode templates to automatically generate Lasso flow</string>
+	<key>SortOrder</key>
+	<string>1</string>
+	<key>DefaultCompletionName</key>
+	<string>My</string>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>The name of the flow to create</string>
+			<key>Identifier</key>
+			<string>name</string>
+			<key>Name</key>
+			<string>Name:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_name:identifier___</string>
+			<key>Identifier</key>
+			<string>productName</string>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_name:identifier___Flow</string>
+			<key>Description</key>
+			<string>The flow name</string>
+			<key>Identifier</key>
+			<string>flowName</string>
+			<key>Name</key>
+			<string>Flow:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>flowModule</string>
+			<key>Name</key>
+			<string>Flow Module:</string>
+			<key>Description</key>
+			<string>The type of flow module to create</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>popup</string>
+			<key>Default</key>
+			<string>DefaultFlow</string>
+			<key>Values</key>
+			<array>
+				<string>DefaultFlow</string>
+				<string>NavigationFlow</string>
+				<string>NoOutputFlow</string>
+				<string>NoOutputNavigationFlow</string>
+			</array>
+		</dict>
+	</array>
+	<key>Platforms</key>
+	<array>
+		<string>com.apple.platform.iphoneos</string>
+	</array>
+</dict>
+</plist>

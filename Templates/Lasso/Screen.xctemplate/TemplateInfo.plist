@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Kind</key>
+	<string>Xcode.IDEKit.TextSubstitutionFileTemplateKind</string>
+	<key>Description</key>
+	<string>Xcode templates to automatically generate Lasso screen components</string>
+	<key>Summary</key>
+	<string>Xcode templates to automatically generate Lasso screen components</string>
+	<key>SortOrder</key>
+	<string>2</string>
+	<key>DefaultCompletionName</key>
+	<string>My</string>
+	<key>Options</key>
+	<array>
+		<dict>
+			<key>Description</key>
+			<string>The name of the screen to create</string>
+			<key>Identifier</key>
+			<string>name</string>
+			<key>Name</key>
+			<string>Name:</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>text</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_name:identifier___</string>
+			<key>Identifier</key>
+			<string>productName</string>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>moduleType</string>
+			<key>Name</key>
+			<string>Module Type:</string>
+			<key>Description</key>
+			<string>The type of store module to create</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>popup</string>
+			<key>Default</key>
+			<string>ScreenModule</string>
+			<key>Values</key>
+			<array>
+				<string>ScreenModule</string>
+				<string>StoreModule</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_name:identifier___Store</string>
+			<key>Description</key>
+			<string>The store name</string>
+			<key>Identifier</key>
+			<string>storeName</string>
+			<key>Name</key>
+			<string>Store:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_name:identifier___Screen</string>
+			<key>Description</key>
+			<string>The screen name</string>
+			<key>Identifier</key>
+			<string>screenName</string>
+			<key>Name</key>
+			<string>Screen:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Default</key>
+			<string>___VARIABLE_name:identifier___ViewController</string>
+			<key>Description</key>
+			<string>The view controller name</string>
+			<key>Identifier</key>
+			<string>viewControllerName</string>
+			<key>Name</key>
+			<string>View Controller:</string>
+			<key>Required</key>
+			<true/>
+			<key>Type</key>
+			<string>static</string>
+		</dict>
+		<dict>
+			<key>Identifier</key>
+			<string>viewController</string>
+			<key>Name</key>
+			<string>Also create a view controller</string>
+			<key>Description</key>
+			<string>Create a view controller for the screen</string>
+			<key>NotPersisted</key>
+			<true/>
+			<key>Type</key>
+			<string>checkbox</string>
+			<key>Default</key>
+			<string>true</string>
+			<key>RequiredOptions</key>
+			<dict>
+				<key>moduleType</key>
+				<array>
+					<string>ScreenModule</string>
+					<string>StoreModule</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>Platforms</key>
+	<array>
+		<string>com.apple.platform.iphoneos</string>
+	</array>
+</dict>
+</plist>
