@@ -73,12 +73,12 @@ To run the example project
 
 ## Learn more
 
-- [Lasso: Introducing a new architectural framework for iOS](docs/Lasso-Introduction-part1.md) - article that introduces Lasso, with a concrete example of creating a `Screen`
-- [Lasso: An introduction to Flows](docs/Lasso-FlowsIntro.md) - article that shows how to orchestrate a number of `Screens` with a `Flow`
-- [Lasso coding style guide](docs/style-guide.md) - tips for writing Swifty Lasso
-- [Notes about declaring types](docs/declaring-types-notes.md) - more details and best practices about declaring Lasso types
-- [Memory management](docs/memory-management.md) - information about memory management in Lasso, and tips to avoid strong reference cycles:
-
+- [Lasso: Introducing a new architectural framework for iOS](docs/Lasso-Introduction-part1.md) - article that introduces Lasso, with a concrete example of creating a `Screen`.
+- [Lasso: An introduction to Flows](docs/Lasso-FlowsIntro.md) - article that shows how to orchestrate a number of `Screens` with a `Flow`.
+- [Lasso coding style guide](docs/style-guide.md) - tips for writing Swifty Lasso.
+- [Lasso Template](Templates/lasso-template.md) - Xcode templates to automatically generate Lasso components. 
+- [Notes about declaring types](docs/declaring-types-notes.md) - more details and best practices about declaring Lasso types.
+- [Memory management](docs/memory-management.md) - information about memory management in Lasso, and tips to avoid strong reference cycles.
 
 ## Requirements
 
