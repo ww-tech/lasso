@@ -37,6 +37,14 @@ post_install do |installer|
   installer.pods_project.root_object.attributes["ORGANIZATIONNAME"] = "WW International"
   installer.pods_project.root_object.attributes["LastUpgradeCheck"] = '1300'
   
+  # Install Lasso templates 
+  installer.pod_targets.each do |pod|
+    if pod.name == "Lasso"
+      path = File.expand_path("#{Dir.pwd}/Pods#{pod.pod_target_srcroot}")
+      system("make -C #{path}/Templates install")
+    end
+  end
+  
   # Minimum Simulator deployment target is 9.0
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
