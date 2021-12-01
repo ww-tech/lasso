@@ -9,4 +9,10 @@ enum ___VARIABLE_name___FlowModule: FlowModule {}
 
 // MARK: - Flow
 
-final class ___VARIABLE_name___Flow: Flow<___VARIABLE_name___FlowModule> {}
+final class ___VARIABLE_name___Flow: Flow<___VARIABLE_name___FlowModule> {
+    
+    override func createInitialController() -> UIViewController {
+        <#code#>
+    }
+    
+}
