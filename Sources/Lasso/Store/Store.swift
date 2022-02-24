@@ -68,7 +68,9 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
     
     // actions
     public func dispatchAction(_ action: Action) {
-        handleAction(action)
+        executeOnMainThread { [weak self] in
+            self?.handleAction(action)
+        }
     }
     
     open func handleAction(_ action: Action) {
