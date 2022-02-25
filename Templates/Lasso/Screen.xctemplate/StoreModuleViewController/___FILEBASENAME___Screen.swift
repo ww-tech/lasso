@@ -3,22 +3,21 @@
 import Foundation
 import Lasso
 
-enum ___VARIABLE_name___Screen {
+enum ___VARIABLE_name___Screen: StoreModule {
     
     // MARK: State
     
-    struct State: Equatable {}
+    struct State: Equatable {
+    }
     
     // MARK: Action
     
-    enum Action: Equatable {}
+    enum Action: Equatable {
+    }
 
     // MARK: Output
 
-    enum Output: Equatable {}
+    enum Output: Equatable {
+    }
     
 }
-
-// MARK: - StoreModule
-
-extension ___VARIABLE_name___Screen: StoreModule {}

@@ -5,7 +5,8 @@ import UIKit
 
 // MARK: - FlowModule
 
-enum ___VARIABLE_name___FlowModule: NavigationFlowModule {}
+enum ___VARIABLE_name___FlowModule: NavigationFlowModule {
+}
 
 // MARK: - Flow
 
