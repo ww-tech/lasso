@@ -1,0 +1,60 @@
+name: Build and test
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        swift-version: ['5.1', '5.2', '5.3', '5.5']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies in Gemfile
+        run: bundle install
+
+      - name: Set Swift language version
+        run: echo "${{ matrix.swift-version }}" > Example/.swift-version
+
+      - name: Install dependencies in Podfile
+        working-directory: Example
+        run: bundle exec pod update
+
+      - name: Build and run tests
+        working-directory: Example
+        run: bundle exec fastlane scan
+
+      - name: Post job cleanup
+        run: git clean -ffdxq
+        if: always()
+        continue-on-error: true
+
+  build-and-test-swiftpm:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install dependencies in Gemfile
+        run: bundle install
+
+      - name: Build and run tests
+        run: |
+          xcodebuild build \
+            -project "Example/SwiftPM/Lasso-SwiftPM/Lasso-SwiftPM.xcodeproj" \
+            -scheme "Lasso-SwiftPM" \
+            -destination "platform=iOS Simulator,name=iPhone 11"
+
+      - name: Post job cleanup
+        run: git clean -ffdxq
+        if: always()
+        continue-on-error: true
