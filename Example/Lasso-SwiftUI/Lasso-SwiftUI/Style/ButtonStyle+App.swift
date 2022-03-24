@@ -91,9 +91,5 @@ struct PrimaryButton_Previews: PreviewProvider {
                 .disabled(true)
                 .buttonStyle(PrimaryButtonStyle())
         }
-//        .previewLayout(.fixed(width: 320, height: 480))
-//        .previewDevice("iPhone SE (2nd generation)")
-//        .previewDevice("iPhone 8")
-//        .previewDevice("iPhone 12 Pro Max")
     }
 }
