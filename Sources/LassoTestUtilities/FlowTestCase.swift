@@ -28,21 +28,30 @@ open class FlowTestCase: XCTestCase {
     public private(set) var navigationController: UINavigationController!
     public private(set) var rootController: UIViewController!
     
+    open override func setUpWithError() throws {
+        try super.setUpWithError()
+        setUpFlowTestCase()
+    }
+    
     open override func setUp() {
         super.setUp()
+        setUpFlowTestCase()
+    }
+    
+    private func setUpFlowTestCase() {
+        guard window == nil else { return }
         window = UIWindow()
         window.makeKeyAndVisible()
         rootController = UIViewController()
         navigationController = UINavigationController(rootViewController: rootController)
         window.rootViewController = navigationController
         waitForEvents(in: window)
-    }
-    
-    open override func tearDown() {
-        window = nil
-        navigationController = nil
-        rootController = nil
-        super.tearDown()
+        
+        addTeardownBlock { [weak self] in
+            self?.window = nil
+            self?.navigationController = nil
+            self?.rootController = nil
+        }
     }
     
 }
