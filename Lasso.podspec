@@ -19,5 +19,6 @@ Pod::Spec.new do |s|
   s.swift_versions   = '4.2', '5', '5.1', '5.2', '5.3', '5.4', '5.5'
 
   s.ios.deployment_target = '10.0'
+  s.ios.weak_frameworks = 'SwiftUI'
   s.source_files = 'Sources/Lasso/**/*'  
 end

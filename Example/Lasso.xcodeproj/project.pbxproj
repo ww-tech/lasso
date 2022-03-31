@@ -189,7 +189,7 @@
 		B0B23543260CFDC000F1EB2F /* Compatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
 		B0C37242229C0FAF00FB214D /* RandomItemFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomItemFlow.swift; sourceTree = "<group>"; };
 		D2BCE54DB43C58C9997169C3 /* Pods-Lasso_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lasso_Example.debug.xcconfig"; path = "Target Support Files/Pods-Lasso_Example/Pods-Lasso_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		D566303CD3701DDD57B6EBF3 /* Lasso.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Lasso.podspec; path = ../Lasso.podspec; sourceTree = "<group>"; };
+		D566303CD3701DDD57B6EBF3 /* Lasso.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Lasso.podspec; path = ../Lasso.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		E207AAD822F999D800D58979 /* Lasso_Example_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Lasso_Example_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E207AADC22F999D800D58979 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E207AAE222F99F8A00D58979 /* SearchAndTrackFlow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAndTrackFlow.swift; sourceTree = "<group>"; };
