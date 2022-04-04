@@ -63,6 +63,7 @@
 		B094CBCD23494C60004C5CBE /* CounterStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBCC23494C60004C5CBE /* CounterStoreTests.swift */; };
 		B094CBD0234951C8004C5CBE /* SignupIntroStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBCF234951C8004C5CBE /* SignupIntroStoreTests.swift */; };
 		B094CBD2234952A1004C5CBE /* SignupFormStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBD1234952A1004C5CBE /* SignupFormStoreTests.swift */; };
+		B0B2007027F73F8A00732F47 /* FowTestCaseSetupTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B2006E27F73F5800732F47 /* FowTestCaseSetupTests.swift */; };
 		B0B23544260CFDC000F1EB2F /* Compatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B23543260CFDC000F1EB2F /* Compatibility.swift */; };
 		B0C37243229C0FAF00FB214D /* RandomItemFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C37242229C0FAF00FB214D /* RandomItemFlow.swift */; };
 		E207AAE322F99F8B00D58979 /* SearchAndTrackFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E207AAE222F99F8A00D58979 /* SearchAndTrackFlow.swift */; };
@@ -186,6 +187,7 @@
 		B094CBCC23494C60004C5CBE /* CounterStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterStoreTests.swift; sourceTree = "<group>"; };
 		B094CBCF234951C8004C5CBE /* SignupIntroStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupIntroStoreTests.swift; sourceTree = "<group>"; };
 		B094CBD1234952A1004C5CBE /* SignupFormStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupFormStoreTests.swift; sourceTree = "<group>"; };
+		B0B2006E27F73F5800732F47 /* FowTestCaseSetupTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FowTestCaseSetupTests.swift; sourceTree = "<group>"; };
 		B0B23543260CFDC000F1EB2F /* Compatibility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compatibility.swift; sourceTree = "<group>"; };
 		B0C37242229C0FAF00FB214D /* RandomItemFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomItemFlow.swift; sourceTree = "<group>"; };
 		D2BCE54DB43C58C9997169C3 /* Pods-Lasso_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lasso_Example.debug.xcconfig"; path = "Target Support Files/Pods-Lasso_Example/Pods-Lasso_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				E25C6E4C23195C450091BC72 /* ModalTestingTests+FullScreen.swift */,
 				E25C6E5023195DDA0091BC72 /* ModalTestingTests+SystemBehavior.swift */,
 				E2F4BDC722FC43E6003423CE /* NavigationTestingTests.swift */,
+				B0B2006E27F73F5800732F47 /* FowTestCaseSetupTests.swift */,
 				E2FD5A9F232694600008DE77 /* ValueDiffingTests.swift */,
 				79CE63E223F2F854003FFBF4 /* VerboseLoggingTests.swift */,
 				E207AB0A22F9AE3400D58979 /* Info.plist */,
@@ -1024,6 +1027,7 @@
 				E2FD5AA0232694600008DE77 /* ValueDiffingTests.swift in Sources */,
 				7932796023A1448200654D8A /* MockableExtensionTests.swift in Sources */,
 				E25C6E5123195DDA0091BC72 /* ModalTestingTests+SystemBehavior.swift in Sources */,
+				B0B2007027F73F8A00732F47 /* FowTestCaseSetupTests.swift in Sources */,
 				79CE63E323F2F854003FFBF4 /* VerboseLoggingTests.swift in Sources */,
 				E25C6E4D23195C450091BC72 /* ModalTestingTests+FullScreen.swift in Sources */,
 				E25C6E4F23195CF40091BC72 /* ModalTestingTests+AnyModalPresentationStyle.swift in Sources */,
