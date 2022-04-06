@@ -141,12 +141,17 @@ class RandomItemsViewController: UIViewController, LassoView {
         
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         tableView.tableHeaderView = searchController.searchBar
         
         // Allows search controller to get pushed along with everything else, and maintain its state:
         definesPresentationContext = true
-        automaticallyAdjustsScrollViewInsets = false
+        if #available(iOS 11.0, *) {
+            tableView.contentInsetAdjustmentBehavior = .never
+        }
+        else {
+            automaticallyAdjustsScrollViewInsets = false
+        }
         
         view.addSubview(tableView)
         

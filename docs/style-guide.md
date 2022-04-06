@@ -59,7 +59,7 @@ enum MyModule: ScreenModule {
       var description: String {
         switch self {
           case .badInput: return "invalid input"
-          case .unknown: return "unknow error"
+          case .unknown: return "unknown error"
         }
       }
     }
@@ -101,7 +101,7 @@ extension MyModule.State.Error {
   var description: String {
     switch self {
       case .badInput: return "invalid input"
-      case .unknown: return "unknow error"
+      case .unknown: return "unknown error"
     }
   }
   
@@ -129,7 +129,7 @@ extension MyModule.State {
 
 Precede each `switch` `case` statement with an empty line.
 
-Lasso replaces delegate-style protocols with `Action` and `Output` enums.  This allows for precise and flexible conections between types, but also necessitates writing lots of `switch` statements, with potentially non-trivial code per `case`. For readability purposes, it's a best practice in Lasso to have a single empty line preceding each `case` statement - just like it's best to have an empty line preceding each function:
+Lasso replaces delegate-style protocols with `Action` and `Output` enums.  This allows for precise and flexible connections between types, but also necessitates writing lots of `switch` statements, with potentially non-trivial code per `case`. For readability purposes, it's a best practice in Lasso to have a single empty line preceding each `case` statement - just like it's best to have an empty line preceding each function:
 
 ```swift
 override func handleAction(_ action: Action) {

@@ -1,9 +1,9 @@
 PODS:
-  - Lasso (1.2.1)
-  - LassoTestUtilities (1.2.1):
+  - Lasso (1.3.0)
+  - LassoTestUtilities (1.3.0):
     - Lasso
-  - SwiftLint (0.43.1)
-  - WWLayout (0.8.0)
+  - SwiftLint (0.47.0)
+  - WWLayout (0.8.2)
 
 DEPENDENCIES:
   - Lasso (from `../`)
@@ -23,11 +23,11 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Lasso: adbddd3e6f4d138f9b85c654df2acca84c0fcee3
-  LassoTestUtilities: 3351ff4c8ca321d48b3da470b54634b1ca5d678f
-  SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
-  WWLayout: 78d97792bdbf2ac8931ad31961e24218005a36ef
+  Lasso: 82a7f9e689af72b5375537e7fa65ca4700bbfb17
+  LassoTestUtilities: 532200770812f7c801fad324b2eece03aad027e3
+  SwiftLint: d41cc46a2ae58ac6d9f26954bc89f1d72e71fdef
+  WWLayout: 0ff533a6b9d0ae2ca2bdf91b6aefc04234b61f1b
 
-PODFILE CHECKSUM: 41ab14c5f90b23266516b00a66a4869c4c1a18b9
+PODFILE CHECKSUM: e8b23f1b1de9b390da11a7acc92a783d7b61f870
 
-COCOAPODS: 1.10.1
+COCOAPODS: 1.11.3

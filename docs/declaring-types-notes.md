@@ -64,7 +64,7 @@ Note that it's quite common to create your own versions of `createScreen`, to al
 
 ```swift
 public static func createScreen(username: String) -> Screen {
-  let initialState = LoginScreenModule.State(username: "Billie")
+  let initialState = LoginScreenModule.State(username: username)
   return createScreen(with: initialState)
 }
 

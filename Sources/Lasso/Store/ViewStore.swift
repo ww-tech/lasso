@@ -16,6 +16,9 @@
 //
 
 import Foundation
+#if canImport(Combine)
+import Combine
+#endif
 
 public protocol AbstractViewStore: StateObservable, ActionDispatchable { }
 
@@ -23,7 +26,7 @@ public protocol AbstractViewStore: StateObservable, ActionDispatchable { }
 /// - receives actions
 /// - readable, observable state
 public class AnyViewStore<ViewState, ViewAction>: AbstractViewStore {
-    
+
     /// Create a ViewStore
     ///
     /// - Parameters:
@@ -42,6 +45,11 @@ public class AnyViewStore<ViewState, ViewAction>: AbstractViewStore {
         }
         
     }
+    
+    #if canImport(Combine)
+    /// `objectWillChange` publisher, if available and needed.
+    private var _objectWillChange: Any?
+    #endif
     
     public func dispatchAction(_ viewAction: ViewAction) {
         _dispatchAction(viewAction)
@@ -172,3 +180,25 @@ extension AbstractViewStore {
     }
     
 }
+
+#if canImport(Combine)
+@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
+extension AnyViewStore: ObservableObject {
+    
+    public typealias StateChangePublisher = PassthroughSubject<ViewState, Never>
+    
+    public var objectWillChange: StateChangePublisher {
+        if let willChange = _objectWillChange as? StateChangePublisher {
+            return willChange
+        }
+        
+        let willChange = StateChangePublisher()
+        observeState { [weak self] state in
+            (self?._objectWillChange as? StateChangePublisher)?.send(state)
+        }
+        _objectWillChange = willChange
+        return willChange
+    }
+    
+}
+#endif
