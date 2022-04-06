@@ -53,15 +53,6 @@ public func root(of window: UIWindow, using transition: UIWindow.Transition? = n
 /// - Returns: the placer
 public func rootOfApplicationWindow(using transition: UIWindow.Transition? = nil) -> ScreenPlacer<UIViewController>? {
     
-    guard let window = safeSharedApplication?.windows.first(where: { $0.isKeyWindow }) else { return nil }
+    guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return nil }
     return root(of: window, using: transition)
 }
-
-private var safeSharedApplication: UIApplication? {
-    let sharedSelector = NSSelectorFromString("sharedApplication")
-    guard UIApplication.responds(to: sharedSelector) else {
-        return nil
-    }
-    return UIApplication.perform(sharedSelector)?.takeUnretainedValue() as? UIApplication
-}
-
