@@ -27,25 +27,9 @@ import UIKit
 /// Does **NOT** support async versions of `setUp` and `tearDown`
 open class FlowTestCase: XCTestCase {
     
-    public var window: UIWindow {
-        setUpFlowTestCase()
-        return _window
-    }
-    
-    public var navigationController: UINavigationController {
-        setUpFlowTestCase()
-        return _navigationController
-    }
-    
-    public var rootController: UIViewController {
-        setUpFlowTestCase()
-        return _rootController
-    }
-    
-    private var _window: UIWindow!
-    private var _navigationController: UINavigationController!
-    private var _rootController: UIViewController!
-    private var _didTearDown: Bool = false
+    public var window: UIWindow!
+    public var navigationController: UINavigationController!
+    public var rootController: UIViewController!
     
     // https://developer.apple.com/documentation/xctest/xctestcase/set_up_and_tear_down_state_in_your_tests
     //
@@ -95,20 +79,19 @@ open class FlowTestCase: XCTestCase {
     #endif
     
     private func setUpFlowTestCase() {
-        guard _window == nil, !_didTearDown else { return }
-        _window = UIWindow()
-        _window.makeKeyAndVisible()
-        _rootController = UIViewController()
-        _navigationController = UINavigationController(rootViewController: _rootController)
-        _window.rootViewController = _navigationController
-        waitForEvents(in: _window)
+        guard window == nil else { return }
+        window = UIWindow()
+        window.makeKeyAndVisible()
+        rootController = UIViewController()
+        navigationController = UINavigationController(rootViewController: rootController)
+        window.rootViewController = navigationController
+        waitForEvents(in: window)
     }
     
     private func tearDownFlowTestCase() {
-        _didTearDown = true
-        _window = nil
-        _navigationController = nil
-        _rootController = nil
+        window = nil
+        navigationController = nil
+        rootController = nil
     }
     
 }
