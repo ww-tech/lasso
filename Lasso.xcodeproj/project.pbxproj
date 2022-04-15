@@ -53,7 +53,18 @@
 		290C33042809423E00C3669C /* StoreTesting+WhenStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290C32F52809423E00C3669C /* StoreTesting+WhenStatement.swift */; };
 		290C33052809423E00C3669C /* Fail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 290C32F62809423E00C3669C /* Fail.swift */; };
 		290C330B2809430E00C3669C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290C3307280942F700C3669C /* XCTest.framework */; };
+		290C330C2809486F00C3669C /* Lasso.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 290C328B2809409600C3669C /* Lasso.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		290C330E2809486F00C3669C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 290C32822809409600C3669C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 290C328A2809409600C3669C;
+			remoteInfo = Lasso;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		290C328B2809409600C3669C /* Lasso.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Lasso.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				290C330B2809430E00C3669C /* XCTest.framework in Frameworks */,
+				290C330C2809486F00C3669C /* Lasso.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +331,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				290C330F2809486F00C3669C /* PBXTargetDependency */,
 			);
 			name = LassoTestUtilities;
 			productName = LassoTestUtilities;
@@ -439,6 +452,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		290C330F2809486F00C3669C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 290C328A2809409600C3669C /* Lasso */;
+			targetProxy = 290C330E2809486F00C3669C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		290C32902809409600C3669C /* Debug */ = {
