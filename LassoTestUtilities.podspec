@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LassoTestUtilities'
-  s.version          = '1.2.1'
+  s.version          = '1.3.0'
   s.summary          = 'Unit test support for the Lasso framework.'
   s.description      = 'Lasso is an iOS application architecture for building discrete, composable and testable compenents both big and small - from single one-off screens, through complex flows, to high-level application structures.'
 
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
   s.swift_versions   = '4.2', '5', '5.1', '5.2', '5.3', '5.4', '5.5'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '13.0'
   s.framework = 'XCTest'
 
   s.dependency 'Lasso'

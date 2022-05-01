@@ -1,7 +1,7 @@
 <h1 align="center"><img src="docs/images/Lasso_Logo.svg" width="75%" alt="Lasso logo" /></h1>
 <p align="center">
     <img src="https://img.shields.io/badge/Swift-4.2%20--%205.3-b63bdb.svg?style=flat" />
-    <img src="https://img.shields.io/badge/iOS-10.3%20--%2014.x-208eff.svg?style=flat" />
+    <img src="https://img.shields.io/badge/iOS-13.0%20--%2014.x-208eff.svg?style=flat" />
 </p>
 
 Lasso is an iOS application architecture for building discrete, composable and testable components both big and small - from single one-off screens, through complex flows, to high-level application structures.
@@ -82,7 +82,9 @@ To run the example project
 
 ## Requirements
 
-Lasso supports **iOS 10 and up**, and can be compiled with **Swift 4.2 and up**.
+Lasso supports **iOS 13 and up**, and can be compiled with **Swift 4.2 and up**.
+
+Note: Lasso v.1.3.0 has added support for SwiftUI, and has a minimum deployment target of iOS 13.0.  If you need support for earlier versions of iOS, please use v1.2.1.
 
 
 
