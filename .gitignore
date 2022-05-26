@@ -67,3 +67,7 @@ fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
 Package.resolved
+
+Derived/
+Lasso.xcworkspace
+LassoTuist.*
