@@ -118,6 +118,51 @@ For sample usage, see: [Swift Package Manager Sample](Example/SwiftPM/ReadMe.md)
 
 
 
+### Tuist
+
+To add `Lasso` as a *tuist* `TargetDependency`:
+* clone this repo to the preferred location
+* create a `.project` dependency
+* add the dependency to your target dependency
+
+```swift
+let lasso: TargetDependency = .project(target: "Lasso", path: "../../path-to-lasso-repo-clone/")
+
+let demo = Target(
+    name: "Demo",
+    platform: .iOS,
+    product: .framework,
+    bundleId: "com.example.Demo",
+    dependencies: [ lasso ]
+)
+```
+
+Also add `LassoTestUtilities` to your test target(s):
+
+```swift
+let lassoTestUtilities: TargetDependency = .project(target: "LassoTestUtilities", path: "../../path-to-lasso-repo-clone/")
+
+let demoTests = Target(
+    name: "DemoTests",
+    platform: .iOS,
+    product: .unitTests,
+    bundleId: "com.example.DemoTests",
+    dependencies: [ LassoTestUtilities ]
+)
+```
+
+### Xcode project directly (no dependency manager)
+
+To use Lasso without any dependency manager:
+* create a workspace (xcworkspace) for your project
+* clone this repo to the preferred location
+* drag-and-drop `Lasso.xcodeproj` to your workspace
+* select your target and choose `General` tab
+* scroll to `Frameworks, Libraries and Embedded Content`
+* click on the `+` (plus) sign
+* select `Lasso` or `LassoTestUtilities` to add them as dependencies
+
+
 ## Contributing
 
 We love contributions!
