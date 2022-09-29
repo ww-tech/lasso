@@ -151,17 +151,6 @@ let demoTests = Target(
 )
 ```
 
-### Xcode project directly (no dependency manager)
-
-To use Lasso without any dependency manager:
-* create a workspace (xcworkspace) for your project
-* clone this repo to the preferred location
-* drag-and-drop `Lasso.xcodeproj` to your workspace
-* select your target and choose `General` tab
-* scroll to `Frameworks, Libraries and Embedded Content`
-* click on the `+` (plus) sign
-* select `Lasso` or `LassoTestUtilities` to add them as dependencies
-
 
 ## Contributing
 
