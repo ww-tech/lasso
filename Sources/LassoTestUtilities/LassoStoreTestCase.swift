@@ -151,6 +151,26 @@ extension LassoStoreTestCase {
     public func resetOutputs() {
         testableStore.outputs = []
     }
+
+    /// Convenience method to test mocked services with async calls
+    /// Listen for a value that you know will change once the async call completes E.g.:
+    /// ```
+    /// wait(for: [expectationAsync({ !self.mockedService.asyncMethodCalled.isEmpty })], timeout: 1.0)
+    /// XCTAssertFalse(mockedService.asyncMethodCalled.isEmpty)
+    /// ```
+    /// Parameter check: closure that will be re-checked continuously until it is true
+    ///  - Returns: the expectation array that meets the passed check
+    public func expectationAsync(_ check: @escaping () -> Bool, expectation: XCTestExpectation = XCTestExpectation()) -> XCTestExpectation {
+        if check() {
+            expectation.fulfill()
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double.leastNonzeroMagnitude) { [weak self] in
+                guard let self else { return }
+                _ = self.expectationAsync(check, expectation: expectation)
+            }
+        }
+        return expectation
+    }
     
 }
 
