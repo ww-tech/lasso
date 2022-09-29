@@ -32,7 +32,8 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
     
     private var outputBridge = OutputBridge<Output>()
     private var pendingUpdates: [Update<State>] = []
-    
+    private let syncQueue = DispatchQueue(label: "lasso-store-sync-queue", target: .global())
+
     public required init(with initialState: State) {
         self.binder = ValueBinder(initialState)
     }
@@ -91,12 +92,16 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
     public typealias Update<T> = (inout T) -> Void
     
     public func update(_ update: @escaping Update<State> = { _ in return }) {
-        pendingUpdates.append(update)
-        applyUpdates()
+        syncQueue.sync {
+            pendingUpdates.append(update)
+            applyUpdates()
+        }
     }
     
     public func batchUpdate(_ update: @escaping Update<State>) {
-        pendingUpdates.append(update)
+        syncQueue.sync {
+            pendingUpdates.append(update)
+        }
     }
     
     private func applyUpdates() {

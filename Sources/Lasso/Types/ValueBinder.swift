@@ -23,7 +23,8 @@ internal final class ValueBinder<Value> {
     
     public private(set) var value: Value
     private var observers: [Observer<Value>] = []
-    
+    private let syncQueue = DispatchQueue(label: "value-binder-sync-queue", target: .global())
+
     internal init(_ value: Value) {
         self.value = value
     }
@@ -39,8 +40,10 @@ internal final class ValueBinder<Value> {
     }
     
     private func observe(_ handler: @escaping Observer<Value>) {
-        handler(nil, value)
-        observers.append(handler)
+        syncQueue.sync {
+            handler(nil, self.value)
+            observers.append(handler)
+        }
     }
     
     internal func bind(to handler: @escaping Observer<Value>) {
