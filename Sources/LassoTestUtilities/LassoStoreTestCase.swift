@@ -165,8 +165,7 @@ extension LassoStoreTestCase {
             expectation.fulfill()
         } else {
             DispatchQueue.main.asyncAfter(deadline: .now() + Double.leastNonzeroMagnitude) { [weak self] in
-                guard let self else { return }
-                _ = self.expectationAsync(check, expectation: expectation)
+                _ = self?.expectationAsync(check, expectation: expectation)
             }
         }
         return expectation
