@@ -20,6 +20,27 @@ import XCTest
 
 class ValueBinderTests: XCTestCase {
     
+//    func test_breakage_bind() {
+//        let observable = ValueBinder("hi")
+//        
+//        DispatchQueue.concurrentPerform(iterations: 100) { _ in
+//            observable.bind { _, _ in }
+//        }
+//    }
+//    
+//    func test_breakage_notify() {
+//        let observable = ValueBinder("hi")
+//        var changes: [String] = []
+//        
+//        observable.bind { _, newValue in changes.append(newValue) }
+//        
+//        DispatchQueue.concurrentPerform(iterations: 100) { i in
+//            observable.set("\(i)")
+//        }
+//        
+//        XCTAssertEqual(changes.count, 100)
+//    }
+    
     func test_ValueBinder_IntValue_Equatable() {
         // given
         let observable = ValueBinder(1)

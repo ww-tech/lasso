@@ -28,9 +28,9 @@ jobs:
 
       - name: Build and run tests
         working-directory: Example
-        run: bundle exec fastlane test
-        # env:
-        #   DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode-version }}.app
+        run: bundle exec fastlane scan
+        env:
+          DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
 
       - name: Post job cleanup
         run: git clean -ffdxq
