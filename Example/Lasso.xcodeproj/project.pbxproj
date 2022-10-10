@@ -587,7 +587,6 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				191876CD3C60989C243DAF5D /* [CP] Embed Pods Frameworks */,
-				B091CEA028F4627C00EDC69D /* Debug SwiftLint */,
 				26451D8F07122B70C26F0DE9 /* SwiftLint */,
 			);
 			buildRules = (
@@ -778,7 +777,8 @@
 			name = SwiftLint;
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"${PODS_ROOT}/SwiftLint/swiftlint\"\necho --config \"${SRCROOT}/../.swiftlint.yml\"\necho \"${PROJECT_DIR}/../\"\n\n\"${PODS_ROOT}/SwiftLint/swiftlint\" --config \"${SRCROOT}/../.swiftlint.yml\" \"${PROJECT_DIR}/../\"\n\n";
+			shellScript = "if [ ${XCODE_VERSION_MAJOR} -ge 1340 ] ; then\n    \"${PODS_ROOT}/SwiftLint/swiftlint\" --config \"${SRCROOT}/../.swiftlint.yml\" \"${PROJECT_DIR}/../\"\nfi\n";
+			showEnvVarsInLog = 0;
 		};
 		68508589E547BDE64A185A92 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -843,25 +843,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Lasso_Example_Tests/Pods-Lasso_Example_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		B091CEA028F4627C00EDC69D /* Debug SwiftLint */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Debug SwiftLint";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"${PODS_ROOT}/SwiftLint/swiftlint\"\necho --config \"${SRCROOT}/../.swiftlint.yml\"\necho \"${PROJECT_DIR}/../\"\n";
 		};
 		B56840B983C9F65861DAA33C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

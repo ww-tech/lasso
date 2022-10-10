@@ -7,10 +7,6 @@ target 'Lasso_Example' do
 
   # Set up SwiftLint
   pod 'SwiftLint'
-  # script_phase :name => 'SwiftLint',
-  #              :script => "\"${PODS_ROOT}/SwiftLint/swiftlint\"" \
-  #                         " --config \"${SRCROOT}/../.swiftlint.yml\"" \
-  #                         " \"${PROJECT_DIR}/../\""
 
   # WWLayout for easy constraints
   pod 'WWLayout'
