@@ -10,7 +10,7 @@ target 'Lasso_Example' do
   script_phase :name => 'SwiftLint',
                :script => "${PODS_ROOT}/SwiftLint/swiftlint" \
                           " --config ${SRCROOT}/../.swiftlint.yml" \
-                          " --path ${SRCROOT}"
+                          " ${PROJECT_DIR}/../"
 
   # WWLayout for easy constraints
   pod 'WWLayout'

@@ -776,7 +776,7 @@
 			name = "[CP-User] SwiftLint";
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint --config ${SRCROOT}/../.swiftlint.yml --path ${SRCROOT}";
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint --config ${SRCROOT}/../.swiftlint.yml ${PROJECT_DIR}/../";
 			showEnvVarsInLog = 0;
 		};
 		68508589E547BDE64A185A92 /* [CP] Check Pods Manifest.lock */ = {
