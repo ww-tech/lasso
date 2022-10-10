@@ -20,34 +20,6 @@ import XCTest
 
 class StateObservationTests: XCTestCase {
     
-//    func test_breakage() {
-//        enum TestModule: StoreModule {
-//            struct State: Equatable {
-//                var name: String
-//            }
-//        }
-//        typealias State = TestModule.State
-//        
-//        // given
-//        class TestStore: LassoStore<TestModule> { }
-//        let store = TestStore(with: State(name: "A"))
-//        
-//        var states: [State] = []
-//        var oldStates: [State?] = []
-//        
-//        // when
-//        store.observeState { old, new in
-//            oldStates.append(old)
-//            states.append(new)
-//        }
-//        
-//        DispatchQueue.concurrentPerform(iterations: 100) { i in
-//            store.update { state in
-//                state.name = "\(i)"
-//            }
-//        }
-//    }
-    
     func test_Store_State_Equatable() {
         enum TestModule: StoreModule {
             struct State: Equatable {
