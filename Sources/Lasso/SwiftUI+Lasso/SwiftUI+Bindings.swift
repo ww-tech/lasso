@@ -88,7 +88,7 @@ extension TextField where Label == Text {
         action: @escaping (String) -> Action,
         onEditingChanged: @escaping (Bool) -> Void = { _ in },
         onCommit: @escaping () -> Void = {}
-    ) where S : StringProtocol {
+    ) where S: StringProtocol {
         self.init(title,
                   text: store.binding(text, action: action),
                   onEditingChanged: onEditingChanged,
