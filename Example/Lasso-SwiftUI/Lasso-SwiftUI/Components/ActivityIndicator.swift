@@ -43,7 +43,7 @@ struct ActivityIndicator: View {
         }
         
         func updateUIView(_ uiView: UIActivityIndicatorView, context: UIViewRepresentableContext<UIKitActivityIndicator>) {
-            isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
+            _ = isAnimating ? uiView.startAnimating() : uiView.stopAnimating()
         }
     }
 }
