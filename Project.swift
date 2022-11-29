@@ -17,8 +17,11 @@ let infoPlist: [String: InfoPlist.Value] = [
 
 let defaultSettings: Settings = .settings(
     configurations: [
-        .debug(name: "Debug", settings: baseSettings, xcconfig: nil),
-        .release(name: "Release", settings: baseSettings, xcconfig: nil),
+        .debug(name: "Debug", settings: baseSettings),
+        .release(name: "Release", settings: baseSettings),
+        .release(name: "AdHoc", settings: baseSettings),
+        .release(name: "Enterprise", settings: baseSettings),
+        .release(name: "AppStore", settings: baseSettings)
     ]
 )
 
