@@ -92,16 +92,11 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
     public typealias Update<T> = (inout T) -> Void
     
     public func update(_ update: @escaping Update<State> = { _ in return }) {
-        syncQueue.sync {
-            pendingUpdates.append(update)
-            applyUpdates()
-        }
+        updateState(using: update, apply: true)
     }
     
     public func batchUpdate(_ update: @escaping Update<State>) {
-        syncQueue.sync {
-            pendingUpdates.append(update)
-        }
+        updateState(using: update, apply: false)
     }
     
     private func applyUpdates() {
@@ -110,6 +105,15 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
         }
         binder.set(newState)
         pendingUpdates = []
+    }
+
+    private func updateState(using update: @escaping Update<State>, apply: Bool) {
+        syncQueue.sync {
+            pendingUpdates.append(update)
+            if apply {
+                applyUpdates()
+            }
+        }
     }
     
 }

@@ -18,31 +18,51 @@
 import Foundation
 
 internal final class ValueBinder<Value> {
-    
+
     internal typealias Observer<T> = (T?, T) -> Void
-    
-    public private(set) var value: Value
+
+    /// Current value held by the `ValueBinder`.
+    public var value: Value {
+        var value: Value!
+        valueQueue.sync {
+            value = _value
+        }
+        return value
+    }
+
+    /// Current value held by the `ValueBinder` - for internal use only, and only when inside a `valueQueue.sync` block.
+    private var _value: Value
+
+    /// Access only within a `valueQueue.sync` block
     private var observers: [Observer<Value>] = []
-    private let syncQueue = DispatchQueue(label: "value-binder-sync-queue", target: .global())
+
+    /// Protects access to both `value` and `observers` for `sync` access only
+    private let valueQueue = DispatchQueue(label: "value-binder-sync-queue", target: .global())
 
     internal init(_ value: Value) {
-        self.value = value
+        self._value = value
     }
-    
+
     internal func set(_ newValue: Value) {
-        let oldValue = value
-        value = newValue
-        executeOnMainThread { [weak self] in
-            // Dispatch to all observers which exist at execution time - it is possible that additional
-            // observers could be added b/w queuing and execution.
-            self?.observers.forEach({ $0(oldValue, newValue) })
+        valueQueue.sync {
+            let oldValue = _value
+            self._value = newValue
+            let handlers = self.observers
+            executeOnMainThread {
+                // Dispatch to all observers which exist at execution time - it is possible that additional
+                // observers could be added b/w queuing and execution.
+                handlers.forEach({ $0(oldValue, newValue) })
+            }
         }
     }
-    
+
     private func observe(_ handler: @escaping Observer<Value>) {
-        syncQueue.sync {
-            handler(nil, self.value)
+        valueQueue.sync {
+            let value = self._value
             observers.append(handler)
+            executeOnMainThread {
+                handler(nil, value)
+            }
         }
     }
     
