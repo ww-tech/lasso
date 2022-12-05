@@ -44,25 +44,28 @@ internal final class ValueBinder<Value> {
     }
 
     internal func set(_ newValue: Value) {
+        var oldValue: Value!
+        var handlers: [(Value?, Value) -> Void]!
         valueQueue.sync {
-            let oldValue = _value
+            oldValue = _value
             self._value = newValue
-            let handlers = self.observers
-            executeOnMainThread {
-                // Dispatch to all observers which exist at execution time - it is possible that additional
-                // observers could be added b/w queuing and execution.
-                handlers.forEach({ $0(oldValue, newValue) })
-            }
+            handlers = self.observers
+        }
+        executeOnMainThread {
+            // Dispatch to all observers which exist at execution time - it is possible that additional
+            // observers could be added b/w queuing and execution.
+            handlers.forEach({ $0(oldValue, newValue) })
         }
     }
 
     private func observe(_ handler: @escaping Observer<Value>) {
+        var value: Value!
         valueQueue.sync {
-            let value = self._value
+            value = self._value
             observers.append(handler)
-            executeOnMainThread {
-                handler(nil, value)
-            }
+        }
+        executeOnMainThread {
+            handler(nil, value)
         }
     }
     

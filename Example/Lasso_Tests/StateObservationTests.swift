@@ -148,13 +148,11 @@ class StateObservationTests: XCTestCase {
         XCTAssertEqual(newNames, ["A", "B", nil, "A"], "update with same (equatable) value should NOT trigger the notification")
     }
 
-    func test_Store_State_Equatable_Concurrent_Updates() {
+    func test_Store_State_NotEquatable_Concurrent_Updates() {
         enum TestModule: StoreModule {
-            struct State: Equatable {
-                let name: String
+            struct State {
                 let num: Int
-                init(_ name: String, _ num: Int) {
-                    self.name = name
+                init(_ num: Int) {
                     self.num = num
                 }
             }
@@ -164,11 +162,19 @@ class StateObservationTests: XCTestCase {
 
         // given
         class TestStore: LassoStore<TestModule> { }
-        let store = TestStore(with: State("0", 0))
+        let store = TestStore(with: State(0))
+
+        var statesIntValues: [Int] {
+            return states.map { $0.num }
+        }
+
+        var oldStatesIntValues: [Int?] {
+            return oldStates.map { $0?.num }
+        }
 
         var states: [State] = []
         var oldStates: [State?] = []
-        let expectedResult = [State("0", 0), State("1", 1), State("2", 2), State("3", 3), State("4", 4)]
+        let expectedResult = [State(0), State(0), State(1), State(2), State(3), State(4)]
 
         // when
         store.observeState { old, new in
@@ -181,189 +187,24 @@ class StateObservationTests: XCTestCase {
         }
 
         // then
-        XCTAssertEqual(oldStates, [nil], "Initial binding should trigger the notification with nil for old state")
-        XCTAssertEqual(states, [State("0", 0)], "Initial binding should trigger the notification")
+        XCTAssertEqual(oldStatesIntValues, [nil], "Initial binding should trigger the notification with nil for old state")
+        XCTAssertEqual(statesIntValues, [0], "Initial binding should trigger the notification")
 
         // when
         let concurrentQueue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
         for i in 0..<5 {
             concurrentQueue.async {
-                store.update { $0 = State("\(i)", i) }
+                store.update { $0 = State(i) }
             }
         }
 
         wait(for: [expectation], timeout: 3.0)
 
         // then
-        XCTAssert(states.allSatisfy(expectedResult.contains), "update with same state should NOT trigger the notification")
+        XCTAssert(statesIntValues.allSatisfy { value in expectedResult.contains(where: { $0.num == value }) }, "update with same (not-equatable) value should trigger the notification")
         XCTAssert(states.count == expectedResult.count, "states count should be equal expected result count")
-        XCTAssertFalse(oldStates.contains(states.last), "update with same state should NOT trigger the notification")
+        XCTAssertFalse(oldStatesIntValues.contains(statesIntValues.last), "old states shouldn't contain states last value")
         XCTAssert(oldStates.count == states.count, "old states count should be equal state count")
-    }
-
-    func test_ViewStore_State_Equatable_Concurrent_Updates() {
-        enum TestModule: StoreModule {
-            struct State: Equatable {
-                let name: String
-                let num: Int
-                init(_ name: String, _ num: Int) {
-                    self.name = name
-                    self.num = num
-                }
-            }
-        }
-        typealias State = TestModule.State
-        let expectation = XCTestExpectation(description: #function)
-
-        // given
-        class TestStore: LassoStore<TestModule> { }
-        let store = TestStore(with: State("0", 0))
-        let viewStore = store.asViewStore()
-
-        var states: [State] = []
-        var oldStates: [State?] = []
-        let expectedResult = [State("0", 0), State("1", 1), State("2", 2), State("3", 3), State("4", 4)]
-
-        // when
-        viewStore.observeState { old, new in
-            oldStates.append(old)
-            states.append(new)
-
-            if states.count == expectedResult.count {
-                expectation.fulfill()
-            }
-        }
-
-        // then
-        XCTAssertEqual(oldStates, [nil], "Initial binding should trigger the notification with nil for old state")
-        XCTAssertEqual(states, [State("0", 0)], "Initial binding should trigger the notification")
-
-        // when
-        let concurrentQueue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
-        for i in 0..<5 {
-            concurrentQueue.async {
-                store.update { $0 = State("\(i)", i) }
-            }
-        }
-
-        wait(for: [expectation], timeout: 3.0)
-
-        // then
-        XCTAssert(states.allSatisfy(expectedResult.contains), "update with same state should NOT trigger the notification")
-        XCTAssert(states.count == expectedResult.count, "states count should be equal expected result count")
-        XCTAssertFalse(oldStates.contains(states.last), "update with same state should NOT trigger the notification")
-        XCTAssert(oldStates.count == states.count, "old states count should be equal state count")
-    }
-
-    func test_Store_State_NotEquatable_KeyPath_Equatable_Concurrent_Updates() {
-        enum TestModule: StoreModule {
-            struct State {
-                var name: String
-                init(_ name: String) { self.name = name }
-            }
-        }
-        typealias State = TestModule.State
-        let newNamesExpectation = XCTestExpectation(description: "newNames Expectation")
-        let namesExpectation = XCTestExpectation(description: "names Expectation")
-
-        class TestStore: LassoStore<TestModule> { }
-        let store = TestStore(with: State("0"))
-
-        var names: [String] = []
-        var newNames: [String] = []
-        let expectedResult = [State("0"), State("1"), State("2"), State("3"), State("4")]
-
-        // when
-        store.observeState(\.name) {
-            names.append($0)
-
-            if names.count == expectedResult.count {
-                namesExpectation.fulfill()
-            }
-        }
-        store.observeState(\.name) { _, new in
-            newNames.append(new)
-
-            if newNames.count == expectedResult.count {
-                newNamesExpectation.fulfill()
-            }
-        }
-
-        // then
-        XCTAssertEqual(names, ["0"], "Initial binding should trigger the notification")
-        XCTAssertEqual(newNames, ["0"], "Initial binding should trigger the notification")
-
-        // when
-        let concurrentQueue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
-        for i in 0..<5 {
-            concurrentQueue.async {
-                store.update { $0 = State("\(i)") }
-            }
-        }
-
-        wait(for: [namesExpectation, newNamesExpectation], timeout: 3.0)
-
-        // then
-        XCTAssert(names.allSatisfy { name in expectedResult.contains { $0.name == name } }, "update with same state should NOT trigger the notification")
-        XCTAssert(names.count == expectedResult.count, "names count should be equal expected result count")
-        XCTAssert(newNames.allSatisfy { newName in expectedResult.contains { $0.name == newName } }, "update with same state should NOT trigger the notification")
-        XCTAssert(newNames.count == expectedResult.count, "newNames count should be equal expected result count")
-    }
-
-    func test_ViewStore_State_NotEquatable_OptionalKeyPath_Equatable_Concurrent_Updates() {
-        enum TestModule: StoreModule {
-            struct State {
-                var name: String?
-                init(_ name: String?) { self.name = name }
-            }
-        }
-        typealias State = TestModule.State
-        let newNamesExpectation = XCTestExpectation(description: "newNames Expectation")
-        let namesExpectation = XCTestExpectation(description: "names Expectation")
-
-        class TestStore: LassoStore<TestModule> { }
-        let store = TestStore(with: State("0"))
-        let viewStore = store.asViewStore()
-
-        var newNames: [String?] = []
-        var names: [String?] = []
-        let expectedResult = [State("0"), nil, State("2"), State("3"), State("4")]
-
-        // when
-        viewStore.observeState(\.name) {
-            names.append($0)
-
-            if names.count == expectedResult.count {
-                namesExpectation.fulfill()
-            }
-        }
-        viewStore.observeState(\.name) { _, new in
-            newNames.append(new)
-
-            if newNames.count == expectedResult.count {
-                newNamesExpectation.fulfill()
-            }
-        }
-
-        // then
-        XCTAssertEqual(names, ["0"], "Initial binding should trigger the notification")
-        XCTAssertEqual(newNames, ["0"], "Initial binding should trigger the notification")
-
-        // when
-        let concurrentQueue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
-        for i in 0..<5 {
-            concurrentQueue.async {
-                store.update { $0 = State(i == 1 ? nil : String(i)) }
-            }
-        }
-
-        wait(for: [namesExpectation, newNamesExpectation], timeout: 3.0)
-
-        // then
-        XCTAssert(names.allSatisfy { name in  expectedResult.contains { $0?.name == name } }, "update with same state should NOT trigger the notification")
-        XCTAssert(names.count == expectedResult.count, "names count should be equal expected result count")
-        XCTAssert(newNames.allSatisfy { newName in expectedResult.contains { $0?.name == newName } }, "update with same state should NOT trigger the notification")
-        XCTAssert(newNames.count == expectedResult.count, "newNames count should be equal expected result count")
     }
 
 }
