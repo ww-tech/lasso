@@ -69,11 +69,12 @@ fastlane/test_output
 Package.resolved
 
 ### Tuist derived files ###
-Derived/
-dump.*
-graph.json
-graph.dot
-LassoTuist.*
+**/Derived/
+**/dump.*
+**/graph.json
+**/graph.dot
+**/LassoTuist.*
+**/LassoTuistExample.*
 
 ### Tuist managed dependencies ###
-Tuist/Dependencies
+**/Tuist/Dependencies
