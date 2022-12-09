@@ -46,6 +46,66 @@ let lassoTestUtilities = Target(
     dependencies: [.target(name: "Lasso"), .xctest]
 )
 
+let lassoExample = Target(
+    name: "Lasso_Example", // we need the underscore to match Pod name
+    platform: .iOS,
+    product: .app,
+    bundleId: bundleIdPrefix + "LassoExample", infoPlist: .extendingDefault(with: infoPlist),
+    sources: [
+        "Example/Lasso/**/*.swift"
+    ],
+    resources: [
+        "Example/Lasso/Base.lproj/**/*",
+        "Example/Lasso/Images.xcassets",
+    ],
+    dependencies: [
+        .target(name: "Lasso"),
+        .external(name: "WWLayout")
+    ]
+)
+
+let lassoTests = Target(
+    name: "LassoTests",
+    platform: .iOS,
+    product: .unitTests,
+    bundleId: bundleIdPrefix + "LassoTests", infoPlist: .extendingDefault(with: infoPlist),
+    sources: [
+        "Example/Lasso_Tests/**/*.swift"
+    ],
+    dependencies: [
+        .target(name: "Lasso_Example"),
+        .target(name: "LassoTestUtilities"),
+    ]
+)
+
+let lassoExampleTests = Target(
+    name: "LassoExampleTests",
+    platform: .iOS,
+    product: .unitTests,
+    bundleId: bundleIdPrefix + "LassoExampleTests", infoPlist: .extendingDefault(with: infoPlist),
+    sources: [
+        "Example/Example_Tests/**/*.swift"
+    ],
+    dependencies: [
+        .target(name: "Lasso_Example"),
+        .target(name: "LassoTestUtilities"),
+    ]
+)
+
+let lassoTestUtilitiesTests = Target(
+    name: "LassoTestUtilitiesTests",
+    platform: .iOS,
+    product: .unitTests,
+    bundleId: bundleIdPrefix + "LassoTestUtilitiesTests", infoPlist: .extendingDefault(with: infoPlist),
+    sources: [
+        "Example/LassoTestUtilities_Tests/**/*.swift"
+    ],
+    dependencies: [
+        .target(name: "Lasso_Example"),
+        .target(name: "LassoTestUtilities"),
+    ]
+)
+
 let project = Project(
     name: "LassoTuist",
     organizationName: "WW Tech",
@@ -56,7 +116,9 @@ let project = Project(
     settings: defaultSettings,
     
     targets: [
-        lasso, lassoTestUtilities
+        lasso, lassoTestUtilities,
+        lassoExample,
+        lassoTests, lassoExampleTests, lassoTestUtilitiesTests
     ],
     
     schemes: [],

@@ -68,6 +68,12 @@ fastlane/screenshots/**/*.png
 fastlane/test_output
 Package.resolved
 
+### Tuist derived files ###
 Derived/
-Lasso.xcworkspace
+dump.*
+graph.json
+graph.dot
 LassoTuist.*
+
+### Tuist managed dependencies ###
+Tuist/Dependencies
