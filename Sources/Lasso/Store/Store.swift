@@ -114,7 +114,7 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
                 update(&state)
             }
         }
-        if let newState {
+        if let newState = newState {
             binder.set(newState)
         }
     }
