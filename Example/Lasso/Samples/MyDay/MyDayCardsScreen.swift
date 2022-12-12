@@ -15,6 +15,8 @@
 // ==----------------------------------------------------------------------== //
 //
 
+import Foundation
+import UIKit
 import Lasso
 import WWLayout
 
@@ -56,8 +58,8 @@ class MyDayCardsStore: LassoStore<MyDayCardsScreenModule> {
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.0) {
             let allCards = ["Yay apples", "Yay grapes", "Whoa exercise", "Get fit!!", "Healthy desserts", "Yay tomatoes"]
             var cards = [String]()
-            for card in allCards {
-                if Bool.random() { cards.append(card) }
+            for card in allCards where Bool.random() {
+                cards.append(card)
             }
             completion(.success(cards.shuffled()))
         }
