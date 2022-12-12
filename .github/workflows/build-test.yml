@@ -85,3 +85,33 @@ jobs:
         run: git clean -ffdxq
         if: always()
         continue-on-error: true
+
+  build-and-test-tuist:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install tuist
+        run: curl -Ls https://install.tuist.io | bash
+
+      - name: Clean
+        working-directory: Example
+        run: tuist clean
+
+      - name: Fetch dependencies
+        working-directory: Example
+        run: tuist fetch
+      
+      - name: Generate project
+        working-directory: Example
+        run: tuist generate --no-open
+      
+      - name: Build and run tests
+        working-directory: Example
+        run: tuist test
+
+      - name: Post job cleanup
+        run: git clean -ffdxq
+        if: always()
+        continue-on-error: true
