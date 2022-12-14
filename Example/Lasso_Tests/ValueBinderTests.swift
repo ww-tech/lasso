@@ -227,7 +227,7 @@ class ValueBinderTests: XCTestCase {
         let expectedResult = ["1", "1", "1", "1", "1", "1", "2", "2", "2", "3", "3", "3", "4", "4", "4", "5", "5", "5", "6", "6", "6", "7", "7", "7", "8", "8", "8", "9", "9", "9", "10", "10", "10"]
 
         // when
-        let expectation = expectation(description: #function)
+        let expectation = XCTestExpectation(description: #function)
         let subscriptions = 3
 
         DispatchQueue.concurrentPerform(iterations: subscriptions) { _ in
