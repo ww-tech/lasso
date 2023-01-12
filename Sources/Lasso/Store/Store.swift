@@ -88,7 +88,6 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
     }
     
     // updates
-    
     public typealias Update<T> = (inout T) -> Void
     
     public func update(_ update: @escaping Update<State> = { _ in return }) {
