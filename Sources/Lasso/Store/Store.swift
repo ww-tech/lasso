@@ -101,15 +101,15 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
 
     private func updateState(using update: @escaping Update<State>, apply: Bool) {
         var newState: State?
-        var pendingUpdates: [Update<State>]!
+        var pendingUpdates: [Update<State>]?
         queue.sync {
             self.pendingUpdates.append(update)
-            pendingUpdates = self.pendingUpdates
             if apply {
+                pendingUpdates = self.pendingUpdates
                 self.pendingUpdates = []
             }
         }
-        if apply {
+        if let pendingUpdates {
             newState = pendingUpdates.reduce(into: state) { state, update in
                 update(&state)
             }
