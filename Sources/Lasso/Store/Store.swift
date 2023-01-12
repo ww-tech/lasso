@@ -109,7 +109,7 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
                 self.pendingUpdates = []
             }
         }
-        if let pendingUpdates {
+        if let pendingUpdates = pendingUpdates {
             newState = pendingUpdates.reduce(into: state) { state, update in
                 update(&state)
             }
