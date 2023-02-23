@@ -148,6 +148,65 @@ class StateObservationTests: XCTestCase {
         XCTAssertEqual(newNames, ["A", "B", nil, "A"], "update with same (equatable) value should NOT trigger the notification")
     }
 
+    func test_Store_State_NotEquatable_Concurrent_Updates() {
+        enum TestModule: StoreModule {
+            struct State {
+                let num: Int
+                init(_ num: Int) {
+                    self.num = num
+                }
+            }
+        }
+        typealias State = TestModule.State
+        let expectation = XCTestExpectation(description: #function)
+
+        // given
+        class TestStore: LassoStore<TestModule> { }
+        let store = TestStore(with: State(0))
+
+        var statesIntValues: [Int] {
+            return states.map { $0.num }
+        }
+
+        var oldStatesIntValues: [Int?] {
+            return oldStates.map { $0?.num }
+        }
+
+        var states: [State] = []
+        var oldStates: [State?] = []
+        let expectedResult = [State(0), State(0), State(1), State(2), State(3), State(4)]
+
+        // when
+        store.observeState { old, new in
+            oldStates.append(old)
+            states.append(new)
+
+            if states.count == expectedResult.count {
+                expectation.fulfill()
+            }
+        }
+
+        // then
+        XCTAssertEqual(oldStatesIntValues, [nil], "Initial binding should trigger the notification with nil for old state")
+        XCTAssertEqual(statesIntValues, [0], "Initial binding should trigger the notification")
+
+        // when
+        let concurrentQueue = DispatchQueue(label: #function, qos: .userInitiated, attributes: .concurrent)
+        for i in 0..<5 {
+            concurrentQueue.async {
+                store.update { $0 = State(i) }
+            }
+        }
+
+        wait(for: [expectation], timeout: 3.0)
+
+        // then
+        XCTAssert(statesIntValues.allSatisfy { value in expectedResult.contains(where: { $0.num == value }) }, "update with same (not-equatable) value should trigger the notification")
+        XCTAssert(states.count == expectedResult.count, "states count should be equal expected result count")
+        XCTAssertFalse(oldStatesIntValues.contains(statesIntValues.last), "old states shouldn't contain states last value")
+        XCTAssert(oldStates.count == states.count, "old states count should be equal state count")
+    }
+
 }
 
 // MARK: - Helper to set multiple state values in succession

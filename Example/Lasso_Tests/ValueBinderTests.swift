@@ -213,7 +213,45 @@ class ValueBinderTests: XCTestCase {
         observable.set(values: Test("A", 2), Test(nil, 3), Test(nil, 2), Test("B", 2), Test("B", 2))
         XCTAssertEqual(changes, ["A", nil, "B"], "update with same (equatable) value should NOT trigger the notification")
     }
-    
+
+    func test_ValueBinder_Struct_NotEquatable_Concurrent_Subscribers() {
+        struct Test {
+            let name: String
+            init(_ name: String) { self.name = name }
+        }
+
+        // given
+        let observable = ValueBinder(Test("1"))
+        var changes: [String] = []
+        let expectedCount = 33
+        let expectedResult = ["1", "1", "1", "1", "1", "1", "2", "2", "2", "3", "3", "3", "4", "4", "4", "5", "5", "5", "6", "6", "6", "7", "7", "7", "8", "8", "8", "9", "9", "9", "10", "10", "10"]
+
+        // when
+        let expectation = XCTestExpectation(description: #function)
+        let subscriptions = 3
+
+        DispatchQueue.concurrentPerform(iterations: subscriptions) { _ in
+            observable.bind { _, newValue in
+                changes.append(newValue.name)
+                if changes.count == subscriptions {
+                    expectation.fulfill()
+                }
+            }
+        }
+
+        wait(for: [expectation], timeout: 1)
+
+        // then
+        XCTAssertEqual(changes, ["1", "1", "1"], "Initial binding should trigger the notification")
+
+        // when
+        (1...10).forEach { observable.set(Test("\($0)")) }
+
+        // then
+        XCTAssertEqual(changes.count, expectedCount, "changes count should equeal expectedCount")
+        XCTAssertEqual(changes, expectedResult, "changes should be equeal expectedResult")
+    }
+
 }
 
 // MARK: - Helper to set multiple values in succession
