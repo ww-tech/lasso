@@ -5,7 +5,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Lasso'
-  s.version          = '1.3.0'
+  s.version          = '1.3.1'
   s.summary          = 'iOS architectural pattern and framework.'
   s.description      = 'Lasso is an iOS application architecture for building discrete, composable and testable compenents both big and small - from single one-off screens, through complex flows, to high-level application structures.'
 

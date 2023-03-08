@@ -193,7 +193,7 @@ extension XCTestCase {
         let waitResult = waiter.wait(for: expectations, timeout: timeout)
         
         var description: String {
-            return expectations.map( { "\"\($0)\"" }).joined(separator: ", ")
+            return expectations.map({ "\"\($0)\"" }).joined(separator: ", ")
         }
         
         switch waitResult {
