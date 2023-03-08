@@ -32,7 +32,8 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
     
     private var outputBridge = OutputBridge<Output>()
     private var pendingUpdates: [Update<State>] = []
-    
+    private let queue = DispatchQueue(label: "lasso-store-sync-queue", target: .global())
+
     public required init(with initialState: State) {
         self.binder = ValueBinder(initialState)
     }
@@ -91,20 +92,31 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
     public typealias Update<T> = (inout T) -> Void
     
     public func update(_ update: @escaping Update<State> = { _ in return }) {
-        pendingUpdates.append(update)
-        applyUpdates()
+        updateState(using: update, apply: true)
     }
     
     public func batchUpdate(_ update: @escaping Update<State>) {
-        pendingUpdates.append(update)
+        updateState(using: update, apply: false)
     }
-    
-    private func applyUpdates() {
-        let newState = pendingUpdates.reduce(into: state) { state, update in
-            update(&state)
+
+    private func updateState(using update: @escaping Update<State>, apply: Bool) {
+        var newState: State?
+        var pendingUpdates: [Update<State>]?
+        queue.sync {
+            self.pendingUpdates.append(update)
+            if apply {
+                pendingUpdates = self.pendingUpdates
+                self.pendingUpdates = []
+            }
         }
-        binder.set(newState)
-        pendingUpdates = []
+        if let pendingUpdates = pendingUpdates {
+            newState = pendingUpdates.reduce(into: state) { state, update in
+                update(&state)
+            }
+        }
+        if let newState = newState {
+            binder.set(newState)
+        }
     }
     
 }
