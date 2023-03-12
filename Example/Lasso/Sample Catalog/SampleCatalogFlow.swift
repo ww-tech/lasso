@@ -62,6 +62,9 @@ class SampleCatalogFlow: Flow<NoOutputNavigationFlow> {
         case .onboarding:
             showOnboardingFlow()
             
+        case .sideEffects:
+            SideEffectSample.createScreen().place(with: nextPushedInFlow)
+        
         case .signup:
             showSignupFlow()
             

@@ -82,7 +82,7 @@ final class LoginViewController: UIViewController {
     
     private func setupBindings() {
         // State observations
-        store.observeState(\.username) { [weak self] username in
+        store.observeState(\.username) { [weak self] oldValue, username in
             self?.usernameField.text = username
         }
         store.observeState(\.password) { [weak self] password in
@@ -99,6 +99,7 @@ final class LoginViewController: UIViewController {
             self?.view.isUserInteractionEnabled = phase == .idle
         }
         
+        store.dispatchAction(<#T##viewAction: LoginScreenModule.Action##LoginScreenModule.Action#>)
         // User actions
         loginButton.bind(to: store, action: .didTapLogin)
         usernameField.bindTextDidChange(to: store, mapping: LoginScreenModule.Action.didEditUsername)

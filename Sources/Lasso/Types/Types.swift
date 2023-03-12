@@ -24,6 +24,7 @@ import Foundation
 
 public enum NoAction: Equatable { }
 public enum NoOutput: Equatable { }
+public enum NoSideEffect: Hashable { }
 
 public struct EmptyState: Equatable {
     public init() { }

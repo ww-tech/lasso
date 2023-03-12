@@ -56,7 +56,7 @@ enum SampleCatalog: ScreenModule {
             switch self {
             case .presentation: return [.presentationSimpleCounter, .presentationOnboarding]
             case .simple: return [.counter, .search, .randomItems, .bindings, .login]
-            case .fancy: return [.tabs, .splitView, .foodOnboarding, .onboarding, .signup, .strangeFlow, .onTheFly, .windowTransition, .survey, .searchAndTrack, .myDay, .pageController]
+            case .fancy: return [.sideEffects, .tabs, .splitView, .foodOnboarding, .onboarding, .signup, .strangeFlow, .onTheFly, .windowTransition, .survey, .searchAndTrack, .myDay, .pageController]
             }
         }
         
@@ -77,6 +77,7 @@ enum SampleCatalog: ScreenModule {
         case randomItems = "Random items"
         case search
         case searchAndTrack = "Search & Track"
+        case sideEffects = "Side Effects"
         case signup = "Signup Flow"
         case splitView = "Split view"
         case strangeFlow = "Strange flow"

@@ -59,6 +59,7 @@
 		ADF94DC1962D2F14DC10C806 /* Pods_Lasso_TestUtilities_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E2C50A38EB52974125F2836 /* Pods_Lasso_TestUtilities_Tests.framework */; };
 		B00ACDF4251E254A0062D32D /* AssertionTimeoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00ACDF3251E254A0062D32D /* AssertionTimeoutTests.swift */; };
 		B01C1F832323EA250084A149 /* StateObservationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01C1F822323EA250084A149 /* StateObservationTests.swift */; };
+		B05F745429074E3F00944788 /* SideEffectSample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B05F745329074E3F00944788 /* SideEffectSample.swift */; };
 		B0922A5C22AAE2A100EBE5DE /* UIKitBindings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0922A5B22AAE2A100EBE5DE /* UIKitBindings.swift */; };
 		B094CBCD23494C60004C5CBE /* CounterStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBCC23494C60004C5CBE /* CounterStoreTests.swift */; };
 		B094CBD0234951C8004C5CBE /* SignupIntroStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094CBCF234951C8004C5CBE /* SignupIntroStoreTests.swift */; };
@@ -183,6 +184,7 @@
 		A9CE3E88582F327FDE8253B6 /* Pods-Lasso_Tests_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lasso_Tests_Tests.release.xcconfig"; path = "Target Support Files/Pods-Lasso_Tests_Tests/Pods-Lasso_Tests_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		B00ACDF3251E254A0062D32D /* AssertionTimeoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssertionTimeoutTests.swift; sourceTree = "<group>"; };
 		B01C1F822323EA250084A149 /* StateObservationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateObservationTests.swift; sourceTree = "<group>"; };
+		B05F745329074E3F00944788 /* SideEffectSample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffectSample.swift; sourceTree = "<group>"; };
 		B0922A5B22AAE2A100EBE5DE /* UIKitBindings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitBindings.swift; sourceTree = "<group>"; };
 		B094CBCC23494C60004C5CBE /* CounterStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterStoreTests.swift; sourceTree = "<group>"; };
 		B094CBCF234951C8004C5CBE /* SignupIntroStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupIntroStoreTests.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 				7967865C2292DB1E00CBE588 /* StrangeFlow.swift */,
 				79C9266E22899B4F00F94A56 /* TextScreen.swift */,
 				B0922A5B22AAE2A100EBE5DE /* UIKitBindings.swift */,
+				B05F745329074E3F00944788 /* SideEffectSample.swift */,
 				7932794223A128FA00654D8A /* Login */,
 				79C9266F22899B4F00F94A56 /* Counter */,
 				79C9267222899B4F00F94A56 /* Onboarding */,
@@ -972,6 +975,7 @@
 				7978A6BA22A9484E00B8B844 /* ChooseWindowTransition.swift in Sources */,
 				7917711C22BB16CC007BCFBA /* Welcome.swift in Sources */,
 				B0B23544260CFDC000F1EB2F /* Compatibility.swift in Sources */,
+				B05F745429074E3F00944788 /* SideEffectSample.swift in Sources */,
 				79C9267C22899B4F00F94A56 /* CounterViewController.swift in Sources */,
 				79C9267622899B4F00F94A56 /* SearchModule.swift in Sources */,
 				E2772B6D22A7FFE7007A3D51 /* SurveyModule.swift in Sources */,

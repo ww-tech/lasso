@@ -36,6 +36,8 @@ public protocol StoreModule {
     /// `Output` defines the set of signals the `Store` can generate.
     associatedtype Output = NoOutput
     
+    associatedtype SideEffect: Hashable = NoSideEffect
+    
     /// The primary, type-erased, public access `Store` for the module.
     typealias Store = AnyStore<State, Action, Output>
     

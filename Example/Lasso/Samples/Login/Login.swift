@@ -71,6 +71,17 @@ final class LoginScreenStore: LassoStore<LoginScreenModule> {
         }
     }
     
+    private func loginAsSideEffect() {
+        // Imagine a method similar to `update { state in }`
+        // that runs an async block, where that block's lifetime
+        // represents the duration of a side-effect.
+        asyncUpdate { store in
+            await store.update { $0.phase = .busy }
+            let result = await LoginService.shared.login()
+            await store.update { $0.phase = .idle }
+        }
+    }
+    
     private func login() {
         guard state.phase == .idle else { return }
         guard state.canLogin else {
@@ -79,6 +90,18 @@ final class LoginScreenStore: LassoStore<LoginScreenModule> {
             }
             return
         }
+        
+        // combine?
+        startSideEffect()
+            .update { state in // updateable state
+                state.phase = .busy
+            }
+            .then { state in // read only state
+                
+            }
+            .update { state in // updateable state
+                state.phase = .idle
+            }
         
         update { state in
             state.phase = .busy
@@ -105,5 +128,9 @@ final class LoginScreenStore: LassoStore<LoginScreenModule> {
                 }
             }
         }
+    }
+    
+    private func doSomething() async {
+        
     }
 }

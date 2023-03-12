@@ -155,7 +155,7 @@ class StateObservationTests: XCTestCase {
 extension LassoStore {
     fileprivate func update(states: State...) {
         states.forEach { newState in
-            self.update { $0 = newState }
+            self.update { $0.state = newState }
         }
     }
 }

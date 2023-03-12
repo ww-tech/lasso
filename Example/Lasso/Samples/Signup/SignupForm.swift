@@ -82,8 +82,8 @@ class SignupFormStore: LassoStore<SignupForm> {
             
         case .didUpdate(let field, let value):
             update { state in
-                state[keyPath: field.stateKey] = field.validate(value.trimmingCharacters(in: .whitespacesAndNewlines))
-                state.formIsValid = state.areAllFormFieldsValid()
+//                state[keyPath: field.stateKey] = field.validate(value.trimmingCharacters(in: .whitespacesAndNewlines))
+//                state.formIsValid = state.areAllFormFieldsValid()
             }
         
         case .didTapSignup:
