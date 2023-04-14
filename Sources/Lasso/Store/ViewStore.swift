@@ -150,7 +150,7 @@ extension AbstractViewStore {
         for viewModuleType: Module.Type,
         stateMap: @escaping StateMap<Module.ViewState>
     ) -> AnyViewStore<Module.ViewState, NoAction> where Module.ViewAction == NoAction {
-        asViewStore(stateMap: stateMap)
+        AnyViewStore<Module.ViewState, NoAction>(self, stateMap: stateMap)
     }
     
     /// Create a `ViewStore` using a subset of actions, with the Store's `State` type,
@@ -224,17 +224,6 @@ extension AbstractViewStore {
         actionMap: @escaping ActionMap<ViewAction>
     ) -> AnyViewStore<ViewState, ViewAction> {
         AnyViewStore<ViewState, ViewAction>(self, stateMap: stateMap, actionMap: actionMap)
-    }
-    
-    /// Create a `ViewStore` with a `ViewState` that can be initialized from the Store's `State`,
-    /// and a `ViewAction` of `NoAction`.
-    ///
-    /// - Parameter stateMap: a closure that maps the View's actions to the Store's actions
-    /// - Returns: a new ViewStore
-    public func asViewStore<ViewState>(
-        stateMap: @escaping StateMap<ViewState>
-    ) -> AnyViewStore<ViewState, NoAction> {
-        AnyViewStore<ViewState, NoAction>(self, stateMap: stateMap)
     }
     
 }
