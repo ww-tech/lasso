@@ -17,8 +17,6 @@
 
 import XCTest
 
-// swiftlint:disable opening_brace function_parameter_count
-
 extension XCTestCase {
     
     /// Assert that the event will result in a modal presentation on the presenting controller.
@@ -47,8 +45,8 @@ extension XCTestCase {
         file: StaticString = #file,
         line: UInt = #line,
         failTest: FailTest = log,
-        verbose: Bool = true) throws -> Presented
-    {
+        verbose: Bool = true
+    ) throws -> Presented {
         return try _assertPresentation(
             on: presenting,
             when: event,
@@ -89,8 +87,8 @@ extension XCTestCase {
         onViewDidAppear: @escaping (Presented) -> Void = { _ in },
         file: StaticString = #file,
         line: UInt = #line,
-        failTest: FailTest = log) throws
-    {
+        failTest: FailTest = log
+    ) throws {
         try _assertDismissal(
             from: presented,
             to: presenting,
@@ -134,8 +132,8 @@ extension XCTestCase {
         file: StaticString = #file,
         line: UInt = #line,
         failTest: FailTest = log,
-        verbose: Bool = true) throws -> Presented
-    {
+        verbose: Bool = true
+    ) throws -> Presented {
         let presented = try _assertPresentation(
             on: presenting,
             when: event,
@@ -186,8 +184,8 @@ extension XCTestCase {
         onViewDidAppear: @escaping (Presented, Presenting) -> Void = { _, _ in },
         file: StaticString = #file,
         line: UInt = #line,
-        failTest: FailTest = log) throws
-    {
+        failTest: FailTest = log
+    ) throws {
         guard presented.modalPresentationStyle == .fullScreen else {
             let failedTest = FailedTest(error: ModalPresentationError.unexpectedModalPresentationStyle(expected: .fullScreen, realized: presented.modalPresentationStyle),
                                         file: file,
@@ -208,6 +206,7 @@ extension XCTestCase {
         )
     }
     
+    // swiftlint:disable:next function_parameter_count
     private func _assertPresentation<Presenting: UIViewController, Presented: UIViewController>(
         on presenting: Presenting,
         when event: () -> Void,
@@ -218,8 +217,8 @@ extension XCTestCase {
         file: StaticString,
         line: UInt,
         failTest: FailTest,
-        verbose: Bool) throws -> Presented
-    {
+        verbose: Bool
+    ) throws -> Presented {
         
         let modallyForemost = modallyForemostController(on: presenting)
         guard modallyForemost === presenting else {
@@ -281,6 +280,7 @@ extension XCTestCase {
         
     }
     
+    // swiftlint:disable:next function_parameter_count
     private func _assertDismissal<Presenting: UIViewController, Presented: UIViewController>(
         from presented: Presented,
         to presenting: Presenting,
@@ -290,8 +290,8 @@ extension XCTestCase {
         onViewDidAppear: @escaping (Presented, Presenting) -> Void,
         file: StaticString,
         line: UInt,
-        failTest: FailTest) throws
-    {
+        failTest: FailTest
+    ) throws {
         
         let modallyForemostPreceding = modallyForemostController(on: presented)
         guard modallyForemostPreceding === presented else {
