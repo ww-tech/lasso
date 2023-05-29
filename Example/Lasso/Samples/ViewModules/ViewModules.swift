@@ -31,7 +31,7 @@ enum ReadOnlyVolume: ViewModule {
     }
 }
 
-/// Represents read (view observations) / write (via dispatchAction) to a "volume" property.
+/// Represents read (via observations) / write (via dispatchAction) to a "volume" property.
 enum ReadWriteVolume: ViewModule {
     enum ViewAction: Equatable {
         case didAdjustVolume(_ volume: Double)
@@ -42,7 +42,7 @@ enum ReadWriteVolume: ViewModule {
     }
 }
 
-/// Represents read (view observations) / write (via dispatchAction) to a "muted" property.
+/// Represents read (via observations) / write (via dispatchAction) to a "muted" property.
 enum ToggleableMute: ViewModule {
     enum ViewAction: Equatable {
         case didTapMute(_ mute: Bool)
