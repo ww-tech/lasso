@@ -73,8 +73,8 @@ class SearchStoreTestsFunctionalStyle2: XCTestCase, LassoStoreTesting {
                 XCTAssertEqual(self.searchRequests[0].query, nil)
             })
         
-        /// You may branch your test logic to reuse shared setup. Here, we want to test
-        /// both the success and failure of the network request.
+        // You may branch your test logic to reuse shared setup. Here, we want to test
+        // both the success and failure of the network request.
         
         // successful request
         loading
@@ -90,7 +90,7 @@ class SearchStoreTestsFunctionalStyle2: XCTestCase, LassoStoreTesting {
         // request failure
         loading
             .when({ _ in
-                self.searchRequests[0].completion(.failure(NSError()))
+                self.searchRequests[0].completion(.failure(SearchError()))
             })
             .then(assert {
                 XCTAssertEqual($0.states, [State(searchText: nil, items: [], phase: .error(message: "Something went wrong"), viewDidAppear: true)])

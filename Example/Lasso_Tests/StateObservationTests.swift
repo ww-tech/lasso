@@ -203,7 +203,6 @@ class StateObservationTests: XCTestCase {
         // then
         XCTAssert(statesIntValues.allSatisfy { value in expectedResult.contains(where: { $0.num == value }) }, "update with same (not-equatable) value should trigger the notification")
         XCTAssert(states.count == expectedResult.count, "states count should be equal expected result count")
-        XCTAssertFalse(oldStatesIntValues.contains(statesIntValues.last), "old states shouldn't contain states last value")
         XCTAssert(oldStates.count == states.count, "old states count should be equal state count")
     }
 

@@ -10,7 +10,7 @@ import ProjectDescription
 let dependencies = Dependencies(
     carthage: [],
     swiftPackageManager: [
-        .remote(url: "https://github.com/ww-tech/wwlayout.git", requirement: .upToNextMajor(from: "0.8.0")),
+        .remote(url: "https://github.com/ww-tech/wwlayout.git", requirement: .upToNextMajor(from: "0.8.0"))
     ],
     platforms: [.iOS]
 )

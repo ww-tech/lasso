@@ -17,9 +17,9 @@
 
 import XCTest
 
-// swiftlint:disable opening_brace
-
 public extension XCTestCase {
+    
+    // swiftlint:disable function_body_length
     
     /// Assert that the event will result in a push in the navigation controller of the previous controller.
     /// The previous and pushed controllers receive the full set of lifecycle hooks.
@@ -46,20 +46,22 @@ public extension XCTestCase {
         onViewDidAppear: @escaping (Previous, Pushed) -> Void = { _, _ in },
         file: StaticString = #file,
         line: UInt = #line,
-        failTest: FailTest = log) throws -> Pushed
-    {
+        failTest: FailTest = log
+    ) throws -> Pushed {
         
         guard let nav = previous.navigationController else {
-            let failedTest = FailedTest(error: NavigationPresentationError.noNavigationEmbedding(target: previous),
-                                        file: file,
-                                        line: line)
-            throw failTest(failedTest)
+            throw failTest(FailedTest(
+                error: NavigationPresentationError.noNavigationEmbedding(target: previous),
+                file: file,
+                line: line
+            ))
         }
         guard nav.viewControllers.suffix(1) == [previous] else {
-            let failedTest = FailedTest(error: NavigationPresentationError.unexpectedTopPrecedingEvent(expected: previous, navigationController: nav),
-                                        file: file,
-                                        line: line)
-            throw failTest(failedTest)
+            throw failTest(FailedTest(
+                error: NavigationPresentationError.unexpectedTopPrecedingEvent(expected: previous, navigationController: nav),
+                file: file,
+                line: line
+            ))
         }
         
         do {
@@ -90,22 +92,19 @@ public extension XCTestCase {
             switch error {
                 
             case TypeCastError<UIViewController, Pushed>.unexpectedInstanceType(instance: let instance):
-                let failedTest = FailedTest(error: NavigationPresentationTypeError<Pushed>.unexpectedPushedType(realized: instance),
-                                            file: file,
-                                            line: line)
-                throw failTest(failedTest)
+                throw failTest(FailedTest(
+                    error: NavigationPresentationTypeError<Pushed>.unexpectedPushedType(realized: instance),
+                    file: file,
+                    line: line
+                ))
                 
             default:
-                guard let lassoError = error as? LassoError else {
-                    fatalError("should never execute")
-                }
-                let failedTest = FailedTest(error: lassoError,
-                                            file: file,
-                                            line: line)
-                throw failTest(failedTest)
+                guard let lassoError = error as? LassoError else { fatalError("should never execute") }
+                throw failTest(FailedTest(error: lassoError, file: file, line: line))
             }
         }
     }
+    // swiftlint:enable function_body_length
     
     /// Assert that the event will result in a new root for the navigation controller, where the new root
     /// is the only controller in the navigation stack. The new root receives the full set of lifecycle hooks.
@@ -131,8 +130,8 @@ public extension XCTestCase {
         onViewDidAppear: @escaping (Root) -> Void = { _ in },
         file: StaticString = #file,
         line: UInt = #line,
-        failTest: FailTest = log) throws -> Root
-    {
+        failTest: FailTest = log
+    ) throws -> Root {
         let precedingRoot = nav.viewControllers.first
         do {
             return try assertControllerEvent(
@@ -204,8 +203,8 @@ public extension XCTestCase {
         onViewDidAppear: @escaping (From, To) -> Void = { _, _ in },
         file: StaticString = #file,
         line: UInt = #line,
-        failTest: FailTest = log) throws
-    {
+        failTest: FailTest = log
+    ) throws {
         
         guard let nav = fromController.navigationController else {
             let failedTest = FailedTest(error: NavigationPresentationError.noNavigationEmbedding(target: fromController),
