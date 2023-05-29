@@ -29,7 +29,8 @@ class ModalTestingTestsSystemBehavior: XCTestCase {
         let styles: [UIModalPresentationStyle] = [.pageSheet, .fullScreen]
         try styles.forEach(test)
     }
-
+    
+    // swiftlint:disable:next function_body_length
     func test_Animated_Presentation() throws {
         
         let test = { (style: UIModalPresentationStyle) throws in
@@ -107,6 +108,7 @@ class ModalTestingTestsSystemBehavior: XCTestCase {
         try testSupportedStyles(test)
     }
     
+    // swiftlint:disable:next function_body_length
     func test_NotAnimated_Presentation() throws {
         
         let test = { (style: UIModalPresentationStyle) throws in
@@ -185,6 +187,7 @@ class ModalTestingTestsSystemBehavior: XCTestCase {
         try testSupportedStyles(test)
     }
     
+    // swiftlint:disable:next function_body_length
     func test_Animated_Dismissal() throws {
         
         let test = { (style: UIModalPresentationStyle) throws in
@@ -257,6 +260,7 @@ class ModalTestingTestsSystemBehavior: XCTestCase {
         try testSupportedStyles(test)
     }
     
+    // swiftlint:disable:next function_body_length
     func test_NotAnimated_Dismissal() throws {
         
         let test = { (style: UIModalPresentationStyle) throws in
