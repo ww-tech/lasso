@@ -91,6 +91,11 @@ class SampleCatalogFlow: Flow<NoOutputNavigationFlow> {
             
         case .pageController:
             showPageController()
+        
+        case .subViews:
+            SubViewsShowcase
+                .createScreen()
+                .place(with: nextPushedInFlow)
         }
     }
     

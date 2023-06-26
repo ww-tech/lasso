@@ -73,8 +73,8 @@ class SearchStoreTestsFunctionalStyle1: XCTestCase, LassoStoreTesting {
                     XCTAssertEqual(self.searchRequests[0].query, nil)
             })
         
-        /// You may branch your test logic to reuse shared setup. Here, we want to test
-        /// both the success and failure of the network request.
+        // You may branch your test logic to reuse shared setup. Here, we want to test
+        // both the success and failure of the network request.
         
         // successful request
         loading
@@ -92,9 +92,9 @@ class SearchStoreTestsFunctionalStyle1: XCTestCase, LassoStoreTesting {
         // request failure
         loading
             .when(sideEffects {
-                self.searchRequests[0].completion(.failure(NSError()))
+                self.searchRequests[0].completion(.failure(SearchError()))
             })
-            /// You can also provide State instances when making State assertions
+            // You can also provide State instances when making State assertions
             .then(
                 state(State(searchText: nil,
                             items: [],

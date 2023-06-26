@@ -35,12 +35,13 @@ struct Food: SearchListRepresentable, Equatable {
                 completion(.success([paulsToast]))
             }
             else {
-                completion(.failure(NSError()))
+                completion(.failure(SearchError()))
             }
         })
     }
-    
 }
+
+struct SearchError: Error { }
 
 class SearchAndTrackFlow: Flow<NoOutputFlow> {
     
