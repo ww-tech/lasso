@@ -4,6 +4,10 @@
 # Find all the available rules by running:
 # swiftlint rules
 
+# Analyzer Rules (only run with `swiftlint analyze`)
+analyzer_rules:
+  - unused_declaration
+
 disabled_rules: # rule identifiers to exclude from running
   - identifier_name
   - line_length
@@ -12,7 +16,6 @@ disabled_rules: # rule identifiers to exclude from running
   - shorthand_operator
 
 opt_in_rules: # some rules are only opt-in
-  - anyobject_protocol
   - collection_alignment
   - closure_spacing
   - closure_parameter_position
@@ -36,7 +39,6 @@ opt_in_rules: # some rules are only opt-in
   - force_cast
   - force_try
   - force_unwrapping
-  - inert_defer
   - last_where
   - legacy_multiple
   - legacy_random
@@ -60,7 +62,6 @@ opt_in_rules: # some rules are only opt-in
   - trailing_newline
   - trailing_semicolon
   - trailing_whitespace
-  - unused_declaration
   - vertical_parameter_alignment_on_call
   - yoda_condition
 

@@ -17,8 +17,6 @@
 
 import XCTest
 
-// swiftlint:disable opening_brace
-
 /// Allows for customization of the default `timeout` values used in
 /// view controller life-cycle assertions (e.g., `assertRoot`, `assertPushed`, etc.)
 ///
@@ -66,8 +64,8 @@ extension XCTestCase {
         onViewWillAppear: @escaping (From, To) -> Void = { _, _ in },
         onViewDidAppear: @escaping (From, To) -> Void = { _, _ in },
         file: StaticString = #file,
-        line: UInt = #line) throws -> To
-    {
+        line: UInt = #line
+    ) throws -> To {
         
         event()
         
@@ -107,8 +105,8 @@ extension XCTestCase {
         onViewWillAppear: @escaping (To) -> Void = { _ in },
         onViewDidAppear: @escaping (To) -> Void = { _ in },
         file: StaticString = #file,
-        line: UInt = #line) throws -> To
-    {
+        line: UInt = #line
+    ) throws -> To {
 
         event()
 
@@ -140,8 +138,8 @@ extension XCTestCase {
         in window: UIWindow,
         timeout: TimeInterval? = nil,
         file: StaticString = #file,
-        line: UInt = #line)
-    {
+        line: UInt = #line
+    ) {
         let mainQueueExhaustion = expectMainQueueExhaustion()
         let transitionCompletion = expectTransitionCompletion(in: window)
         let expectations = [mainQueueExhaustion, transitionCompletion].compactMap({ $0 })
@@ -155,8 +153,8 @@ extension XCTestCase {
     /// - Parameter timeout: maximum time allowance for the events
     public func waitForEventsWithError(
         in window: UIWindow,
-        timeout: TimeInterval? = nil) throws
-    {
+        timeout: TimeInterval? = nil
+    ) throws {
         let mainQueueExhaustion = expectMainQueueExhaustion()
         let transitionCompletion = expectTransitionCompletion(in: window)
         let expectations = [mainQueueExhaustion, transitionCompletion].compactMap({ $0 })

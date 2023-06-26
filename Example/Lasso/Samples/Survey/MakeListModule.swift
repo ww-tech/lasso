@@ -59,70 +59,69 @@ class MakeListViewController: UIViewController, LassoView {
     }
     
     private func setUp() {
-        
-        func setUpConstraints() {
-            view.addSubviews(headerLabel, field, addButton, table, submitButton)
-            
-            headerLabel.layout
-                .fill(.superview, axis: .x, inset: 20)
-                .top(to: .safeArea, offset: 20)
-            
-            addButton.layout
-                .left(to: field, edge: .right, offset: 10)
-                .right(to: .superview, offset: -20)
-                .centerY(to: field)
-            addButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-            
-            field.layout
-                .top(to: headerLabel, edge: .bottom, offset: 20)
-                .left(to: .superview, offset: 20)
-                .height(50)
-            
-            table.layout
-                .top(to: field, edge: .bottom, offset: 20)
-                .fill(.superview, axis: .x, inset: 20)
-                .bottom(to: submitButton, edge: .top, offset: -20)
-            
-            submitButton.layout
-                .bottom(to: .safeArea, offset: -20)
-                .fill(.superview, axis: .x, inset: 20)
-                .height(50)
-        }
-        
-        func setUpTable() {
-            table.dataSource = self
-            table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        }
-        
-        func setUpInteractions() {
-            submitButton.addTarget(self, action: #selector(didPressSubmit), for: .touchUpInside)
-            addButton.addTarget(self, action: #selector(didPressAdd), for: .touchUpInside)
-            field.addTarget(self, action: #selector(didEditProposed), for: .editingChanged)
-        }
-        
-        func configureStaticValues() {
-            addButton.setTitle("Add", for: .normal)
-            submitButton.setTitle("Submit", for: .normal)
-        }
-        
-        func style() {
-            view.backgroundColor = .background
-            headerLabel.textAlignment = .left
-            headerLabel.numberOfLines = 0
-            headerLabel.lineBreakMode = .byWordWrapping
-            addButton.backgroundColor = .white
-            addButton.setTitleColor(.blue, for: .normal)
-            submitButton.backgroundColor = .blue
-            submitButton.setTitleColor(.white, for: .normal)
-            field.layer.borderColor = UIColor.black.cgColor
-            field.layer.borderWidth = 1.0
-        }
-        
         setUpConstraints()
         setUpTable()
         setUpInteractions()
         configureStaticValues()
         style()
+    }
+    
+    private func setUpConstraints() {
+        view.addSubviews(headerLabel, field, addButton, table, submitButton)
+        
+        headerLabel.layout
+            .fill(.superview, axis: .x, inset: 20)
+            .top(to: .safeArea, offset: 20)
+        
+        addButton.layout
+            .left(to: field, edge: .right, offset: 10)
+            .right(to: .superview, offset: -20)
+            .centerY(to: field)
+        addButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        field.layout
+            .top(to: headerLabel, edge: .bottom, offset: 20)
+            .left(to: .superview, offset: 20)
+            .height(50)
+        
+        table.layout
+            .top(to: field, edge: .bottom, offset: 20)
+            .fill(.superview, axis: .x, inset: 20)
+            .bottom(to: submitButton, edge: .top, offset: -20)
+        
+        submitButton.layout
+            .bottom(to: .safeArea, offset: -20)
+            .fill(.superview, axis: .x, inset: 20)
+            .height(50)
+    }
+    
+    private func setUpTable() {
+        table.dataSource = self
+        table.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    private func setUpInteractions() {
+        submitButton.addTarget(self, action: #selector(didPressSubmit), for: .touchUpInside)
+        addButton.addTarget(self, action: #selector(didPressAdd), for: .touchUpInside)
+        field.addTarget(self, action: #selector(didEditProposed), for: .editingChanged)
+    }
+    
+    private func configureStaticValues() {
+        addButton.setTitle("Add", for: .normal)
+        submitButton.setTitle("Submit", for: .normal)
+    }
+    
+    private func style() {
+        view.backgroundColor = .background
+        headerLabel.textAlignment = .left
+        headerLabel.numberOfLines = 0
+        headerLabel.lineBreakMode = .byWordWrapping
+        addButton.backgroundColor = .white
+        addButton.setTitleColor(.blue, for: .normal)
+        submitButton.backgroundColor = .blue
+        submitButton.setTitleColor(.white, for: .normal)
+        field.layer.borderColor = UIColor.black.cgColor
+        field.layer.borderWidth = 1.0
     }
     
     private func bind() {

@@ -9,12 +9,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-test-macOS-11:
-    runs-on: macos-11
+  build-and-test-macOS-12:
+    runs-on: macos-12
     strategy:
       fail-fast: false
       matrix:
-        xcode-version: [12.4, 13.2]
+        xcode-version: [13.4.1, 14.0.1]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -36,13 +36,13 @@ jobs:
         run: git clean -ffdxq
         if: always()
         continue-on-error: true
-
-  build-and-test-macOS-12:
-    runs-on: macos-12
+  
+  build-and-test-macOS-13:
+    runs-on: macos-13
     strategy:
       fail-fast: false
       matrix:
-        xcode-version: [13.4.1, 14.0.1]
+        xcode-version: [14.2, 14.3]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
