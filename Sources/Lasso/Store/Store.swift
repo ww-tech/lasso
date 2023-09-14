@@ -89,7 +89,7 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
     
     // updates
     
-    public typealias Update<T> = (inout T) -> Void
+    public typealias Update<T> = @Sendable (inout T) -> Void
     
     public func update(_ update: @escaping Update<State> = { _ in return }) {
         updateState(using: update, apply: true)
