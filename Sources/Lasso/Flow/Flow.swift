@@ -64,23 +64,27 @@ open class Flow<Module: FlowModule> {
     }
     
     @discardableResult
-    public func observeOutput(_ handler: @escaping (Output) -> Void) -> Self {
-        outputBridge.register(handler)
+    public func observeOutput(_ handler: @escaping @Sendable (Output) async -> Void) -> Self {
+        Task {
+            await outputBridge.register(handler)
+        }
         return self
     }
     
     // Convenience for simple mapping from the Screen's Output type to another OtherOutput type
     //  - so callers don't have to create a closure do perform simple mapping.
     @discardableResult
-    public func observeOutput<OtherOutput>(_ handler: @escaping (OtherOutput) -> Void, mapping: @escaping (Output) -> OtherOutput) -> Self {
+    public func observeOutput<OtherOutput>(_ handler: @escaping @Sendable (OtherOutput) async -> Void, mapping: @escaping @Sendable (Output) -> OtherOutput) -> Self {
         observeOutput { output in
-            handler(mapping(output))
+            await handler(mapping(output))
         }
         return self
     }
     
     public func dispatchOutput(_ output: Output) {
-        outputBridge.dispatch(output)
+        Task {
+            await outputBridge.dispatch(output)
+        }
     }
     
     private let outputBridge = OutputBridge<Output>()

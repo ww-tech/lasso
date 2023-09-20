@@ -54,7 +54,7 @@ public protocol LassoView {
 extension LassoView {
     
     public var state: ViewState {
-        return store.state
+        get async { await store.state }
     }
     
     public func dispatchAction(_ viewAction: ViewAction) {
@@ -67,6 +67,7 @@ extension AnyScreen {
     
     // Provide a convenience for chaining creation -> observation -> placement
     @discardableResult
+    @MainActor
     public func place<PlacedContext: UIViewController>(with placer: ScreenPlacer<PlacedContext>?) -> AnyScreen {
         lassoPrecondition(placer != nil, "\(self).place(with:) - placer is nil")
         placer?.place(controller)
@@ -75,7 +76,7 @@ extension AnyScreen {
     
     // Provide a convenience for chaining creation -> observation -> placement
     @discardableResult
-    public func observeOutput(_ handler: @escaping (Output) -> Void) -> AnyScreen {
+    public func observeOutput(_ handler: @escaping @Sendable (Output) async -> Void) -> AnyScreen {
         store.observeOutput(handler)
         return self
     }
@@ -84,9 +85,9 @@ extension AnyScreen {
     // This version allows simple mapping from the Screen's Output type to another OtherOutput type
     //  - so callers don't have to create a closure do perform simple mapping.
     @discardableResult
-    func observeOutput<OtherOutput>(_ handler: @escaping (OtherOutput) -> Void, mapping: @escaping (Output) -> OtherOutput) -> AnyScreen {
+    func observeOutput<OtherOutput>(_ handler: @escaping @Sendable (OtherOutput) async -> Void, mapping: @escaping (Output) -> OtherOutput) -> AnyScreen {
         observeOutput { output in
-            handler(mapping(output))
+            await handler(mapping(output))
         }
         return self
     }

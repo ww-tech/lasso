@@ -29,93 +29,124 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
     public typealias Output = Module.Output
     
     private let binder: ValueBinder<State>
-    
-    private var outputBridge = OutputBridge<Output>()
+    private var _state: State
     private var pendingUpdates: [Update<State>] = []
-    private let queue = DispatchQueue(label: "lasso-store-sync-queue", target: .global())
+    
+    private let outputBridge = OutputBridge<Output>()
 
     public required init(with initialState: State) {
         self.binder = ValueBinder(initialState)
+        self._state = initialState
     }
     
     // state
     public var state: State {
-        return binder.value
+        @MainActor get { _state }
     }
     
-    public func observeState(handler: @escaping (State?, State) -> Void) {
-        binder.bind(to: handler)
+    public func observeState(handler: @escaping ValueObservation<State>) {
+        Task {
+            await binder.bind(to: handler)
+        }
     }
     
-    public func observeState(handler: @escaping (State) -> Void) {
-        observeState { _, newState in handler(newState) }
+    public func observeState(
+        handler: @escaping @Sendable (State) async -> Void
+    ) {
+        observeState { _, newState in await handler(newState) }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: @escaping (Value?, Value) -> Void) {
-        binder.bind(keyPath, to: handler)
+    public func observeState<Value>(
+        _ keyPath: WritableKeyPath<State, Value>,
+        handler: @escaping ValueObservation<Value>
+    ) {
+        Task {
+            await binder.bind(keyPath, to: handler)
+        }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: @escaping (Value) -> Void) {
-        observeState(keyPath) { _, newValue in handler(newValue) }
+    public func observeState<Value>(
+        _ keyPath: WritableKeyPath<State, Value>,
+        handler: @escaping @Sendable (Value) async -> Void
+    ) {
+        observeState(keyPath) { _, newValue in await handler(newValue) }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: @escaping (Value?, Value) -> Void) where Value: Equatable {
-        binder.bind(keyPath, to: handler)
+    public func observeState<Value>(
+        _ keyPath: WritableKeyPath<State, Value>,
+        handler: @escaping ValueObservation<Value>
+    ) where Value: Equatable {
+        Task {
+            await binder.bind(keyPath, to: handler)
+        }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: @escaping (Value) -> Void) where Value: Equatable {
-        observeState(keyPath) { _, newValue in handler(newValue) }
+    public func observeState<Value>(
+        _ keyPath: WritableKeyPath<State, Value>,
+        handler: @escaping @Sendable (Value) async -> Void
+    ) where Value: Equatable {
+        observeState(keyPath) { _, newValue in await handler(newValue) }
     }
     
     // actions
     public func dispatchAction(_ action: Action) {
-        executeOnMainThread { [weak self] in
-            self?.handleAction(action)
+        Task {
+            await handleAction(action)
         }
     }
     
+    @MainActor
     open func handleAction(_ action: Action) {
         return lassoAbstractMethod()
     }
     
+//    open func handleAction(_ action: Action) async {
+//        await handleActionOnMainThread(action)
+//    }
+//
+//    @MainActor
+//    private func handleActionOnMainThread(_ action: Action) {
+//        handleAction(action)
+//    }
+    
     // outputs
-    public func observeOutput(_ observer: @escaping (Output) -> Void) {
-        outputBridge.register(observer)
+    public func observeOutput(_ observer: @escaping OutputObservation) {
+        Task {
+            await outputBridge.register(observer)
+        }
     }
     
     public func dispatchOutput(_ output: Output) {
-        outputBridge.dispatch(output)
+        Task {
+            await outputBridge.dispatch(output)
+        }
     }
     
     // updates
     
-    public typealias Update<T> = (inout T) -> Void
+    public typealias Update<T> = @Sendable (inout T) -> Void
     
+    @MainActor
     public func update(_ update: @escaping Update<State> = { _ in return }) {
         updateState(using: update, apply: true)
     }
     
+    @MainActor
     public func batchUpdate(_ update: @escaping Update<State>) {
         updateState(using: update, apply: false)
     }
-
+    
+    @MainActor
     private func updateState(using update: @escaping Update<State>, apply: Bool) {
-        var newState: State?
-        var pendingUpdates: [Update<State>]?
-        queue.sync {
-            self.pendingUpdates.append(update)
-            if apply {
-                pendingUpdates = self.pendingUpdates
-                self.pendingUpdates = []
-            }
+        pendingUpdates.append(update)
+        guard apply else { return }
+        
+        let newState = pendingUpdates.reduce(into: state) { state, update in
+            update(&state)
         }
-        if let pendingUpdates = pendingUpdates {
-            newState = pendingUpdates.reduce(into: state) { state, update in
-                update(&state)
-            }
-        }
-        if let newState = newState {
-            binder.set(newState)
+        self._state = newState
+        Task {
+            await binder.set(newState)
         }
     }
     
@@ -123,12 +154,14 @@ open class LassoStore<Module: StoreModule>: ConcreteStore {
 
 extension LassoStore where State: Equatable {
     
-    public func observeState(handler: @escaping (State?, State) -> Void) {
-        binder.bind(to: handler)
+    public func observeState(handler: @escaping ValueObservation<State>) {
+        Task {
+            await binder.bind(to: handler)
+        }
     }
     
-    public func observeState(handler: @escaping (State) -> Void) {
-        observeState { _, newState in handler(newState) }
+    public func observeState(handler: @escaping @Sendable (State) async -> Void) {
+        observeState { _, newState in await handler(newState) }
     }
     
 }
@@ -160,11 +193,11 @@ public class AnyStore<State, Action, Output>: AnyViewStore<State, Action>, Abstr
         super.init(store, stateMap: { $0 }, actionMap: { $0 })
     }
     
-    public func observeOutput(_ observer: @escaping (Output) -> Void) {
+    public func observeOutput(_ observer: @escaping @Sendable (Output) async -> Void) {
         _observeOutput(observer)
     }
     
-    private let _observeOutput: (@escaping (Output) -> Void) -> Void
+    private let _observeOutput: (@escaping @Sendable (Output) async -> Void) -> Void
     
 }
 

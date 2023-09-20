@@ -17,20 +17,29 @@
 
 import Foundation
 
-internal final class OutputBridge<Output> {
+internal actor OutputBridge<Output> {
+    
+    typealias OutputHandler = @Sendable (Output) async -> Void
     
     public init() {
     }
     
-    internal func register(_ handler: @escaping (Output) -> Void) {
+    internal func register(_ handler: @escaping OutputHandler) {
         outputObservers.append(handler)
     }
     
     internal func dispatch(_ output: Output) {
-        executeOnMainThread { [weak self] in
-            self?.outputObservers.forEach { $0(output) }
+        let observers = outputObservers
+        Task.detached {
+            await withTaskGroup(of: Void.self) { group in
+                for observer in observers {
+                    group.addTask {
+                        await observer(output)
+                    }
+                }
+            }
         }
     }
     
-    private var outputObservers: [(Output) -> Void] = []
+    private var outputObservers: [OutputHandler] = []
 }

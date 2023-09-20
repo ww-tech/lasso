@@ -61,6 +61,7 @@ public protocol ScreenModule: StoreModule {
     
     static var defaultInitialState: State { get }
     
+    @MainActor
     static func createScreen(with store: ConcreteStore) -> Screen
     
 }
@@ -72,6 +73,7 @@ extension ScreenModule {
     ///
     /// - Parameter initialState: optional initial `State` (default is the module's `defaultInitialState`).
     /// - Parameter configure: optional closure for configuring the `ConcreteStore` once it has been created - e.g., to inject dependencies.
+    @MainActor
     public static func createScreen(with initialState: State? = nil, configure: ((ConcreteStore) -> Void)? = nil) -> Screen {
         let concreteStore = ConcreteStore(with: initialState ?? defaultInitialState)
         configure?(concreteStore)

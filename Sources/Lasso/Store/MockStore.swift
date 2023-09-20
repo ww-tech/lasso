@@ -37,7 +37,7 @@ public final class MockLassoStore<Module: StoreModule>: ConcreteStore {
         return binder.value
     }
     
-    public func observeState(handler: @escaping (State?, State) -> Void) {
+    public func observeState(handler: @escaping ValueObservation<State>) {
         binder.bind(to: handler)
     }
     
@@ -45,7 +45,7 @@ public final class MockLassoStore<Module: StoreModule>: ConcreteStore {
         observeState { _, newState in handler(newState) }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: @escaping (Value?, Value) -> Void) {
+    public func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: ValueObservation<Value>) {
         binder.bind(keyPath, to: handler)
     }
     
@@ -53,7 +53,7 @@ public final class MockLassoStore<Module: StoreModule>: ConcreteStore {
         observeState(keyPath) { _, newValue in handler(newValue) }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: @escaping (Value?, Value) -> Void) where Value: Equatable {
+    public func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: @escaping ValueObservation<Value>) where Value: Equatable {
         binder.bind(keyPath, to: handler)
     }
     
@@ -67,7 +67,7 @@ public final class MockLassoStore<Module: StoreModule>: ConcreteStore {
     }
     
     // outputs
-    public func observeOutput(_ observer: @escaping (Output) -> Void) {
+    public func observeOutput(_ observer: @escaping OutputObservation) {
         outputBridge.register(observer)
     }
     

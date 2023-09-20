@@ -45,7 +45,7 @@ public class AnyViewStore<ViewState, ViewAction>: AbstractViewStore {
         }
         
         store.observeState { [weak self] (_, newState) in
-            self?.binder.set(stateMap(newState))
+            await self?.binder.set(stateMap(newState))
         }
     }
     
@@ -63,7 +63,7 @@ public class AnyViewStore<ViewState, ViewAction>: AbstractViewStore {
         self._dispatchAction = { _ in }
         
         store.observeState { [weak self] (_, newState) in
-            self?.binder.set(stateMap(newState))
+            await self?.binder.set(stateMap(newState))
         }
     }
     
@@ -77,31 +77,37 @@ public class AnyViewStore<ViewState, ViewAction>: AbstractViewStore {
     }
     
     public var state: ViewState {
-        return binder.value
+        @MainActor get { binder.value }
     }
     
-    public func observeState(handler: @escaping (ViewState?, ViewState) -> Void) {
-        binder.bind(to: handler)
+    public func observeState(handler: @escaping ValueObservation<ViewState>) {
+        Task {
+            await binder.bind(to: handler)
+        }
     }
     
-    public func observeState(handler: @escaping (ViewState) -> Void) {
-        observeState { _, newState in handler(newState) }
+    public func observeState(handler: @escaping @Sendable (ViewState) async -> Void) {
+        observeState { _, newState in await handler(newState) }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<ViewState, Value>, handler: @escaping (Value?, Value) -> Void) {
-        binder.bind(keyPath, to: handler)
+    public func observeState<Value>(_ keyPath: WritableKeyPath<ViewState, Value>, handler: @escaping ValueObservation<Value>) {
+        Task {
+            await binder.bind(keyPath, to: handler)
+        }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<ViewState, Value>, handler: @escaping (Value) -> Void) {
-        observeState(keyPath) { _, newValue in handler(newValue) }
+    public func observeState<Value>(_ keyPath: WritableKeyPath<ViewState, Value>, handler: @escaping @Sendable (Value) async -> Void) {
+        observeState(keyPath) { _, newValue in await handler(newValue) }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<ViewState, Value>, handler: @escaping (Value?, Value) -> Void) where Value: Equatable {
-        binder.bind(keyPath, to: handler)
+    public func observeState<Value>(_ keyPath: WritableKeyPath<ViewState, Value>, handler: @escaping ValueObservation<Value>) where Value: Equatable {
+        Task {
+            await binder.bind(keyPath, to: handler)
+        }
     }
     
-    public func observeState<Value>(_ keyPath: WritableKeyPath<ViewState, Value>, handler: @escaping (Value) -> Void) where Value: Equatable {
-        observeState(keyPath) { _, newValue in handler(newValue) }
+    public func observeState<Value>(_ keyPath: WritableKeyPath<ViewState, Value>, handler: @escaping @Sendable (Value) async -> Void) where Value: Equatable {
+        observeState(keyPath) { _, newValue in await handler(newValue) }
     }
     
     private let binder: ValueBinder<ViewState>
@@ -110,12 +116,14 @@ public class AnyViewStore<ViewState, ViewAction>: AbstractViewStore {
 
 extension AnyViewStore where ViewState: Equatable {
     
-    public func observeState(handler: @escaping (ViewState?, ViewState) -> Void) {
-        binder.bind(to: handler)
+    public func observeState(handler: @escaping ValueObservation<ViewState>) {
+        Task {
+            await binder.bind(to: handler)
+        }
     }
     
-    public func observeState(handler: @escaping (ViewState) -> Void) {
-        observeState { _, newState in handler(newState) }
+    public func observeState(handler: @escaping @Sendable (ViewState) async -> Void) {
+        observeState { _, newState in await handler(newState) }
     }
     
 }

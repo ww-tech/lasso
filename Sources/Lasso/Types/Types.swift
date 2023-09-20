@@ -37,14 +37,16 @@ public struct EmptyState: Equatable {
 public protocol StateObservable: AnyObject {
     associatedtype State
     
-    var state: State { get }
+    var state: State { get async }
+    
+    typealias ValueObservation<T> = @Sendable @MainActor (_ oldValue: T?, _ newValue: T) async -> Void
     
     /// Get notifications when the `state` value changes.
     ///
     /// - Parameter handler: The closure to be called when `state` changes
     /// - Parameter oldValue: the previous value, `nil` when called for the first time
     /// - Parameter newValue: the new value.
-    func observeState(handler: @escaping (_ oldValue: State?, _ newValue: State) -> Void)
+    func observeState(handler: @escaping ValueObservation<State>)
     
     /// Get notifications when a `state` property changes.
     ///
@@ -52,7 +54,7 @@ public protocol StateObservable: AnyObject {
     /// - Parameter handler: the closure to be called when the property changes
     /// - Parameter oldValue: the previous value, `nil` when called for the first time
     /// - Parameter newValue: the new value.
-    func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: @escaping (_ oldValue: Value?, _ newValue: Value) -> Void)
+    func observeState<Value>(_ keyPath: WritableKeyPath<State, Value>, handler: @escaping ValueObservation<Value>)
 }
 
 /// These kinds of types have an `Action` type, which is
@@ -70,7 +72,9 @@ public protocol ActionDispatchable: AnyObject {
 public protocol OutputObservable: AnyObject {
     associatedtype Output
     
-    func observeOutput(_ observer: @escaping (Output) -> Void)
+    typealias OutputObservation = @Sendable (Output) async -> Void
+    
+    func observeOutput(_ observer: @escaping OutputObservation)
 }
 
 internal func lassoAbstractMethod<T>(line: UInt = #line, function: String = #function, file: StaticString = #file) -> T {

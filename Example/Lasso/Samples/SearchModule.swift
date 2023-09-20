@@ -81,6 +81,7 @@ enum SearchViewModule<Item: SearchListRepresentable & Equatable>: ViewModule {
     
 }
 
+@MainActor
 class SearchStore<Item: SearchListRepresentable & Equatable>: LassoStore<SearchScreenModule<Item>> {
     
     var getSearchResults: (String?, @escaping (Result<[Item], Error>) -> Void) -> Void = { _, _ in }
@@ -229,7 +230,7 @@ class SearchViewController<Item: SearchListRepresentable & Equatable>: UIViewCon
             self?.itemsTable.reloadData()
         }
         
-        store.observeState(\.searchText) { [searchBar] (_, searchText) in
+        store.observeState(\.searchText) { @MainActor [searchBar] (_, searchText) in
             searchBar.text = searchText
         }
         
